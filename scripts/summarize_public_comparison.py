@@ -1,5 +1,6 @@
 """Export only aggregate metrics; never copy keys, session IDs, or patient text."""
 import argparse
+from collections import Counter
 import json
 from pathlib import Path
 import sys
@@ -23,11 +24,22 @@ def collect(root):
             row={'case':case,'version':version,'status':status,
                  'prepare_seconds':data.get('prepare_seconds'),'elapsed_seconds':data.get('elapsed_seconds'),
                  'app_sha256':data.get('app_sha256'),'error_code':data.get('error'),
+                 'final_status_read_error':data.get('final_status_read_error'),
+                 'completion_source':data.get('completion_source','SESSION_STATUS_READ' if status=='completed' else None),
                  'evaluation':summarize(raw.get('events',[]),raw.get('final'),raw.get('report'))}
             report=data.get('report',{})
             row['execution_outcome']={k:report.get(k) for k in ('termination_reason','termination_kind',
                 'record_outcome','degraded','record_fields_valid','diagnosis_unresolved','action_counts',
-                'invalid_model_outputs','usage_missing_responses')}
+                'invalid_model_outputs','usage_missing_responses','successful_execution')}
+            context=raw.get('last_reference_context',{})
+            refs=context.get('reference_evidence',[])
+            row['last_delivered_reference_packet']={
+                'reference_count':len(refs),'nonempty_bodies':sum(bool(r.get('text','').strip()) for r in refs),
+                'organizer_units':sum(r.get('source_role')=='organizer_guideline' for r in refs),
+                'body_chars':sum(len(r.get('text','')) for r in refs),
+                'languages':dict(Counter(r.get('language','unspecified') for r in refs)),
+                'patient_and_reference_fields_separate':bool('current_patient_observations' in context and 'reference_evidence' in context),
+                'scope':'Last captured Doctor input only; no clinical relevance or contamination verdict inferred'}
             pair[version]=row;rows.append(row)
         # Null means not measurable; never convert missing usage to zero.
         left,right=pair['v3.2'],pair['v3.3']

@@ -17,7 +17,7 @@ v3.2 기준으로 운영진 지침 RAG, 공식 개발 키트 어댑터, 공개 �
 |---|---|
 | 기존 회귀 테스트 | Windows 및 새 Linux에서 **145/145**. 새 코드의 legacy 설정으로 실행 |
 | 추가 검색/정보분리 테스트 | Windows 및 Linux **13/13** |
-| 비교/자가평가 원장 안전성 테스트 | Windows **8/8**. 부족 한도, 중복 생성 방지, 불확실 생성의 동일 request_id 확인, Git 밖 출력, 최대 3회 세션 밖 평가와 재요청 차단 |
+| 비교/자가평가 원장 안전성 테스트 | Windows **9/9**. 부족 한도, 중복 생성 방지, 불확실 생성의 동일 request_id 확인, 제출 완료 응답에 근거한 후속 조회 실패 처리, Git 밖 출력, 최대 3회 세션 밖 평가와 재요청 차단 |
 | 실제 run.py·SDK 진입점 | 새 후보 합성 normal/recovery/uncertain **3/3**. 전송 계층만 mock, 실제 모델/API 호출 0 |
 | 공식 develop.py | 실제 `load_agent()`·`prepare()` 연결 통과. C01/C10/C03 자료 로딩 확인. 로컬 모델 진료 미실행 |
 | 벤치마크 | AgentClinic 5·DDXPlus 5·ACI-Bench 5 = **15/15** 파싱·허용 입력·매핑 점검. 모델 평가 미실행 |
@@ -42,11 +42,19 @@ Linux 원시 근거: [linux_validation.json](linux_validation.json), [linux_dock
 
 고정 목적: **v3.2 774항목 대 v3.3 774+운영진 지침**, C01·C10·C03 각 2회, 최대 6개 새 세션. Doctor 모델·Config·reasoning은 동일하다. 사용자 확인값은 개발 크레딧 99.5%, 잔여 9회, 진행 중 개발 샘플 없음이다. 공식 채점에는 접근·취소·재제출하지 않는다.
 
-실행 상태와 비교 수치는 [public_comparison.json](public_comparison.json)이 기준이다. 키가 준비되지 않은 항목은 `NOT_EXECUTED`, 실행 중/실패는 해당 상태를 그대로 남긴다. 새 원장·환자 로그는 Git 밖에 보존하며 이전 3/3 원장을 복제하지 않는다. 세션 생성이 불확실하면 원래 request_id로 확인하고 다음 세션을 중단한다.
+실제 개발 API 새 세션 **6/6**, 서버 completed **6/6**, 앱 정상 실행 **4/6**이다. 서버 완료는 기록을 접수한 상태이며 진료 성공이나 임상 품질 통과와 같지 않다. 새 원장·환자 로그는 Git 밖에 보존했고 기존 3/3 원장 해시는 유지했다.
 
-여섯 영역(정보수집 25·진단추론 15·검사/추적 10·안전 15·의사소통 15·효율 20)의 결과표 생성 도구를 구현했다. 로그와 최종 기록이 없거나 검토하지 않은 점수는 null이며, 기록의 계획을 실제 행동으로 간주하지 않는다. 선택적 세션 밖 자체 비교 평가 도구는 최대 3요청으로 제한한다. 자체 평가는 공식 점수를 대체하지 않는다.
+| 사례 | v3.2 | v3.3 |
+|---|---|---|
+| C01 | completed / EXECUTION_ERROR / LOCAL_ACTION_FORMAT_RETRIES_EXHAUSTED | completed / DOCTOR_DECISION / DOCTOR_DONE |
+| C10 | completed / DOCTOR_DECISION / DOCTOR_DONE | completed / EXECUTION_ERROR / LOCAL_ACTION_FORMAT_RETRIES_EXHAUSTED |
+| C03 | completed / DOCTOR_DECISION / DOCTOR_DONE | completed / DOCTOR_DECISION / DOCTOR_DONE |
 
-실제 비교 완료 전 검색 적절성·진료/기록 품질·토큰/호출 수·API 비용의 개선을 주장하지 않는다. 기존 calibration Recall@5 **1/6**은 기존 측정치이며 새 인덱스의 임상 성능 수치가 아니다.
+C01 v3.2와 C10 v3.3은 행동 문장의 30자 상한 위반(`CONTENT_OVER_30`)이 연속되어 재시도 한도를 소진했고, 오류 종료 후 최종 기록을 제출했다. C10 v3.3은 DIAGNOSE의 completed 응답 이후 읽기 전용 상태 조회가 시간 초과됐다. 보존된 성공 응답으로 상태를 정리했으며 새 세션·진료 재실행 없이 다음 사례로 진행했다. 재현 가능한 회귀 테스트로 이 후속 조회 처리만 보강했고 비교 앱/설정은 바꾸지 않았다. C10 확장본과 C03 기준본에는 `API_UNAVAILABLE`도 각 1회 기록돼 있어 시간 차이에 네트워크/서비스 지연이 섞여 있다.
+
+상세 사용량·시간·근거 전달·여섯 영역 자체 참고 평가 표는 [PUBLIC_COMPARISON.md](PUBLIC_COMPARISON.md), [public_comparison.json](public_comparison.json), [self_review_summary.json](self_review_summary.json)에 있다. 자체 비교 평가 **3/3**을 세션 밖 `openai/gpt-6.1-sol`로 완료했다. 세 응답은 세부 채점 기준 부족을 이유로 숫자 점수 대신 정성 비교를 반환했고 점수는 null로 보존했다. [여섯 영역 정성 요약](SELF_REVIEW_NOTES.md)에 검색 관련성 부족, 제목/서지 위주 근거, C03 확장본의 미답변 항목 음성 기록 문제 등을 명시했다. 로그·최종 기록을 함께 검토하며 기록의 계획을 실제 행동으로 간주하지 않았다. 추가 평가 호출은 하지 않았다.
+
+자체 점수는 비맹검 단일 모델 참고치로 공식 점수·독립 임상 평가를 대체하지 않는다. 마지막 근거 패킷만 보존한 범위에서는 전체 검색 적절성·환자 사실 혼입 없음도 입증하지 못한다. 각 사례·버전 단일 실행이므로 토큰/시간 차이를 RAG만의 인과 효과나 통계적 개선으로 해석하지 않는다. 실제 API 달러 청구액·실행 후 팀 잔액은 미확인이다. 기존 calibration Recall@5 **1/6**은 기존 측정치이며 새 인덱스의 임상 성능 수치가 아니다.
 
 ## 벤치마크 범위
 

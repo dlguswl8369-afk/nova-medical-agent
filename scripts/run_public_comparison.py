@@ -35,6 +35,11 @@ def app_hash(folder):
     return hashlib.sha256(json.dumps(rows).encode()).hexdigest()
 
 
+def completion_acknowledged(events,final):
+    return bool(final) and any(e.get('action')=='DIAGNOSE' and not e.get('error')
+        and isinstance(e.get('response'),dict) and e['response'].get('status')=='completed' for e in events)
+
+
 def worker(a):
     sys.path.insert(0,str(Path(a.app).resolve()))
     from nova_sdk import Client
@@ -75,7 +80,15 @@ def worker(a):
         session=client.create_sample(row['case_uuid'],request_id=row['create_request_id'])
         row.update(session_id=session['session_id'],status='ACTIVE');save(entry,row)
         consult(client,state)
-        actual=client.session()
+        try:
+            actual=client.session()
+        except Exception as exc:
+            if not completion_acknowledged(events,final):raise
+            # A completed DIAGNOSE acknowledgment is authoritative even when the
+            # subsequent read-only status request loses its response.
+            actual={'status':'completed'}
+            row.update(final_status_read_error=getattr(exc,'code',type(exc).__name__),
+                       completion_source='SUCCESSFUL_DIAGNOSE_ACK')
         row.update(status=actual.get('status','UNKNOWN'),elapsed_seconds=time.monotonic()-started,
                    report=state.report,final_record_present=bool(final))
         save(entry,row)

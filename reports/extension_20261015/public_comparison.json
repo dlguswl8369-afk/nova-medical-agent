@@ -1,8 +1,8 @@
 {
   "purpose": "v3.2 legacy 774 vs v3.3 legacy+organizer; same Config/model/effort, 3 paired public cases",
   "maximum_new_sessions": 6,
-  "sessions_with_ids": 3,
-  "completed": 2,
+  "sessions_with_ids": 6,
+  "completed": 6,
   "official_score": false,
   "clinical_quality_evaluated": false,
   "actual_api_cost_usd": null,
@@ -16,6 +16,8 @@
       "elapsed_seconds": 278.4529999999995,
       "app_sha256": "27c6af5d5517691d2bfd19296c73f44a402ac3f6d5bebef9bab1340b36c33845",
       "error_code": null,
+      "final_status_read_error": null,
+      "completion_source": "SESSION_STATUS_READ",
       "evaluation": {
         "official_score": false,
         "diagnosis_accuracy_evaluated": false,
@@ -83,7 +85,19 @@
           "SAY": 18
         },
         "invalid_model_outputs": 4,
-        "usage_missing_responses": 0
+        "usage_missing_responses": 0,
+        "successful_execution": false
+      },
+      "last_delivered_reference_packet": {
+        "reference_count": 2,
+        "nonempty_bodies": 2,
+        "organizer_units": 0,
+        "body_chars": 8902,
+        "languages": {
+          "unspecified": 2
+        },
+        "patient_and_reference_fields_separate": true,
+        "scope": "Last captured Doctor input only; no clinical relevance or contamination verdict inferred"
       }
     },
     {
@@ -94,6 +108,8 @@
       "elapsed_seconds": 445.7659999999996,
       "app_sha256": "aeaf52f3f9a6eaa08684cd13b4ab24e693c19c49d0038a84c255ab3c83bb7ced",
       "error_code": null,
+      "final_status_read_error": null,
+      "completion_source": "SESSION_STATUS_READ",
       "evaluation": {
         "official_score": false,
         "diagnosis_accuracy_evaluated": false,
@@ -162,7 +178,20 @@
           "EXAM": 1
         },
         "invalid_model_outputs": 3,
-        "usage_missing_responses": 0
+        "usage_missing_responses": 0,
+        "successful_execution": true
+      },
+      "last_delivered_reference_packet": {
+        "reference_count": 3,
+        "nonempty_bodies": 3,
+        "organizer_units": 2,
+        "body_chars": 8067,
+        "languages": {
+          "unspecified": 1,
+          "ko": 2
+        },
+        "patient_and_reference_fields_separate": true,
+        "scope": "Last captured Doctor input only; no clinical relevance or contamination verdict inferred"
       },
       "difference_from_baseline": {
         "doctor_http_attempts": 6,
@@ -175,11 +204,13 @@
     {
       "case": "C10",
       "version": "v3.2",
-      "status": "ACTIVE",
+      "status": "completed",
       "prepare_seconds": 0.2180000000007567,
-      "elapsed_seconds": null,
+      "elapsed_seconds": 398.9220000000005,
       "app_sha256": "27c6af5d5517691d2bfd19296c73f44a402ac3f6d5bebef9bab1340b36c33845",
       "error_code": null,
+      "final_status_read_error": null,
+      "completion_source": "SESSION_STATUS_READ",
       "evaluation": {
         "official_score": false,
         "diagnosis_accuracy_evaluated": false,
@@ -216,46 +247,63 @@
           }
         },
         "evidence": {
-          "successful_SAY": 0,
-          "successful_EXAM": 0,
-          "record_present": false,
+          "successful_SAY": 23,
+          "successful_EXAM": 6,
+          "record_present": true,
           "performed_actions_inferred_from_record": false
         },
         "retrieval": {
-          "delivered_packets": null,
-          "empty_packets": null,
-          "max_packet_chars": null,
+          "delivered_packets": 31,
+          "empty_packets": 0,
+          "max_packet_chars": 11932,
           "appropriateness": "NOT_CLINICALLY_REVIEWED",
           "reference_to_patient_contamination": "REQUIRES_OBSERVATION_VS_RECORD_REVIEW"
         },
         "usage": {
-          "doctor_http_attempts": null,
-          "doctor_successes": null,
-          "reported_prompt_tokens": null,
-          "reported_completion_tokens": null,
-          "duration_seconds": null
+          "doctor_http_attempts": 33,
+          "doctor_successes": 33,
+          "reported_prompt_tokens": 311380,
+          "reported_completion_tokens": 8465,
+          "duration_seconds": 390.125
         }
       },
       "execution_outcome": {
-        "termination_reason": null,
-        "termination_kind": null,
-        "record_outcome": null,
-        "degraded": null,
-        "record_fields_valid": null,
-        "diagnosis_unresolved": null,
-        "action_counts": null,
-        "invalid_model_outputs": null,
-        "usage_missing_responses": null
+        "termination_reason": "DOCTOR_DONE",
+        "termination_kind": "DOCTOR_DECISION",
+        "record_outcome": "DOCTOR_RECORD_VALIDATED",
+        "degraded": false,
+        "record_fields_valid": true,
+        "diagnosis_unresolved": false,
+        "action_counts": {
+          "SAY": 23,
+          "EXAM": 6
+        },
+        "invalid_model_outputs": 2,
+        "usage_missing_responses": 0,
+        "successful_execution": true
+      },
+      "last_delivered_reference_packet": {
+        "reference_count": 3,
+        "nonempty_bodies": 3,
+        "organizer_units": 0,
+        "body_chars": 6700,
+        "languages": {
+          "unspecified": 3
+        },
+        "patient_and_reference_fields_separate": true,
+        "scope": "Last captured Doctor input only; no clinical relevance or contamination verdict inferred"
       }
     },
     {
       "case": "C10",
       "version": "v3.3",
-      "status": "NOT_STARTED",
-      "prepare_seconds": null,
-      "elapsed_seconds": null,
+      "status": "completed",
+      "prepare_seconds": 0.3279999999995198,
+      "elapsed_seconds": 812.9689999999991,
       "app_sha256": "aeaf52f3f9a6eaa08684cd13b4ab24e693c19c49d0038a84c255ab3c83bb7ced",
       "error_code": null,
+      "final_status_read_error": "TimeoutError",
+      "completion_source": "SUCCESSFUL_DIAGNOSE_ACK",
       "evaluation": {
         "official_score": false,
         "diagnosis_accuracy_evaluated": false,
@@ -292,53 +340,71 @@
           }
         },
         "evidence": {
-          "successful_SAY": 0,
-          "successful_EXAM": 0,
-          "record_present": false,
+          "successful_SAY": 15,
+          "successful_EXAM": 3,
+          "record_present": true,
           "performed_actions_inferred_from_record": false
         },
         "retrieval": {
-          "delivered_packets": null,
-          "empty_packets": null,
-          "max_packet_chars": null,
+          "delivered_packets": 20,
+          "empty_packets": 0,
+          "max_packet_chars": 11951,
           "appropriateness": "NOT_CLINICALLY_REVIEWED",
           "reference_to_patient_contamination": "REQUIRES_OBSERVATION_VS_RECORD_REVIEW"
         },
         "usage": {
-          "doctor_http_attempts": null,
-          "doctor_successes": null,
-          "reported_prompt_tokens": null,
-          "reported_completion_tokens": null,
-          "duration_seconds": null
+          "doctor_http_attempts": 23,
+          "doctor_successes": 22,
+          "reported_prompt_tokens": 200354,
+          "reported_completion_tokens": 5010,
+          "duration_seconds": 566.4069999999992
         }
       },
       "execution_outcome": {
-        "termination_reason": null,
-        "termination_kind": null,
-        "record_outcome": null,
-        "degraded": null,
-        "record_fields_valid": null,
-        "diagnosis_unresolved": null,
-        "action_counts": null,
-        "invalid_model_outputs": null,
-        "usage_missing_responses": null
+        "termination_reason": "LOCAL_ACTION_FORMAT_RETRIES_EXHAUSTED",
+        "termination_kind": "EXECUTION_ERROR",
+        "record_outcome": "DOCTOR_RECORD_VALIDATED",
+        "degraded": true,
+        "record_fields_valid": true,
+        "diagnosis_unresolved": false,
+        "action_counts": {
+          "SAY": 15,
+          "EXAM": 3
+        },
+        "invalid_model_outputs": 3,
+        "usage_missing_responses": 0,
+        "successful_execution": false
+      },
+      "last_delivered_reference_packet": {
+        "reference_count": 2,
+        "nonempty_bodies": 2,
+        "organizer_units": 1,
+        "body_chars": 8465,
+        "languages": {
+          "unspecified": 1,
+          "ko": 1
+        },
+        "patient_and_reference_fields_separate": true,
+        "scope": "Last captured Doctor input only; no clinical relevance or contamination verdict inferred"
       },
       "difference_from_baseline": {
-        "doctor_http_attempts": null,
-        "doctor_successes": null,
-        "reported_prompt_tokens": null,
-        "reported_completion_tokens": null,
-        "duration_seconds": null
+        "doctor_http_attempts": -10,
+        "doctor_successes": -11,
+        "reported_prompt_tokens": -111026,
+        "reported_completion_tokens": -3455,
+        "duration_seconds": 176.28199999999924
       }
     },
     {
       "case": "C03",
       "version": "v3.2",
-      "status": "NOT_STARTED",
-      "prepare_seconds": null,
-      "elapsed_seconds": null,
+      "status": "completed",
+      "prepare_seconds": 0.23400000000037835,
+      "elapsed_seconds": 575.5149999999994,
       "app_sha256": "27c6af5d5517691d2bfd19296c73f44a402ac3f6d5bebef9bab1340b36c33845",
       "error_code": null,
+      "final_status_read_error": null,
+      "completion_source": "SESSION_STATUS_READ",
       "evaluation": {
         "official_score": false,
         "diagnosis_accuracy_evaluated": false,
@@ -375,46 +441,63 @@
           }
         },
         "evidence": {
-          "successful_SAY": 0,
-          "successful_EXAM": 0,
-          "record_present": false,
+          "successful_SAY": 19,
+          "successful_EXAM": 4,
+          "record_present": true,
           "performed_actions_inferred_from_record": false
         },
         "retrieval": {
-          "delivered_packets": null,
-          "empty_packets": null,
-          "max_packet_chars": null,
+          "delivered_packets": 25,
+          "empty_packets": 0,
+          "max_packet_chars": 11743,
           "appropriateness": "NOT_CLINICALLY_REVIEWED",
           "reference_to_patient_contamination": "REQUIRES_OBSERVATION_VS_RECORD_REVIEW"
         },
         "usage": {
-          "doctor_http_attempts": null,
-          "doctor_successes": null,
-          "reported_prompt_tokens": null,
-          "reported_completion_tokens": null,
-          "duration_seconds": null
+          "doctor_http_attempts": 28,
+          "doctor_successes": 27,
+          "reported_prompt_tokens": 242383,
+          "reported_completion_tokens": 8474,
+          "duration_seconds": 565.9219999999987
         }
       },
       "execution_outcome": {
-        "termination_reason": null,
-        "termination_kind": null,
-        "record_outcome": null,
-        "degraded": null,
-        "record_fields_valid": null,
-        "diagnosis_unresolved": null,
-        "action_counts": null,
-        "invalid_model_outputs": null,
-        "usage_missing_responses": null
+        "termination_reason": "DOCTOR_DONE",
+        "termination_kind": "DOCTOR_DECISION",
+        "record_outcome": "DOCTOR_RECORD_VALIDATED",
+        "degraded": false,
+        "record_fields_valid": true,
+        "diagnosis_unresolved": false,
+        "action_counts": {
+          "SAY": 19,
+          "EXAM": 4
+        },
+        "invalid_model_outputs": 2,
+        "usage_missing_responses": 0,
+        "successful_execution": true
+      },
+      "last_delivered_reference_packet": {
+        "reference_count": 3,
+        "nonempty_bodies": 3,
+        "organizer_units": 0,
+        "body_chars": 7568,
+        "languages": {
+          "unspecified": 3
+        },
+        "patient_and_reference_fields_separate": true,
+        "scope": "Last captured Doctor input only; no clinical relevance or contamination verdict inferred"
       }
     },
     {
       "case": "C03",
       "version": "v3.3",
-      "status": "NOT_STARTED",
-      "prepare_seconds": null,
-      "elapsed_seconds": null,
+      "status": "completed",
+      "prepare_seconds": 0.25,
+      "elapsed_seconds": 462.3899999999994,
       "app_sha256": "aeaf52f3f9a6eaa08684cd13b4ab24e693c19c49d0038a84c255ab3c83bb7ced",
       "error_code": null,
+      "final_status_read_error": null,
+      "completion_source": "SESSION_STATUS_READ",
       "evaluation": {
         "official_score": false,
         "diagnosis_accuracy_evaluated": false,
@@ -451,45 +534,61 @@
           }
         },
         "evidence": {
-          "successful_SAY": 0,
-          "successful_EXAM": 0,
-          "record_present": false,
+          "successful_SAY": 17,
+          "successful_EXAM": 4,
+          "record_present": true,
           "performed_actions_inferred_from_record": false
         },
         "retrieval": {
-          "delivered_packets": null,
-          "empty_packets": null,
-          "max_packet_chars": null,
+          "delivered_packets": 23,
+          "empty_packets": 0,
+          "max_packet_chars": 11408,
           "appropriateness": "NOT_CLINICALLY_REVIEWED",
           "reference_to_patient_contamination": "REQUIRES_OBSERVATION_VS_RECORD_REVIEW"
         },
         "usage": {
-          "doctor_http_attempts": null,
-          "doctor_successes": null,
-          "reported_prompt_tokens": null,
-          "reported_completion_tokens": null,
-          "duration_seconds": null
+          "doctor_http_attempts": 26,
+          "doctor_successes": 26,
+          "reported_prompt_tokens": 232827,
+          "reported_completion_tokens": 8750,
+          "duration_seconds": 456.21899999999914
         }
       },
       "execution_outcome": {
-        "termination_reason": null,
-        "termination_kind": null,
-        "record_outcome": null,
-        "degraded": null,
-        "record_fields_valid": null,
-        "diagnosis_unresolved": null,
-        "action_counts": null,
-        "invalid_model_outputs": null,
-        "usage_missing_responses": null
+        "termination_reason": "DOCTOR_DONE",
+        "termination_kind": "DOCTOR_DECISION",
+        "record_outcome": "DOCTOR_RECORD_VALIDATED",
+        "degraded": false,
+        "record_fields_valid": true,
+        "diagnosis_unresolved": false,
+        "action_counts": {
+          "SAY": 17,
+          "EXAM": 4
+        },
+        "invalid_model_outputs": 3,
+        "usage_missing_responses": 0,
+        "successful_execution": true
+      },
+      "last_delivered_reference_packet": {
+        "reference_count": 3,
+        "nonempty_bodies": 3,
+        "organizer_units": 2,
+        "body_chars": 7423,
+        "languages": {
+          "unspecified": 1,
+          "ko": 2
+        },
+        "patient_and_reference_fields_separate": true,
+        "scope": "Last captured Doctor input only; no clinical relevance or contamination verdict inferred"
       },
       "difference_from_baseline": {
-        "doctor_http_attempts": null,
-        "doctor_successes": null,
-        "reported_prompt_tokens": null,
-        "reported_completion_tokens": null,
-        "duration_seconds": null
+        "doctor_http_attempts": -2,
+        "doctor_successes": -1,
+        "reported_prompt_tokens": -9556,
+        "reported_completion_tokens": 276,
+        "duration_seconds": -109.70299999999952
       }
     }
   ],
-  "self_review_calls": 0
+  "self_review_calls": 3
 }

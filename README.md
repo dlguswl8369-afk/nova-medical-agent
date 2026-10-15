@@ -1,6 +1,6 @@
 # NOVA 의료 에이전트 — BM25 RAG
 
-**이 브랜치는 v3.3 운영진 지침 RAG·개발/평가 확장을 포함한다.** [확장 사용법](docs/EXTENSION_V3_3.md), [공식 계약 대조](docs/OFFICIAL_CONTRACT.md), `reports/extension_20261015/`의 새 결과를 참고한다. 아래 v3.2 인계 설명은 기존 기준본의 기록이다.
+**이 브랜치는 v3.3 운영진 지침 RAG·개발/평가 확장을 포함한다.** [확장 사용법](docs/EXTENSION_V3_3.md), [공식 계약 대조](docs/OFFICIAL_CONTRACT.md), [새 검증 결과](reports/extension_20261015/REPORT.md), [실제 공개 샘플 비교](reports/extension_20261015/PUBLIC_COMPARISON.md), [검색·기록의 남은 문제](reports/extension_20261015/SELF_REVIEW_NOTES.md)를 참고한다. 아래 v3.2 인계 설명은 기존 기준본의 기록이다.
 
 NOVA 의료 에이전트의 검색 근거 전달과 Doctor 연결 코드를 공동 개발·통합 검토하기 위한 비공개 저장소다. 6개 자료를 **774개 검색 항목**으로 구성한 한국어 BM25 RAG, 공식 NOVA SDK 연결, 진료 루프, 예산·오류 복구·최종 기록 처리와 기존 합성 테스트를 포함한다.
 

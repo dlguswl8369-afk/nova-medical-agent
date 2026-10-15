@@ -63,6 +63,13 @@ class WorkflowTests(unittest.TestCase):
         self.args.output=str(ROOT/'private_runs')
         with self.assertRaisesRegex(ValueError,'OUTSIDE_REPOSITORY'):runner.main(self.args)
 
+    def test_completed_diagnose_ack_can_reconcile_final_read_timeout(self):
+        events=[{'action':'DIAGNOSE','response':{'status':'completed'}}]
+        self.assertTrue(runner.completion_acknowledged(events,{'note':{}}))
+        self.assertFalse(runner.completion_acknowledged(events,{}))
+        self.assertFalse(runner.completion_acknowledged([{'action':'DIAGNOSE','error':'TIMEOUT'}],{'note':{}}))
+        self.assertFalse(runner.completion_acknowledged([{'action':'SAY','response':{'status':'completed'}}],{'note':{}}))
+
     def review_fixture(self):
         self.out.mkdir()
         samples=Path(self.temp.name)/'samples'
