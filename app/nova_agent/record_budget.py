@@ -5,7 +5,7 @@ from nova_sdk import NovaError
 from .prompts import RECORD
 
 # Identical to the v3 format-repair instruction. No generated text is appended.
-RECORD_REPAIR = '\n기록 형식 또는 근거 ID 오류입니다. 실제 관찰 ID만 선택하고 예선 O.tests는 비우세요. source_refs에는 ID 목록만 씁니다.'
+RECORD_REPAIR = '\n기록 형식 또는 근거 ID 오류입니다. 실제 관찰 ID만 선택하고 예선 O.tests는 비우세요. source_refs에는 ID 목록만 씁니다. A 자유 문장의 없음·부인·음성·정상 소견 재서술을 제거하고 가설·불확실성만 쓰세요. 확인 소견은 인용 관찰 원문으로 남깁니다.'
 SINGLE_INPUT_LIMIT = 100000
 OUTPUT_CAP = 4096
 

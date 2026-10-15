@@ -1,0 +1,337 @@
+{
+  "scope": "Existing local development runs, not website evaluation execution logs",
+  "official_detailed_evaluation_available": false,
+  "heuristic_flags_are_not_clinical_verdicts": true,
+  "api_calls": 0,
+  "cases": [
+    {
+      "case": "C01",
+      "version": "v3.2",
+      "raw_sha256": "14319a5c174e618defa79dd207656f762efb6f67cfa3cd74ba7e6d8510c8fc72",
+      "termination_reason": "LOCAL_ACTION_FORMAT_RETRIES_EXHAUSTED",
+      "action_counts": {
+        "SAY": 18
+      },
+      "rejection_events": [
+        {
+          "phase": "ACTION",
+          "reason": "CONTENT_OVER_30",
+          "content_chars": 34,
+          "doctor_http_attempt": 19
+        },
+        {
+          "phase": "ACTION",
+          "reason": "CONTENT_OVER_30",
+          "content_chars": 31,
+          "doctor_http_attempt": 20
+        },
+        {
+          "phase": "ACTION",
+          "reason": "CONTENT_OVER_30",
+          "content_chars": 34,
+          "doctor_http_attempt": 21
+        },
+        {
+          "phase": "RECORD",
+          "reason": "INVALID_SOURCE_FIELDS",
+          "content_chars": null,
+          "doctor_http_attempt": 22
+        }
+      ],
+      "acknowledged_explanation_count": 0,
+      "compound_question_candidate_turns": [
+        2,
+        6,
+        7,
+        11,
+        12,
+        14,
+        17
+      ],
+      "uncertain_answer_ids": [],
+      "observed_subjective_ids_missing_from_S": [],
+      "duplicate_O_observation_ids": {},
+      "free_A_negative_normal_wording_count": 2,
+      "free_A_flagged_fields": [
+        "differential"
+      ],
+      "last_packet_reference_count": 2,
+      "full_packet_history_available": false
+    },
+    {
+      "case": "C01",
+      "version": "v3.3",
+      "raw_sha256": "80a6f610c051e0e590e715965ae7b4898cd0dbd0126c08089dc8be5ae50c5a32",
+      "termination_reason": "DOCTOR_DONE",
+      "action_counts": {
+        "SAY": 23,
+        "EXAM": 1
+      },
+      "rejection_events": [
+        {
+          "phase": "ACTION",
+          "reason": "CONTENT_OVER_30",
+          "content_chars": 34,
+          "doctor_http_attempt": 5
+        },
+        {
+          "phase": "ACTION",
+          "reason": "CONTENT_OVER_30",
+          "content_chars": 33,
+          "doctor_http_attempt": 7
+        },
+        {
+          "phase": "ACTION",
+          "reason": "CONTENT_OVER_30",
+          "content_chars": 38,
+          "doctor_http_attempt": 25
+        }
+      ],
+      "acknowledged_explanation_count": 2,
+      "compound_question_candidate_turns": [
+        2,
+        4,
+        5,
+        6,
+        7,
+        11,
+        12,
+        14,
+        16,
+        17,
+        18,
+        21
+      ],
+      "uncertain_answer_ids": [
+        "F15"
+      ],
+      "observed_subjective_ids_missing_from_S": [
+        "F22",
+        "F23"
+      ],
+      "duplicate_O_observation_ids": {
+        "F1": 2
+      },
+      "free_A_negative_normal_wording_count": 0,
+      "free_A_flagged_fields": [],
+      "last_packet_reference_count": 3,
+      "full_packet_history_available": false
+    },
+    {
+      "case": "C10",
+      "version": "v3.2",
+      "raw_sha256": "96707c4b9026cebe1c5049b26be7f7bdd013db5dd15c4afff5963d2ec22bfaf5",
+      "termination_reason": "DOCTOR_DONE",
+      "action_counts": {
+        "SAY": 23,
+        "EXAM": 6
+      },
+      "rejection_events": [
+        {
+          "phase": "ACTION",
+          "reason": "CONTENT_OVER_30",
+          "content_chars": 32,
+          "doctor_http_attempt": 26
+        },
+        {
+          "phase": "ACTION",
+          "reason": "CONTENT_OVER_30",
+          "content_chars": 33,
+          "doctor_http_attempt": 27
+        }
+      ],
+      "acknowledged_explanation_count": 4,
+      "compound_question_candidate_turns": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        10,
+        13,
+        15,
+        19,
+        20,
+        21,
+        27
+      ],
+      "uncertain_answer_ids": [],
+      "observed_subjective_ids_missing_from_S": [
+        "F16"
+      ],
+      "duplicate_O_observation_ids": {
+        "F1": 2
+      },
+      "free_A_negative_normal_wording_count": 1,
+      "free_A_flagged_fields": [
+        "differential"
+      ],
+      "last_packet_reference_count": 3,
+      "full_packet_history_available": false
+    },
+    {
+      "case": "C10",
+      "version": "v3.3",
+      "raw_sha256": "f79879351daf84d4a62b89df9a2388ba23371cbc1bf27e21670250740e3d0630",
+      "termination_reason": "LOCAL_ACTION_FORMAT_RETRIES_EXHAUSTED",
+      "action_counts": {
+        "SAY": 15,
+        "EXAM": 3
+      },
+      "rejection_events": [
+        {
+          "phase": "ACTION",
+          "reason": "CONTENT_OVER_30",
+          "content_chars": 31,
+          "doctor_http_attempt": 20
+        },
+        {
+          "phase": "ACTION",
+          "reason": "CONTENT_OVER_30",
+          "content_chars": 31,
+          "doctor_http_attempt": 21
+        },
+        {
+          "phase": "ACTION",
+          "reason": "CONTENT_OVER_30",
+          "content_chars": 31,
+          "doctor_http_attempt": 22
+        }
+      ],
+      "acknowledged_explanation_count": 1,
+      "compound_question_candidate_turns": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        10,
+        11,
+        14,
+        16
+      ],
+      "uncertain_answer_ids": [],
+      "observed_subjective_ids_missing_from_S": [],
+      "duplicate_O_observation_ids": {
+        "F1": 2
+      },
+      "free_A_negative_normal_wording_count": 2,
+      "free_A_flagged_fields": [
+        "differential",
+        "evidence"
+      ],
+      "last_packet_reference_count": 2,
+      "full_packet_history_available": false
+    },
+    {
+      "case": "C03",
+      "version": "v3.2",
+      "raw_sha256": "362464b976200c0321d8fed0f34cb31eac7fb86b8749938922d7152c6653e94f",
+      "termination_reason": "DOCTOR_DONE",
+      "action_counts": {
+        "SAY": 19,
+        "EXAM": 4
+      },
+      "rejection_events": [
+        {
+          "phase": "ACTION",
+          "reason": "CONTENT_OVER_30",
+          "content_chars": 40,
+          "doctor_http_attempt": 16
+        },
+        {
+          "phase": "ACTION",
+          "reason": "CONTENT_OVER_30",
+          "content_chars": 33,
+          "doctor_http_attempt": 25
+        }
+      ],
+      "acknowledged_explanation_count": 3,
+      "compound_question_candidate_turns": [
+        1,
+        2,
+        4,
+        5,
+        6,
+        8,
+        9,
+        13,
+        14,
+        15,
+        16,
+        18
+      ],
+      "uncertain_answer_ids": [],
+      "observed_subjective_ids_missing_from_S": [],
+      "duplicate_O_observation_ids": {
+        "F1": 2
+      },
+      "free_A_negative_normal_wording_count": 0,
+      "free_A_flagged_fields": [],
+      "last_packet_reference_count": 3,
+      "full_packet_history_available": false
+    },
+    {
+      "case": "C03",
+      "version": "v3.3",
+      "raw_sha256": "2ab47134b41ee80ffb35494f282b39196c96a216374c2be73b245248d65c5213",
+      "termination_reason": "DOCTOR_DONE",
+      "action_counts": {
+        "SAY": 17,
+        "EXAM": 4
+      },
+      "rejection_events": [
+        {
+          "phase": "ACTION",
+          "reason": "CONTENT_OVER_30",
+          "content_chars": 32,
+          "doctor_http_attempt": 15
+        },
+        {
+          "phase": "ACTION",
+          "reason": "CONTENT_OVER_30",
+          "content_chars": 39,
+          "doctor_http_attempt": 20
+        },
+        {
+          "phase": "ACTION",
+          "reason": "CONTENT_OVER_30",
+          "content_chars": 31,
+          "doctor_http_attempt": 23
+        }
+      ],
+      "acknowledged_explanation_count": 3,
+      "compound_question_candidate_turns": [
+        2,
+        3,
+        4,
+        5,
+        7,
+        9,
+        10,
+        13,
+        14,
+        15,
+        16
+      ],
+      "uncertain_answer_ids": [
+        "F9"
+      ],
+      "observed_subjective_ids_missing_from_S": [],
+      "duplicate_O_observation_ids": {
+        "F1": 2
+      },
+      "free_A_negative_normal_wording_count": 3,
+      "free_A_flagged_fields": [
+        "differential",
+        "evidence"
+      ],
+      "last_packet_reference_count": 3,
+      "full_packet_history_available": false
+    }
+  ]
+}

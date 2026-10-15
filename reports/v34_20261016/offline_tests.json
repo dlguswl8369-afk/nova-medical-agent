@@ -1,0 +1,18 @@
+{
+  "tests": 52,
+  "passed": true,
+  "counts_by_module": {
+    "test_consultation_v34": 30,
+    "test_extension": 13,
+    "test_comparison_workflow": 9
+  },
+  "failures": 0,
+  "errors": 0,
+  "elapsed_seconds": 0.5310000000026776,
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "real_api_calls": 0,
+  "synthetic_only": true,
+  "new_protocol_enabled_in_consultation_and_production_entry_tests": true,
+  "network_guard": "Python socket/getaddrinfo/create_connection blocked; not OS container isolation",
+  "clinical_quality_or_score_improvement_verified": false
+}
