@@ -76,6 +76,8 @@ python -B -I scripts/summarize_public_comparison.py --runs /private/comparison -
 
 6개 비교가 완료되고 자체 참고 평가가 필요하면 다음 도구가 세션 밖 `openai/gpt-6.1-sol`을 최대 3회 호출한다. 유료이며 별도 ledger와 request_id를 보존한다. 불확실한 호출을 새 요청으로 대체하지 않는다.
 
+처음 비교를 시작할 때 `--self-review`를 추가하면 6개 세션이 모두 완료된 뒤 같은 프로세스의 메모리 키로 이 3회 평가까지 실행한다. 기본값은 비활성이다. 각 요청은 새 Client의 session_id를 비워 진료 세션과 분리하며, 원시 응답은 Git 밖에 저장한다.
+
 ```text
 python -B -I scripts/review_public_comparison.py --runs /private/comparison --samples /path/to/nova-samples-2026
 ```

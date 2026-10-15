@@ -17,7 +17,7 @@ v3.2 기준으로 운영진 지침 RAG, 공식 개발 키트 어댑터, 공개 �
 |---|---|
 | 기존 회귀 테스트 | Windows 및 새 Linux에서 **145/145**. 새 코드의 legacy 설정으로 실행 |
 | 추가 검색/정보분리 테스트 | Windows 및 Linux **13/13** |
-| 비교 원장 안전성 테스트 | Windows **4/4**. 부족 한도, 중복 생성 방지, 불확실 생성의 동일 request_id 확인, Git 밖 출력 |
+| 비교/자가평가 원장 안전성 테스트 | Windows **8/8**. 부족 한도, 중복 생성 방지, 불확실 생성의 동일 request_id 확인, Git 밖 출력, 최대 3회 세션 밖 평가와 재요청 차단 |
 | 실제 run.py·SDK 진입점 | 새 후보 합성 normal/recovery/uncertain **3/3**. 전송 계층만 mock, 실제 모델/API 호출 0 |
 | 공식 develop.py | 실제 `load_agent()`·`prepare()` 연결 통과. C01/C10/C03 자료 로딩 확인. 로컬 모델 진료 미실행 |
 | 벤치마크 | AgentClinic 5·DDXPlus 5·ACI-Bench 5 = **15/15** 파싱·허용 입력·매핑 점검. 모델 평가 미실행 |

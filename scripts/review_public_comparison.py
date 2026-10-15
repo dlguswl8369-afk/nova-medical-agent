@@ -8,14 +8,13 @@ from pathlib import Path
 import sys
 import uuid
 sys.path[:0]=[str(Path(__file__).resolve().parent),str(Path(__file__).resolve().parents[1]/'app')]
-from evaluation_summary import comparison_review_payload, DOMAINS
+from evaluation_summary import comparison_review_payload, DOMAINS, summarize
 from run_public_comparison import save, CASES, ROOT
 from nova_sdk import Client
 
 
-def main():
-    p=argparse.ArgumentParser();p.add_argument('--runs',required=True);p.add_argument('--samples',required=True)
-    a=p.parse_args();root=Path(a.runs).resolve()
+def run_reviews(runs,samples,key):
+    root=Path(runs).resolve()
     if root.is_relative_to(ROOT):raise ValueError('PRIVATE_OUTPUT_MUST_BE_OUTSIDE_REPOSITORY')
     comparisons={}
     for case in CASES:
@@ -23,18 +22,22 @@ def main():
         for version in ('v3.2','v3.3'):
             status=json.loads((root/f'{case}_{version}.json').read_text(encoding='utf-8'))
             if status.get('status')!='completed':raise ValueError('ALL_SIX_RUNS_MUST_COMPLETE')
-            rows.append(json.loads((root/f'{case}_{version}_private.json').read_text(encoding='utf-8')))
+            raw=json.loads((root/f'{case}_{version}_private.json').read_text(encoding='utf-8'))
+            rows.append({'events':raw['events'],'final':raw['final'],
+                         'last_reference_context':raw['last_reference_context'],
+                         'aggregate':summarize(raw['events'],raw['final'],raw['report']),
+                         'termination_reason':raw['report'].get('termination_reason')})
         payload=comparison_review_payload(*rows)
-        payload['public_case_for_evaluator_only']=json.loads((Path(a.samples)/case/'case.json').read_text(encoding='utf-8'))
-        payload['output_contract']={'domains':{k:{'score':'0..maximum or null when evidence insufficient','maximum':v,'evidence':'cite actual turns and record fields'} for k,v in DOMAINS.items()},
+        payload['public_case_for_evaluator_only']=json.loads((Path(samples)/case/'case.json').read_text(encoding='utf-8'))
+        payload['output_contract']={'domains':{k:{'baseline_score':'0..maximum or null when evidence insufficient',
+                                    'extended_score':'0..maximum or null when evidence insufficient',
+                                    'maximum':v,'evidence':'cite actual turns and record fields'} for k,v in DOMAINS.items()},
                                     'relevance':'last reference packet only; do not generalize to all packets',
                                     'label':'Non-official self-reference evaluation'}
         comparisons[case]=json.dumps(payload,ensure_ascii=False)
-    key=os.environ.get('NOVA_DEV_KEY')
-    if not key:
-        if not sys.stdin.isatty():raise RuntimeError('USE_PRIVATE_TERMINAL')
-        key=getpass.getpass('NOVA key for up to 3 off-session reviews (hidden): ')
+        if len(comparisons[case])>300000:raise ValueError('REVIEW_INPUT_TOO_LARGE_NO_CALL')
     client=Client(api_base='https://nova.snubhai.org',token=key,sample=True)
+    client.session_id=''  # Never inherit a NOVA_SESSION_ID from a development shell.
     ledger=root/'self_review_ledger.json';lock=root/'self_review.lock'
     fd=os.open(lock,os.O_CREAT|os.O_EXCL|os.O_WRONLY);os.close(fd)
     try:
@@ -58,6 +61,16 @@ def main():
                 row['status']='UNCERTAIN_OR_FAILED_NO_REPLACEMENT';save(ledger,data)
                 raise
     finally:lock.unlink(missing_ok=True)
+
+
+def main():
+    p=argparse.ArgumentParser();p.add_argument('--runs',required=True);p.add_argument('--samples',required=True)
+    a=p.parse_args()
+    key=os.environ.get('NOVA_DEV_KEY')
+    if not key:
+        if not sys.stdin.isatty():raise RuntimeError('USE_PRIVATE_TERMINAL')
+        key=getpass.getpass('NOVA key for up to 3 off-session reviews (hidden): ')
+    run_reviews(a.runs,a.samples,key)
 
 if __name__=='__main__':
     try:main()

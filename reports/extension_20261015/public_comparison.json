@@ -1,8 +1,8 @@
 {
   "purpose": "v3.2 legacy 774 vs v3.3 legacy+organizer; same Config/model/effort, 3 paired public cases",
   "maximum_new_sessions": 6,
-  "sessions_with_ids": 0,
-  "completed": 0,
+  "sessions_with_ids": 3,
+  "completed": 2,
   "official_score": false,
   "clinical_quality_evaluated": false,
   "actual_api_cost_usd": null,
@@ -11,10 +11,10 @@
     {
       "case": "C01",
       "version": "v3.2",
-      "status": "NOT_EXECUTED",
-      "prepare_seconds": null,
-      "elapsed_seconds": null,
-      "app_sha256": null,
+      "status": "completed",
+      "prepare_seconds": 0.25,
+      "elapsed_seconds": 278.4529999999995,
+      "app_sha256": "27c6af5d5517691d2bfd19296c73f44a402ac3f6d5bebef9bab1340b36c33845",
       "error_code": null,
       "evaluation": {
         "official_score": false,
@@ -52,34 +52,133 @@
           }
         },
         "evidence": {
-          "successful_SAY": 0,
+          "successful_SAY": 18,
           "successful_EXAM": 0,
-          "record_present": false,
+          "record_present": true,
           "performed_actions_inferred_from_record": false
         },
         "retrieval": {
-          "delivered_packets": null,
-          "empty_packets": null,
-          "max_packet_chars": null,
+          "delivered_packets": 20,
+          "empty_packets": 0,
+          "max_packet_chars": 11925,
           "appropriateness": "NOT_CLINICALLY_REVIEWED",
           "reference_to_patient_contamination": "REQUIRES_OBSERVATION_VS_RECORD_REVIEW"
         },
         "usage": {
-          "doctor_http_attempts": null,
-          "doctor_successes": null,
-          "reported_prompt_tokens": null,
-          "reported_completion_tokens": null,
-          "duration_seconds": null
+          "doctor_http_attempts": 23,
+          "doctor_successes": 23,
+          "reported_prompt_tokens": 193432,
+          "reported_completion_tokens": 7381,
+          "duration_seconds": 275.10999999999876
         }
+      },
+      "execution_outcome": {
+        "termination_reason": "LOCAL_ACTION_FORMAT_RETRIES_EXHAUSTED",
+        "termination_kind": "EXECUTION_ERROR",
+        "record_outcome": "DOCTOR_RECORD_VALIDATED",
+        "degraded": true,
+        "record_fields_valid": true,
+        "diagnosis_unresolved": false,
+        "action_counts": {
+          "SAY": 18
+        },
+        "invalid_model_outputs": 4,
+        "usage_missing_responses": 0
       }
     },
     {
       "case": "C01",
       "version": "v3.3",
-      "status": "NOT_EXECUTED",
-      "prepare_seconds": null,
+      "status": "completed",
+      "prepare_seconds": 0.26599999999962165,
+      "elapsed_seconds": 445.7659999999996,
+      "app_sha256": "aeaf52f3f9a6eaa08684cd13b4ab24e693c19c49d0038a84c255ab3c83bb7ced",
+      "error_code": null,
+      "evaluation": {
+        "official_score": false,
+        "diagnosis_accuracy_evaluated": false,
+        "domains": {
+          "정보수집": {
+            "maximum": 25,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "진단추론": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "검사·추적": {
+            "maximum": 10,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "안전": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "의사소통": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "효율": {
+            "maximum": 20,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          }
+        },
+        "evidence": {
+          "successful_SAY": 23,
+          "successful_EXAM": 1,
+          "record_present": true,
+          "performed_actions_inferred_from_record": false
+        },
+        "retrieval": {
+          "delivered_packets": 26,
+          "empty_packets": 0,
+          "max_packet_chars": 11904,
+          "appropriateness": "NOT_CLINICALLY_REVIEWED",
+          "reference_to_patient_contamination": "REQUIRES_OBSERVATION_VS_RECORD_REVIEW"
+        },
+        "usage": {
+          "doctor_http_attempts": 29,
+          "doctor_successes": 29,
+          "reported_prompt_tokens": 251412,
+          "reported_completion_tokens": 7760,
+          "duration_seconds": 439.8119999999999
+        }
+      },
+      "execution_outcome": {
+        "termination_reason": "DOCTOR_DONE",
+        "termination_kind": "DOCTOR_DECISION",
+        "record_outcome": "DOCTOR_RECORD_VALIDATED",
+        "degraded": false,
+        "record_fields_valid": true,
+        "diagnosis_unresolved": false,
+        "action_counts": {
+          "SAY": 23,
+          "EXAM": 1
+        },
+        "invalid_model_outputs": 3,
+        "usage_missing_responses": 0
+      },
+      "difference_from_baseline": {
+        "doctor_http_attempts": 6,
+        "doctor_successes": 6,
+        "reported_prompt_tokens": 57980,
+        "reported_completion_tokens": 379,
+        "duration_seconds": 164.70200000000114
+      }
+    },
+    {
+      "case": "C10",
+      "version": "v3.2",
+      "status": "ACTIVE",
+      "prepare_seconds": 0.2180000000007567,
       "elapsed_seconds": null,
-      "app_sha256": null,
+      "app_sha256": "27c6af5d5517691d2bfd19296c73f44a402ac3f6d5bebef9bab1340b36c33845",
       "error_code": null,
       "evaluation": {
         "official_score": false,
@@ -137,86 +236,25 @@
           "duration_seconds": null
         }
       },
-      "difference_from_baseline": {
-        "doctor_http_attempts": null,
-        "doctor_successes": null,
-        "reported_prompt_tokens": null,
-        "reported_completion_tokens": null,
-        "duration_seconds": null
-      }
-    },
-    {
-      "case": "C10",
-      "version": "v3.2",
-      "status": "NOT_EXECUTED",
-      "prepare_seconds": null,
-      "elapsed_seconds": null,
-      "app_sha256": null,
-      "error_code": null,
-      "evaluation": {
-        "official_score": false,
-        "diagnosis_accuracy_evaluated": false,
-        "domains": {
-          "정보수집": {
-            "maximum": 25,
-            "score": null,
-            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
-          },
-          "진단추론": {
-            "maximum": 15,
-            "score": null,
-            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
-          },
-          "검사·추적": {
-            "maximum": 10,
-            "score": null,
-            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
-          },
-          "안전": {
-            "maximum": 15,
-            "score": null,
-            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
-          },
-          "의사소통": {
-            "maximum": 15,
-            "score": null,
-            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
-          },
-          "효율": {
-            "maximum": 20,
-            "score": null,
-            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
-          }
-        },
-        "evidence": {
-          "successful_SAY": 0,
-          "successful_EXAM": 0,
-          "record_present": false,
-          "performed_actions_inferred_from_record": false
-        },
-        "retrieval": {
-          "delivered_packets": null,
-          "empty_packets": null,
-          "max_packet_chars": null,
-          "appropriateness": "NOT_CLINICALLY_REVIEWED",
-          "reference_to_patient_contamination": "REQUIRES_OBSERVATION_VS_RECORD_REVIEW"
-        },
-        "usage": {
-          "doctor_http_attempts": null,
-          "doctor_successes": null,
-          "reported_prompt_tokens": null,
-          "reported_completion_tokens": null,
-          "duration_seconds": null
-        }
+      "execution_outcome": {
+        "termination_reason": null,
+        "termination_kind": null,
+        "record_outcome": null,
+        "degraded": null,
+        "record_fields_valid": null,
+        "diagnosis_unresolved": null,
+        "action_counts": null,
+        "invalid_model_outputs": null,
+        "usage_missing_responses": null
       }
     },
     {
       "case": "C10",
       "version": "v3.3",
-      "status": "NOT_EXECUTED",
+      "status": "NOT_STARTED",
       "prepare_seconds": null,
       "elapsed_seconds": null,
-      "app_sha256": null,
+      "app_sha256": "aeaf52f3f9a6eaa08684cd13b4ab24e693c19c49d0038a84c255ab3c83bb7ced",
       "error_code": null,
       "evaluation": {
         "official_score": false,
@@ -274,6 +312,17 @@
           "duration_seconds": null
         }
       },
+      "execution_outcome": {
+        "termination_reason": null,
+        "termination_kind": null,
+        "record_outcome": null,
+        "degraded": null,
+        "record_fields_valid": null,
+        "diagnosis_unresolved": null,
+        "action_counts": null,
+        "invalid_model_outputs": null,
+        "usage_missing_responses": null
+      },
       "difference_from_baseline": {
         "doctor_http_attempts": null,
         "doctor_successes": null,
@@ -285,10 +334,10 @@
     {
       "case": "C03",
       "version": "v3.2",
-      "status": "NOT_EXECUTED",
+      "status": "NOT_STARTED",
       "prepare_seconds": null,
       "elapsed_seconds": null,
-      "app_sha256": null,
+      "app_sha256": "27c6af5d5517691d2bfd19296c73f44a402ac3f6d5bebef9bab1340b36c33845",
       "error_code": null,
       "evaluation": {
         "official_score": false,
@@ -345,15 +394,26 @@
           "reported_completion_tokens": null,
           "duration_seconds": null
         }
+      },
+      "execution_outcome": {
+        "termination_reason": null,
+        "termination_kind": null,
+        "record_outcome": null,
+        "degraded": null,
+        "record_fields_valid": null,
+        "diagnosis_unresolved": null,
+        "action_counts": null,
+        "invalid_model_outputs": null,
+        "usage_missing_responses": null
       }
     },
     {
       "case": "C03",
       "version": "v3.3",
-      "status": "NOT_EXECUTED",
+      "status": "NOT_STARTED",
       "prepare_seconds": null,
       "elapsed_seconds": null,
-      "app_sha256": null,
+      "app_sha256": "aeaf52f3f9a6eaa08684cd13b4ab24e693c19c49d0038a84c255ab3c83bb7ced",
       "error_code": null,
       "evaluation": {
         "official_score": false,
@@ -410,6 +470,17 @@
           "reported_completion_tokens": null,
           "duration_seconds": null
         }
+      },
+      "execution_outcome": {
+        "termination_reason": null,
+        "termination_kind": null,
+        "record_outcome": null,
+        "degraded": null,
+        "record_fields_valid": null,
+        "diagnosis_unresolved": null,
+        "action_counts": null,
+        "invalid_model_outputs": null,
+        "usage_missing_responses": null
       },
       "difference_from_baseline": {
         "doctor_http_attempts": null,

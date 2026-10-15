@@ -24,6 +24,10 @@ def collect(root):
                  'prepare_seconds':data.get('prepare_seconds'),'elapsed_seconds':data.get('elapsed_seconds'),
                  'app_sha256':data.get('app_sha256'),'error_code':data.get('error'),
                  'evaluation':summarize(raw.get('events',[]),raw.get('final'),raw.get('report'))}
+            report=data.get('report',{})
+            row['execution_outcome']={k:report.get(k) for k in ('termination_reason','termination_kind',
+                'record_outcome','degraded','record_fields_valid','diagnosis_unresolved','action_counts',
+                'invalid_model_outputs','usage_missing_responses')}
             pair[version]=row;rows.append(row)
         # Null means not measurable; never convert missing usage to zero.
         left,right=pair['v3.2'],pair['v3.3']

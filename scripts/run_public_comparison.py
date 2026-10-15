@@ -16,6 +16,7 @@ import time
 import uuid
 
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT/'scripts'))
 CASES=('C01','C10','C03')
 PURPOSE='v3.2 legacy 774 vs v3.3 legacy+organizer; same Config/model/effort, 3 paired public cases'
 
@@ -85,6 +86,17 @@ def worker(a):
     finally:
         save(entry.with_name(entry.stem+'_private.json'),{'events':events,'final':final,
              'last_reference_context':last_context,'report':state.report if state else {}})
+    # All consultations have ended. A fresh Client in the reviewer has no session_id.
+    # Reuse only this process's in-memory key; do not export it to another file/environment.
+    if row.get('status')=='completed' and row['case']=='C03' and row['version']=='v3.3':
+        try:
+            from review_public_comparison import run_reviews
+            plan=json.loads((entry.parent/'comparison_ledger.json').read_text(encoding='utf-8'))
+            if plan.get('max_self_reviews')==3:
+                run_reviews(entry.parent,plan['samples_root'],key)
+        except Exception as exc:
+            save(entry.parent/'self_review_stop.json',{'status':'STOPPED_NO_REPLACEMENT',
+                 'error':getattr(exc,'code',type(exc).__name__),'official_score':False})
     return 0 if row.get('status')=='completed' and final else 1
 
 
@@ -126,7 +138,8 @@ def main(a):
                 if len(matches)!=1:raise ValueError('CASE_MAPPING_UNCONFIRMED_'+code)
                 value=matches[0].get('id') or matches[0].get('case_id')
                 mapping[code]=str(uuid.UUID(str(value)))
-            plan={'purpose':PURPOSE,'max_new_sessions':6,'max_self_reviews':3,
+            plan={'purpose':PURPOSE,'max_new_sessions':6,'max_self_reviews':3 if a.self_review else 0,
+                  'samples_root':str(Path(a.samples).resolve()),
                   'confirmed_remaining_sessions':a.remaining,'confirmed_credit_percent':a.credit_percent,
                   'confirmed_no_active_samples':True,'confirmed_at_utc':datetime.now(timezone.utc).isoformat(),
                   'model':'openai/gpt-6-luna','reasoning_effort':'medium','slots':[]}
@@ -165,6 +178,7 @@ if __name__=='__main__':
     p=argparse.ArgumentParser();p.add_argument('--worker',action='store_true');p.add_argument('--app');p.add_argument('--entry')
     p.add_argument('--baseline');p.add_argument('--samples');p.add_argument('--output')
     p.add_argument('--key-stdin',action='store_true',help='Read key from a trusted launcher anonymous pipe; never from a file')
+    p.add_argument('--self-review',action='store_true',help='After all six sessions close, allow three off-session paid comparisons')
     p.add_argument('--remaining',type=int,default=0);p.add_argument('--credit-percent',type=float,default=0)
     p.add_argument('--no-active-samples',action='store_true');a=p.parse_args()
     try:raise SystemExit(worker(a) if a.worker else main(a))
