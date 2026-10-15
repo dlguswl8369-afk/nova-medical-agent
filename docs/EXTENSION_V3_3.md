@@ -80,6 +80,7 @@ python -B -I scripts/summarize_public_comparison.py --runs /private/comparison -
 
 ```text
 python -B -I scripts/review_public_comparison.py --runs /private/comparison --samples /path/to/nova-samples-2026
+python -B -I scripts/summarize_self_reviews.py --runs /private/comparison --output /path/to/self-review-summary.json
 ```
 
 자가평가는 공식 점수가 아니고 웹사이트 채점을 대체하지 않는다. 평가 입력의 근거는 마지막 패킷이므로 모든 시점의 검색 적절성으로 일반화하지 않는다.
