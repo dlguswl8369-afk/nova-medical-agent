@@ -1,6 +1,28 @@
 """Render S/O from observations, never from generated clinical prose."""
 import json
+import re
 from nova_sdk import empty_record, RECORD_FIELDS
+
+# Conservative output boundary, not a semantic clinical verifier. Verified
+# negative/normal findings remain verbatim in the cited observation text.
+NEGATIVE_ASSERTION = re.compile(
+    r'없(?:음|다|다고|고|으며|는(?!지)|어요|습니다|어)|않(?:다|고|음|으며)|'
+    r'(?<![가-힣])(?:정상|음성)(?:이다|임|이며|으로|이라|이었다|이므로| 소견)|'
+    r'(?<![가-힣])(?:정상|음성|부인)(?=\s*(?:$|[.,;]))|'
+    r'(?<![가-힣])부인(?:함|한다|하고|하며|했다)|\(\s*-\s*\)|'
+    r'\b(?:no|without|denies?)\s+\w|\b(?:is|are|was|were)\s+(?:normal|negative|absent)\b', re.I)
+
+
+def assessment_text(value):
+    value = clean_string(value)
+    # Mask only local epistemic predicates, never a whole sentence merely
+    # because it also contains uncertainty. Disease names are not findings.
+    checked = re.sub(r'(?:없다고|정상이라고|음성이라고)\s*(?:확정|단정|판단)할 수 없\w*', '판단유보', value)
+    checked = re.sub(r'(?:배제|확정|단정|확인|판단|예측)할 수 없\w*|알 수 없\w*', '판단유보', checked)
+    checked = re.sub(r'(?:단정|확정|판단|배제|확인)(?:하|되)지\s*않\w*', '판단유보', checked)
+    if NEGATIVE_ASSERTION.search(checked):
+        raise ValueError('FREE_TEXT_FINDING_FORBIDDEN')
+    return value
 
 
 def clean_string(value, limit=1200):
@@ -14,6 +36,8 @@ def format_fact(f):
         if f['kind'] == 'exam':
             turn = f" (진료 행동 {f['consult_action_number']}회차)" if 'consult_action_number' in f else ''
             return f"[{f['id']}]{turn} 시행한 진찰: {f['question']} / 관찰 결과: {f['text']}"
+        if f.get('intent') == 'EXPLAIN':
+            return f"[{f['id']}] 실제 설명: {f['question']} / 환자 답변: {f['text']}"
         return f"[{f['id']}] 문진 질문: {f['question']} / 환자 답변: {f['text']}"
     return f"[{f['id']}] {f['text']}"
 
@@ -51,7 +75,13 @@ def render_record(plan, facts, explanations):
             note[section][field] = "\n".join(format_fact(f) for f in chosen)
     # Retain supplied opening and vitals even if the model leaves slots empty.
     note['S']['cc'] = note['S']['cc'] or '\n'.join(format_fact(f) for f in facts if f['kind'] == 'opening')
-    note['O']['exam'] = '\n'.join(dict.fromkeys([*(format_fact(f) for f in facts if f['kind'] == 'vitals'), note['O']['exam']])).strip()
+    # Merge by observation ID, not by whole multi-line rendered strings. This
+    # fixes duplicate initial vitals and retains performed exams omitted by a plan.
+    note['O']['exam'] = '\n'.join(format_fact(f) for f in facts if f['kind'] in {'vitals', 'exam'})
+    selected_subjective = {fid for ids in mapping['S'].values() for fid in ids}
+    omitted_replies = [f for f in facts if f['kind'] == 'patient_reply' and f['id'] not in selected_subjective]
+    if omitted_replies:
+        note['S']['hpi'] += ('\n' if note['S']['hpi'] else '') + '\n'.join(format_fact(f) for f in omitted_replies)
     note['O']['tests'] = ''
     note['A']['evidence'] = '[추정 주진단] ' + diagnosis + '\n[현재 환자 근거]\n' + '\n'.join(format_fact(f) for f in basis)
     for key, field in [('assessment', 'evidence'), ('differential', 'differential')]:
@@ -65,7 +95,7 @@ def render_record(plan, facts, explanations):
             cited = refs(entry.get('fact_ids'))
             if not cited:
                 raise ValueError('ASSESSMENT_BASIS_REQUIRED')
-            lines.append('[추론/미확정] ' + clean_string(entry.get('text')) + ' (근거: ' + ', '.join(f['id'] for f in cited) + ')')
+            lines.append('[추론/미확정] ' + assessment_text(entry.get('text')) + ' (근거: ' + ', '.join(f['id'] for f in cited) + ')')
         note['A'][field] += ('\n' if note['A'][field] and lines else '') + '\n'.join(lines)
     plans = plan.get('plans')
     if not isinstance(plans, dict) or set(plans) != set(RECORD_FIELDS['P']):

@@ -1,0 +1,37 @@
+{
+  "tests": 145,
+  "passed": true,
+  "counts_by_module": {
+    "test_agent": 25,
+    "test_regressions": 18,
+    "test_sample_runner": 4,
+    "test_followup": 6,
+    "test_transport_diagnostics": 3,
+    "test_key_input": 4,
+    "test_budget_v3": 29,
+    "test_record_budget": 14,
+    "test_action_repair": 28,
+    "test_final_sample_runner": 14
+  },
+  "failures": 0,
+  "errors": 0,
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "elapsed_seconds": 46.15599999999904,
+  "synthetic_only": true,
+  "real_server_calls": 0,
+  "network_guard": "Python socket, getaddrinfo, create_connection patched; not OS network namespace",
+  "diagnosis_accuracy_evaluated": false,
+  "clinical_record_quality_evaluated": false,
+  "record_headroom_scenarios": {
+    "artifact": "record_headroom_scenarios.json",
+    "sha256": "29c5034407c4a7b4645523e62355ed278204f99e31558ab98551f1f534b29075",
+    "retained_locally": true
+  },
+  "action_repair_scenarios": {
+    "artifact": "action_repair_scenarios.json",
+    "sha256": "2c580c9c3249d1b2d857a836fbf0f25bc4033cb8727f00da62df38722eb928e1",
+    "retained_locally": true
+  },
+  "original_result_sha256": "3fa089ce85e72cbe59f46709a12dad807f73365d033397774aa54b5a516bdb42",
+  "raw_log_sha256": "6b389ed423c0718d750d0f44a9b75fd71114c8c41eac1e43edc5490618bacbc2"
+}

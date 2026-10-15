@@ -1,0 +1,42 @@
+{
+  "initial_regression": {
+    "tests": 145,
+    "passed": false,
+    "failures": 1,
+    "errors": 0
+  },
+  "initial_regression_reason": "Production prepare enabled the new protocol; old synthetic fixture lacked review metadata. Fixture updated without altering original audit assertions.",
+  "initial_new_test_reason": "Assertion searched a warning string rather than observation state. Assertion narrowed to the intended observation fields.",
+  "preserved_local_logs": [
+    {
+      "file": "v34_regression_first.log",
+      "sha256": "5c780de533d68800dcd8dceb9d851b2826fc4d7c915c4c2576e8ee6392ab06ee"
+    },
+    {
+      "file": "v34_regression_final.log",
+      "sha256": "fd16a0c6b0836c320fc3971e880f600ab0292c195b8c2f42f2c96abb1cb3ded6"
+    },
+    {
+      "file": "v34_consultation_first.log",
+      "sha256": "dc0d6badac913431cfa2e7292ed28486185b511758d1ba53769b59dc2885df58"
+    },
+    {
+      "file": "v34_offline_final.log",
+      "sha256": "a6734fc891052a72cea7f5bf95fbbce8ffc11f88990597a1f6dec20724cdae65"
+    },
+    {
+      "file": "regression_release.log",
+      "sha256": "6b389ed423c0718d750d0f44a9b75fd71114c8c41eac1e43edc5490618bacbc2"
+    },
+    {
+      "file": "offline_release.log",
+      "sha256": "9dc2db059c594c81aaff8b2292e9b69d91299f74eef3658ad7d6823441d14e67"
+    }
+  ],
+  "final_regression_passed": true,
+  "final_regression_tests": 145,
+  "final_additional_passed": true,
+  "final_additional_tests": 52,
+  "no_live_api_or_clinical_score_claim": true,
+  "release_review_fix": "Action repair schema now reminds the model of required v3.4 review/target/communication fields; 145+52 tests rerun after the fix."
+}

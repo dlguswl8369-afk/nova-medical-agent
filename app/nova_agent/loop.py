@@ -1,6 +1,7 @@
 import json
 import hashlib
 import collections
+import copy
 import os
 import re
 import time
@@ -13,7 +14,8 @@ from nova_sdk import NovaError
 from nova_retrieval import BM25Index
 from .context import fact, observation_text, query_from_facts, reference_packet, visible_facts
 from .record import render_record, fallback_record
-from .prompts import STEP, RECORD
+from .prompts import STEP, STEP_V34, RECORD
+from .consultation import DialogueState
 from .budget import Budget
 from .diagnostics import parse_object, parse_action, rejection_event
 from .action_repair import repair_request
@@ -41,6 +43,9 @@ class Config:
     time_margin: int = 300
     attempts: int = 3
     retry_delay: float = 1.0
+    # Backward-compatible low-level fixture protocol. All production prepare()
+    # paths explicitly enable the v3.4 protocol; no environment opt-out exists.
+    consultation_review: bool = False
 
     def __post_init__(self):
         if not (0 <= self.max_turns <= 50 and 1 <= self.max_doctor_requests <= 200 and 1 <= self.attempts <= 3):
@@ -71,23 +76,26 @@ def prepare():
         raise ValueError('INVALID_RAG_SOURCES')
     legacy = BM25Index.load(path) if 'legacy' in sources else None
     if sources == 'legacy':
-        return State(legacy)
+        return State(legacy, Config(consultation_review=True))
     from nova_retrieval.guidelines import CombinedIndex, GuidelinesIndex
     guidelines = None
     if 'guidelines' in sources:
         database = os.environ.get('NOVA_GUIDELINES_INDEX', str(Path(__file__).resolve().parents[1] / 'indexes/guidelines.sqlite'))
         guidelines = GuidelinesIndex(database, root)
-    return State(CombinedIndex(legacy, guidelines))
+    return State(CombinedIndex(legacy, guidelines), Config(consultation_review=True))
 
 
 class Run:
     def __init__(self, client, state, session):
         self.client, self.state, self.config, self.session = client, state, state.config, session
         self.facts, self.explanations = [], []
+        self.dialogue = DialogueState() if self.config.consultation_review else None
+        self.step_prompt = STEP_V34 if self.dialogue else STEP
+        self.reference_cache = None  # Last query only; session memory, never disk.
         self.report = {'model': MODEL, 'doctor_http_attempts': 0, 'doctor_unique_requests': 0, 'doctor_successes': 0,
             'input_budget_reserved': 0, 'output_budget_reserved': 0, 'reported_prompt_tokens': 0, 'reported_completion_tokens': 0,
             'usage_missing_responses': 0, 'action_attempts': 0, 'actions_succeeded': 0, 'invalid_model_outputs': 0,
-            'errors': [], 'retrieval_calls': 0, 'empty_retrievals': 0, 'max_reference_chars': 0, 'max_prompt_chars': 0,
+            'errors': [], 'retrieval_calls': 0, 'retrieval_cache_hits': 0, 'empty_retrievals': 0, 'max_reference_chars': 0, 'max_prompt_chars': 0,
             'reference_packets': [], 'query_selection': [], 'action_counts': {}, 'model_retries': 0, 'action_retries': 0,
             'submitted': False, 'degraded': False, 'diagnosis_accuracy_evaluated': False, 'clinical_record_quality_evaluated': False}
         state.report = self.report
@@ -140,6 +148,11 @@ class Run:
             if max(envelope.charges) > 100000:
                 raise NovaError('LOCAL_FINAL_CONTEXT_BUDGET')
             headroom = envelope.headroom()
+            if self.dialogue and self.dialogue.phase == 'COLLECT' and self.dialogue.missing_messages():
+                # Preserve one future communication selection in addition to the
+                # exact final-record reserve. CLOSE releases this conditional buffer.
+                headroom = (headroom[0] + input_charge(self.step_prompt, self.record_user or user) + 4096,
+                            headroom[1] + 2048, headroom[2] + 1)
             self.report['action_record_headrooms'].append(envelope.audit())
         elif self.record_envelope is None:
             self.record_envelope = RecordEnvelope(user, record_attempts)
@@ -214,20 +227,37 @@ class Run:
     def context(self, turns_left):
         qa, ra = {}, {}
         query = query_from_facts(self.facts, audit=qa)
-        refs = reference_packet(self.state.index, query, self.config.reference_chars, audit=ra)
+        cache_hit = bool(self.dialogue and self.reference_cache and self.reference_cache[0] == query)
+        if cache_hit:
+            refs, ra = copy.deepcopy(self.reference_cache[1:])
+            self.report['retrieval_cache_hits'] += 1
+        else:
+            refs = reference_packet(self.state.index, query, self.config.reference_chars, audit=ra)
+            if self.dialogue:
+                self.reference_cache = (query, copy.deepcopy(refs), copy.deepcopy(ra))
+            self.report['retrieval_calls'] += 1
+            self.report['empty_retrievals'] += int(not refs)
         # Trace identifiers, counts and reasons; no patient text, source body or secret in logs.
         self.report['query_selection'].append(qa)
         self.report['reference_packets'].append({k: v for k, v in ra.items() if k != 'excluded'} | {
+            'cache_hit': cache_hit,
             'exclusion_counts': dict(collections.Counter(e['reason'] for e in ra['excluded'])),
             'delivered_units': [{'unit_id': r['unit_id'], 'evidence_ids': r['evidence_ids'], 'document_id': r['document_id'], 'body_chars': len(r['text'])} for r in refs]})
         current = visible_facts(self.facts, self.config.fact_chars)
-        self.report['retrieval_calls'] += 1
-        self.report['empty_retrievals'] += int(not refs)
         self.report['max_reference_chars'] = max(self.report['max_reference_chars'], len(json.dumps(refs, ensure_ascii=False)))
         value = {'current_patient_observations': current, 'observations_omitted': len(self.facts) - len(current),
             'reference_evidence': refs, 'reference_warning': 'NOT CURRENT PATIENT DATA. No reference fact may become an observed patient fact.',
             'doctor_explanations_already_sent': self.explanations, 'turns_left': turns_left,
             'recent_action_error_codes_not_patient_facts': self.report['errors'][-3:]}
+        if self.dialogue:
+            summary = self.budget.summary()
+            packet = json.dumps(value, ensure_ascii=False)
+            reserve = RecordEnvelope(packet, min(self.config.attempts, self.config.max_doctor_requests)).headroom()
+            low = (self.config.max_doctor_requests - summary['http_attempts'] <= reserve[2] + 3
+                or self.config.max_output_budget - summary['committed_output'] < reserve[1] + 6144
+                or self.config.max_input_budget - summary['committed_input'] < reserve[0] + 2 * (input_charge(self.step_prompt, packet) + 8192))
+            value['consultation_state'] = self.dialogue.context(current, turns_left, self.left(), self.config.time_margin, low)
+            value['closing_review_not_patient_facts'] = self.dialogue.last_review if self.dialogue.last_review and self.dialogue.last_review.get('done_reason') else None
         user = json.dumps(value, ensure_ascii=False)
         self.record_user = user
         self.report['max_prompt_chars'] = max(self.report['max_prompt_chars'], len(user))
@@ -247,11 +277,16 @@ class Run:
             user, _ = self.context(remaining)
             base_user = user
             step = None
+            review = None
             for attempt in range(self.config.attempts):
                 obj = None
                 try:
-                    obj = parse_object(self.doctor(STEP, user))
-                    step = parse_action(obj, performed)
+                    obj = parse_object(self.doctor(self.step_prompt, user))
+                    candidate = parse_action(obj, performed)
+                    candidate_review = self.dialogue.validate(obj, candidate, self.facts) if self.dialogue else None
+                    step, review = candidate, candidate_review
+                    if self.dialogue:
+                        self.dialogue.accept_review(review)
                     self.report['action_sequence'].append({'event': 'MODEL_SELECTED', 'action': step[0],
                         'intent': step[2] if step[0] == 'SAY' else None, 'content_chars': len(step[1]),
                         'doctor_http_attempt': self.report['doctor_http_attempts']})
@@ -259,7 +294,8 @@ class Run:
                 except ValueError as exc:
                     self.reject(exc, 'ACTION')
                     if attempt + 1 < self.config.attempts:
-                        suffix, audit = repair_request(exc, obj)
+                        suffix, audit = repair_request(exc, obj, attempt=attempt + 1 if self.dialogue else 1,
+                                                       consultation_review=bool(self.dialogue))
                         self.report['action_repairs'].append(audit | {
                             'after_doctor_http_attempt': self.report['doctor_http_attempts']})
                         # Replace the previous repair. Keep observations and final-record base immutable.
@@ -285,6 +321,8 @@ class Run:
                 key = 'content' if action == 'SAY' else 'result'
                 if not isinstance(reply, dict) or not isinstance(reply.get(key), str):
                     raise NovaError('MALFORMED_ACTION_REPLY')
+                if reply.get('error') or reply.get('refused') or reply.get('status') in ('ERROR', 'REFUSED'):
+                    raise NovaError('ACTION_NOT_ACKNOWLEDGED')
                 turns = reply.get('turns_remaining', remaining - 1)
                 if not isinstance(turns, int) or isinstance(turns, bool) or len(reply[key]) > 16000:
                     raise NovaError('MALFORMED_ACTION_REPLY')
@@ -296,10 +334,15 @@ class Run:
                     'observation_id': 'F' + str(len(self.facts)), 'action_number': len(performed)})
                 if action == 'SAY' and intent == 'EXPLAIN':
                     self.explanations.append(content)
+                    if self.dialogue:
+                        self.dialogue.acknowledge(content, review['communication'], 'F' + str(len(self.facts)),
+                                                  reply[key], review['target'])
                 observation = fact('F' + str(len(self.facts)), 'patient_reply' if action == 'SAY' else 'exam', reply[key], content)
                 observation['consult_action_number'] = len(performed)
                 observation['intent'] = intent if action == 'SAY' else 'EXAM'
                 self.facts.append(observation)
+                if self.dialogue and action == 'SAY' and intent == 'ASK':
+                    self.dialogue.questions.observe(observation, review['target'], review['gaps'])
                 rejected = 0
             except NovaError as exc:
                 self.error(exc.code)
@@ -358,6 +401,19 @@ class Run:
         self.report.update(submitted=True, successful_execution=not self.report['degraded'] and self.report['doctor_successes'] > 0,
             observed_fact_count=len(self.facts), record_fields_valid=True, tests_action_count=0,
             diagnosis_unresolved=diagnosis == '진단 미정', duration_seconds=time.monotonic() - self.started)
+        if self.dialogue:
+            self.report['consultation_review'] = {
+                'enabled': True, 'remaining_model_gap_count': len(self.dialogue.gaps),
+                'reviewed_observation_count': len(self.dialogue.reviewed),
+                'acknowledged_explanations': len(self.dialogue.delivered),
+                'acknowledged_categories': dict(collections.Counter(k for row in self.dialogue.delivered for k in row['kinds'])),
+                'undelivered_categories': self.dialogue.missing_messages(),
+                'done_exemption_count': len((self.dialogue.last_review or {}).get('not_applicable', {})),
+                'answer_status_counts': dict(collections.Counter(r['status'] for r in self.dialogue.questions.latest().values())),
+                'important_unresolved_count': len(self.dialogue.questions.unresolved_important()),
+                'explanation_reaction_counts': dict(collections.Counter(r['reaction'] for r in self.dialogue.delivered)),
+                'communication_followups_remaining': len(self.dialogue.pending_feedback()),
+                'clinical_semantics_verified': False}
         return result
 
 

@@ -1,0 +1,28 @@
+{
+  "runs": [
+    {
+      "run": "targeted_01",
+      "tests": 77,
+      "passed": true,
+      "elapsed_seconds": 0.5930000000007567,
+      "raw_log_sha256": "83e4127721089ea81faf2f5657308c19fedb2db41da09f53812fe69fff3d3339"
+    },
+    {
+      "run": "targeted_02",
+      "tests": 79,
+      "passed": true,
+      "elapsed_seconds": 0.6570000000028813,
+      "raw_log_sha256": "8d8152e442e5a89077ccc17998e0f51dc50e2a0f64be4e100344f070ed54e029"
+    },
+    {
+      "run": "full_offline",
+      "tests": 224,
+      "passed": true,
+      "elapsed_seconds": 43.45300000000134,
+      "raw_log_sha256": "ec8278b7e7faec2fbee6851ac71e026da912115870cb9b941281cfe0f12cb349"
+    }
+  ],
+  "final_full_suite_runs": 1,
+  "all_synthetic_no_live_calls": true,
+  "notes": "Targeted 77 then 79 after two feedback-topic regressions; final full 224 once. No test failures."
+}
