@@ -1,0 +1,16 @@
+{
+  "staged_files": 10,
+  "credential_pattern_findings": [],
+  "sqlite_document_count": 15904,
+  "sqlite_body_columns": false,
+  "candidate_zip_working_tree_and_git_index_match": true,
+  "excluded": [
+    "full guideline originals",
+    "benchmark datasets",
+    "sample scripts and reference records",
+    "API keys and authentication files",
+    "real session ledgers and raw patient logs",
+    "duplicate ZIPs"
+  ],
+  "notes": "Pattern scan plus file-list/schema review; not a guarantee against every possible secret format."
+}

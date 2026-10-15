@@ -49,3 +49,15 @@ node_modules/
 *.qcow2
 .DS_Store
 Thumbs.db
+
+# Private evaluation data and credentials (never commit)
+/private_runs/
+/data/
+/guidelines/
+/benchmarks/
+/samples/
+/results/
+comparison_ledger.json
+self_review_ledger.json
+*_private.json
+*.lock

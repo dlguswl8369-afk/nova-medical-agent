@@ -1,0 +1,143 @@
+{
+  "official_score": false,
+  "independent_clinical_validation": false,
+  "scope": "Up to three single-model self-reference comparisons after consultation; last reference packet only",
+  "requests_recorded": 3,
+  "cases": [
+    {
+      "case": "C01",
+      "status": "COMPLETED",
+      "model": "openai/gpt-6.1-sol",
+      "usage": {
+        "prompt_tokens": 30841,
+        "completion_tokens": 3768,
+        "total_tokens": 34609
+      },
+      "domains": {
+        "정보수집": {
+          "maximum": 25,
+          "baseline_score": null,
+          "extended_score": null
+        },
+        "진단추론": {
+          "maximum": 15,
+          "baseline_score": null,
+          "extended_score": null
+        },
+        "검사·추적": {
+          "maximum": 10,
+          "baseline_score": null,
+          "extended_score": null
+        },
+        "안전": {
+          "maximum": 15,
+          "baseline_score": null,
+          "extended_score": null
+        },
+        "의사소통": {
+          "maximum": 15,
+          "baseline_score": null,
+          "extended_score": null
+        },
+        "효율": {
+          "maximum": 20,
+          "baseline_score": null,
+          "extended_score": null
+        }
+      },
+      "baseline_total": null,
+      "extended_total": null,
+      "valid_score_schema": true
+    },
+    {
+      "case": "C10",
+      "status": "COMPLETED",
+      "model": "openai/gpt-6.1-sol",
+      "usage": {
+        "prompt_tokens": 34580,
+        "completion_tokens": 3327,
+        "total_tokens": 37907
+      },
+      "domains": {
+        "정보수집": {
+          "maximum": 25,
+          "baseline_score": null,
+          "extended_score": null
+        },
+        "진단추론": {
+          "maximum": 15,
+          "baseline_score": null,
+          "extended_score": null
+        },
+        "검사·추적": {
+          "maximum": 10,
+          "baseline_score": null,
+          "extended_score": null
+        },
+        "안전": {
+          "maximum": 15,
+          "baseline_score": null,
+          "extended_score": null
+        },
+        "의사소통": {
+          "maximum": 15,
+          "baseline_score": null,
+          "extended_score": null
+        },
+        "효율": {
+          "maximum": 20,
+          "baseline_score": null,
+          "extended_score": null
+        }
+      },
+      "baseline_total": null,
+      "extended_total": null,
+      "valid_score_schema": true
+    },
+    {
+      "case": "C03",
+      "status": "COMPLETED",
+      "model": "openai/gpt-6.1-sol",
+      "usage": {
+        "prompt_tokens": 33220,
+        "completion_tokens": 3604,
+        "total_tokens": 36824
+      },
+      "domains": {
+        "정보수집": {
+          "maximum": 25,
+          "baseline_score": null,
+          "extended_score": null
+        },
+        "진단추론": {
+          "maximum": 15,
+          "baseline_score": null,
+          "extended_score": null
+        },
+        "검사·추적": {
+          "maximum": 10,
+          "baseline_score": null,
+          "extended_score": null
+        },
+        "안전": {
+          "maximum": 15,
+          "baseline_score": null,
+          "extended_score": null
+        },
+        "의사소통": {
+          "maximum": 15,
+          "baseline_score": null,
+          "extended_score": null
+        },
+        "효율": {
+          "maximum": 20,
+          "baseline_score": null,
+          "extended_score": null
+        }
+      },
+      "baseline_total": null,
+      "extended_total": null,
+      "valid_score_schema": true
+    }
+  ]
+}

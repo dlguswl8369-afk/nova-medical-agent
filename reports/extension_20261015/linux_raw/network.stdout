@@ -1,0 +1,1 @@
+{"interfaces": ["lo"], "default_route": false, "probe_is_separate_from_app": true, "external_connect": {"blocked": true, "errno": 101}, "dns": {"blocked": true, "errno": -3}}

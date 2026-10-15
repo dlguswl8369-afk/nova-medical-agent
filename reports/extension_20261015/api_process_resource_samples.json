@@ -1,0 +1,42 @@
+[
+  {
+    "time": "2026-10-15T22:41:50.6855336+09:00",
+    "case": "C10",
+    "version": "v3.2",
+    "working_set_bytes": 95813632,
+    "peak_working_set_bytes": 150085632,
+    "cpu_seconds": 1.9375,
+    "elapsed_seconds": 34.2342486,
+    "scope": "Windows process sample, not cgroup-constrained API execution"
+  },
+  {
+    "time": "2026-10-15T22:51:12.4048621+09:00",
+    "case": "C10",
+    "version": "v3.3",
+    "working_set_bytes": 113815552,
+    "peak_working_set_bytes": 158511104,
+    "cpu_seconds": 10.734375,
+    "elapsed_seconds": 196.7421891,
+    "scope": "Windows process sample, not cgroup-constrained API execution"
+  },
+  {
+    "time": "2026-10-15T23:00:54.6989371+09:00",
+    "case": "C10",
+    "version": "v3.3",
+    "working_set_bytes": 113008640,
+    "peak_working_set_bytes": 162066432,
+    "cpu_seconds": 97.625,
+    "elapsed_seconds": 779.0376847,
+    "scope": "Windows process sample, not cgroup-constrained API execution"
+  },
+  {
+    "time": "2026-10-15T23:19:45.4097034+09:00",
+    "case": "C03",
+    "version": "v3.3",
+    "working_set_bytes": 111071232,
+    "peak_working_set_bytes": 161017856,
+    "cpu_seconds": 97.75,
+    "elapsed_seconds": 265.1949856,
+    "scope": "Windows process sample, not cgroup-constrained API execution"
+  }
+]

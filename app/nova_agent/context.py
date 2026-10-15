@@ -107,6 +107,8 @@ def evidence_candidates(index, hit, query):
 def reference_packet(index, query, max_chars=12000, top_k=5, audit=None):
     if max_chars < 2 or top_k < 1:
         raise ValueError('INVALID_PACKET_BUDGET')
+    if hasattr(index, 'packet'):
+        return index.packet(query, max_chars, top_k, audit)
     # Dedup AFTER a nonempty unit fits, so blank/oversized hits never fill a slot.
     hits = index.search(query, top_k=len(getattr(index, 'records', [])) or 100, deduplicate=False)
     rows, seen, excluded = [], set(), []
