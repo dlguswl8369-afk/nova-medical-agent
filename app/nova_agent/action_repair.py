@@ -30,6 +30,12 @@ GUIDANCE = {
     'CLOSING_COMMUNICATION_REQUIRED': '마무리 여유가 줄었습니다. 아직 전달하지 않은 핵심 설명을 짧게 실제 SAY하세요. 새 위험이면 high 공백 근거를 명시하세요.',
     'PREMATURE_DONE': '정보 공백과 실제 설명 상태를 검토하세요. 필요한 질문/진찰/설명 또는 근거 있는 종료 판단을 다시 선택하세요.',
     'DONE_WITHOUT_COMMUNICATION': '불확실성·다음 계획·필요한 주의사항 중 미전달 설명을 실제 SAY하세요. 특별히 불필요하다면 환자별 이유를 명시하되 전달 완료로 표시하지 마세요.',
+    'INVALID_ANSWER_REVIEW': 'answer_reviews에는 실제 성공한 질문의 observation_id, 답변 범위 status와 정확한 quote를 씁니다. partial에는 remaining을 명시하세요.',
+    'ANSWER_REVIEW_OVERCLAIM': '모름·미답변을 confirmed/explicit_negative로 바꾸지 마세요. 실제 답변 범위만 검토하세요.',
+    'QUESTION_ALREADY_CONFIRMED': '같은 목표는 이미 답변 범위가 확인됐습니다. 다른 필요한 질문·진찰·설명 또는 종료를 판단하세요.',
+    'QUESTION_REASK_LIMIT': '동일 목표를 이미 두 번 물었습니다. 미확인을 보존하고 다른 정보원·진찰·후속 계획을 검토하세요.',
+    'REASK_IMPORTANCE_REQUIRED': '재질문은 진단·안전·처치에 중요한 공백에만 사용하세요. gaps의 동일 topic에 high와 구체적 이유를 쓰거나 다른 행동을 선택하세요.',
+    'EXPLANATION_REPEAT_LIMIT': '동일 목표·종류의 설명을 이미 두 번 전달했습니다. 반응과 남은 불확실성을 보존하고 다른 도움·후속 계획·종료를 판단하세요.',
 }
 
 

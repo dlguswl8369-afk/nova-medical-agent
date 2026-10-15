@@ -64,7 +64,7 @@ class ProtocolTests(unittest.TestCase):
         self.assertEqual(state['observations'][1]['answer_scope'], 'POSSIBLY_PARTIAL_REPLY')
         self.assertNotIn('negative', json.dumps(state['observations']))
         with self.assertRaisesRegex(Rejection, 'COMPOUND_QUESTION'):
-            self.validate(say('기침이나 오한이 있나요?'))
+            self.validate(say('기침 있나요? 오한도 있나요?'))
 
     def test_unknown_reply_stays_unknown(self):
         self.facts.append(fact('F1', 'patient_reply', '정확히 기억이 안 나요', '복용량은 얼마인가요?'))
@@ -100,7 +100,7 @@ class ProtocolTests(unittest.TestCase):
     def test_one_target_and_one_exam(self):
         obj = say(); obj['targets'] = ['증상', '시작']
         with self.assertRaisesRegex(Rejection, 'SINGLE_TARGET_REQUIRED'): self.validate(obj)
-        obj = exam(); obj['content'] = '발목을 만지고 그리고 무릎을 봅니다'
+        obj = exam(); obj['content'] = '발목을 촉진하고 무릎을 관찰합니다'
         with self.assertRaisesRegex(Rejection, 'COMPOUND_EXAM'): self.validate(obj)
         self.validate(exam())
 

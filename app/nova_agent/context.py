@@ -20,8 +20,14 @@ def fact(fid, kind, text, question=None):
 
 def observation_unit(f):
     if f['kind'] == 'patient_reply':
-        if not f.get('question') or f.get('intent') == 'EXPLAIN':
+        if not f.get('question'):
             return None
+        if f.get('intent') == 'EXPLAIN':
+            # Never search the Doctor's own explanation as a patient finding.
+            # A substantive reply can nevertheless contain new patient facts.
+            if re.fullmatch(r'\s*(?:네|예|알겠습니다|그렇군요|감사합니다)[.!。\s]*', f['text']) or not f['text'].strip():
+                return None
+            return f"[{f['id']}] 설명 후 환자 답변(의사 설명은 검색 근거 아님): {f['text']}"
         return f"[{f['id']}] 문진 질문(확인된 사실 아님): {f['question']} / 환자 답변: {f['text']}"
     if f['kind'] == 'exam':
         if not f.get('question'):

@@ -1,0 +1,78 @@
+{
+  "all_unchanged": true,
+  "method": "Read-only hashes, no ledger or private-run copies",
+  "artifacts": [
+    {
+      "artifact": "nova_doctor_bm25_candidate_v3_2.zip",
+      "expected_sha256": "831560900bd759a0af4260ec9af0b25dede46f98f2a3d293315e061464aceaf8",
+      "actual_sha256": "831560900bd759a0af4260ec9af0b25dede46f98f2a3d293315e061464aceaf8",
+      "unchanged": true
+    },
+    {
+      "artifact": "public_session_budget.json",
+      "expected_sha256": "492d1d125f66443800936bc5e2aeca093a3b40becf372f616504a9ade106b3c8",
+      "actual_sha256": "492d1d125f66443800936bc5e2aeca093a3b40becf372f616504a9ade106b3c8",
+      "unchanged": true
+    },
+    {
+      "artifact": "final_sample_authorization.json",
+      "expected_sha256": "6efc7c14d0cdc933f9706f3d06f2a72cb66467c837f69ee540e33642ef4a005f",
+      "actual_sha256": "6efc7c14d0cdc933f9706f3d06f2a72cb66467c837f69ee540e33642ef4a005f",
+      "unchanged": true
+    },
+    {
+      "artifact": "nova_doctor_bm25_candidate_v3_3.zip",
+      "expected_sha256": "52ce53b0810e765ed2bb0c84338fe36fe7b4268ca7063dfc93f8cfc544dffe95",
+      "actual_sha256": "52ce53b0810e765ed2bb0c84338fe36fe7b4268ca7063dfc93f8cfc544dffe95",
+      "unchanged": true
+    },
+    {
+      "artifact": "nova_doctor_bm25_candidate_v3_4.zip",
+      "expected_sha256": "6f48d565ca1365f33dc7bd233cc2d535967d13bdfefcdc3fa7a027bb258bba5d",
+      "actual_sha256": "6f48d565ca1365f33dc7bd233cc2d535967d13bdfefcdc3fa7a027bb258bba5d",
+      "unchanged": true
+    },
+    {
+      "artifact": "guidelines.sqlite",
+      "expected_sha256": "c3c641950547d2500d25d68122db95a686262232bb6d4c0cacc403ea6c697955",
+      "actual_sha256": "c3c641950547d2500d25d68122db95a686262232bb6d4c0cacc403ea6c697955",
+      "unchanged": true
+    },
+    {
+      "artifact": "C01_v3.2_private.json",
+      "expected_sha256": "14319a5c174e618defa79dd207656f762efb6f67cfa3cd74ba7e6d8510c8fc72",
+      "actual_sha256": "14319a5c174e618defa79dd207656f762efb6f67cfa3cd74ba7e6d8510c8fc72",
+      "unchanged": true
+    },
+    {
+      "artifact": "C01_v3.3_private.json",
+      "expected_sha256": "80a6f610c051e0e590e715965ae7b4898cd0dbd0126c08089dc8be5ae50c5a32",
+      "actual_sha256": "80a6f610c051e0e590e715965ae7b4898cd0dbd0126c08089dc8be5ae50c5a32",
+      "unchanged": true
+    },
+    {
+      "artifact": "C10_v3.2_private.json",
+      "expected_sha256": "96707c4b9026cebe1c5049b26be7f7bdd013db5dd15c4afff5963d2ec22bfaf5",
+      "actual_sha256": "96707c4b9026cebe1c5049b26be7f7bdd013db5dd15c4afff5963d2ec22bfaf5",
+      "unchanged": true
+    },
+    {
+      "artifact": "C10_v3.3_private.json",
+      "expected_sha256": "f79879351daf84d4a62b89df9a2388ba23371cbc1bf27e21670250740e3d0630",
+      "actual_sha256": "f79879351daf84d4a62b89df9a2388ba23371cbc1bf27e21670250740e3d0630",
+      "unchanged": true
+    },
+    {
+      "artifact": "C03_v3.2_private.json",
+      "expected_sha256": "362464b976200c0321d8fed0f34cb31eac7fb86b8749938922d7152c6653e94f",
+      "actual_sha256": "362464b976200c0321d8fed0f34cb31eac7fb86b8749938922d7152c6653e94f",
+      "unchanged": true
+    },
+    {
+      "artifact": "C03_v3.3_private.json",
+      "expected_sha256": "2ab47134b41ee80ffb35494f282b39196c96a216374c2be73b245248d65c5213",
+      "actual_sha256": "2ab47134b41ee80ffb35494f282b39196c96a216374c2be73b245248d65c5213",
+      "unchanged": true
+    }
+  ]
+}

@@ -17,14 +17,19 @@ sys.path[:0] = [str(ROOT / 'app'), str(ROOT / 'tests'), str(ROOT / 'scripts')]
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('--report', required=True)
+    p.add_argument('--full', action='store_true', help='Run all 145 common regressions with the v3.4 suites once')
     a = p.parse_args()
     if sys.version_info[:2] != (3, 12):
         raise RuntimeError('PYTHON_312_REQUIRED')
     target = Path(a.report)
     if target.exists():
         raise FileExistsError('KEEP_EXISTING_OFFLINE_REPORT')
-    names = ('test_consultation_v34', 'test_extension', 'test_comparison_workflow')
-    with patch.dict(os.environ, {'NOVA_RAG_SOURCES': 'legacy'}), \
+    names = ('test_consultation_v34', 'test_progress_v34', 'test_extension', 'test_comparison_workflow')
+    if a.full:
+        names = ('test_agent', 'test_regressions', 'test_sample_runner', 'test_followup',
+                 'test_transport_diagnostics', 'test_key_input', 'test_budget_v3', 'test_record_budget',
+                 'test_action_repair', 'test_final_sample_runner') + names
+    with patch.dict(os.environ, {'NOVA_RAG_SOURCES': 'legacy', 'NOVA_TEST_OUTPUT_DIR': str(target.parent / 'synthetic')}), \
          patch.object(socket, 'socket', side_effect=AssertionError('NETWORK_DISABLED')), \
          patch.object(socket, 'getaddrinfo', side_effect=AssertionError('NETWORK_DISABLED')), \
          patch.object(socket, 'create_connection', side_effect=AssertionError('NETWORK_DISABLED')):
@@ -35,6 +40,7 @@ def main():
     report = {'tests': result.testsRun, 'passed': result.wasSuccessful(), 'counts_by_module': counts,
         'failures': len(result.failures), 'errors': len(result.errors), 'elapsed_seconds': time.monotonic() - started,
         'python': sys.version, 'real_api_calls': 0, 'synthetic_only': True,
+        'full_regression': a.full,
         'new_protocol_enabled_in_consultation_and_production_entry_tests': True,
         'network_guard': 'Python socket/getaddrinfo/create_connection blocked; not OS container isolation',
         'clinical_quality_or_score_improvement_verified': False}

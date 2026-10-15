@@ -5,12 +5,21 @@ from nova_sdk import empty_record, RECORD_FIELDS
 
 # Conservative output boundary, not a semantic clinical verifier. Verified
 # negative/normal findings remain verbatim in the cited observation text.
-NEGATIVE_ASSERTION = re.compile(r'없|부인|음성|정상|않(?:다|고|음|으며)|아니|\(\s*-\s*\)|\b(?:no|not|denies?|negative|normal|without|absent)\b', re.I)
+NEGATIVE_ASSERTION = re.compile(
+    r'없(?:음|다|다고|고|으며|는(?!지)|어요|습니다|어)|않(?:다|고|음|으며)|'
+    r'(?<![가-힣])(?:정상|음성)(?:이다|임|이며|으로|이라|이었다|이므로| 소견)|'
+    r'(?<![가-힣])(?:정상|음성|부인)(?=\s*(?:$|[.,;]))|'
+    r'(?<![가-힣])부인(?:함|한다|하고|하며|했다)|\(\s*-\s*\)|'
+    r'\b(?:no|without|denies?)\s+\w|\b(?:is|are|was|were)\s+(?:normal|negative|absent)\b', re.I)
 
 
 def assessment_text(value):
     value = clean_string(value)
-    checked = re.sub(r'(?:배제|확정|단정)할 수 없', '판단유보', value)
+    # Mask only local epistemic predicates, never a whole sentence merely
+    # because it also contains uncertainty. Disease names are not findings.
+    checked = re.sub(r'(?:없다고|정상이라고|음성이라고)\s*(?:확정|단정|판단)할 수 없\w*', '판단유보', value)
+    checked = re.sub(r'(?:배제|확정|단정|확인|판단|예측)할 수 없\w*|알 수 없\w*', '판단유보', checked)
+    checked = re.sub(r'(?:단정|확정|판단|배제|확인)(?:하|되)지\s*않\w*', '판단유보', checked)
     if NEGATIVE_ASSERTION.search(checked):
         raise ValueError('FREE_TEXT_FINDING_FORBIDDEN')
     return value
