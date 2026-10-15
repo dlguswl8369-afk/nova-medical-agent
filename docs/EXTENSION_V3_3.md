@@ -27,6 +27,26 @@ python -B -I scripts/build_guidelines_index.py --root /path/to/guidelines --outp
 
 기존 인덱스는 덮어쓰지 않는다. 생성 후 환경변수로 지정하거나 별도 배포 준비 과정에서 기본 위치에 둔다. 지침 원문 전체는 코드 ZIP/Git에 포함하지 않는다. 인덱스라는 이유로 이용 조건이 해결되는 것은 아니다.
 
+## 공식 자료를 별도로 준비하기
+
+이 절차는 팀원이 개발 환경을 구성할 때의 안내다. 2026-10-16 문서 정리 중에는 자료 다운로드·테스트·API 실행을 하지 않았다.
+
+1. [NOVA 공식 개발 가이드](https://nova.snubhai.org/docs/)의 제공 자료에서 지침 ZIP, 공개 샘플 ZIP, 벤치마크 ZIP, 공식 개발 키트를 각각 받는다. 저장소와 제출 ZIP 밖의 데이터 폴더에 보관한다. 자료별 README·라이선스도 함께 보존한다.
+2. 이 브랜치의 지침 인덱스는 SHA-256 `ef58c2f4369750af382f2706dcc1c9c7a85e3a93c261d880f7470d695eaf30d5`인 지침 ZIP으로 만들었다. 벤치마크 점검 입력은 `a2b4dbc6a2bc177a54cf7c7f1a4e15f94625bfd335738737b575c6832a1060a7`이다. 받은 파일을 해시로 대조하며, 다르면 동일 입력으로 간주하지 않는다. 다른 자료의 기록된 해시는 [OFFICIAL_CONTRACT.md](OFFICIAL_CONTRACT.md#입력-해시)에 있다.
+3. 지침 ZIP을 저장소 밖에 풀고 `catalog.csv`와 문서 하위 폴더의 상대 구조를 유지한다. `NOVA_GUIDELINES_DIR`은 바깥 포장 폴더가 아니라 **catalog.csv가 직접 있는 폴더**로 지정한다. 기존 추적 인덱스 `app/indexes/guidelines.sqlite`를 사용할 수 있으므로 같은 입력을 매 실행마다 재색인할 필요는 없다. 앱은 선택한 원문의 해시를 확인한다.
+4. 공식 개발 키트와 공개 샘플도 저장소 밖에 준비한다. 아래 `develop.py --case`에는 실제 `case.json`을 담은 C01/C10/C03 폴더를 지정한다. 대본·전체 진찰표·모범 기록을 지침 폴더나 Doctor 입력에 복사하지 않는다.
+5. 벤치마크 도구에는 원본 벤치마크 ZIP 경로를 넘긴다. 전체 데이터셋을 저장소에 풀거나 올리지 않는다. 실제 실행 결과·원장은 저장소 밖의 별도 출력 폴더에 둔다.
+
+PowerShell 설정 예시(경로는 본인의 저장소 밖 데이터 위치로 바꾼다):
+
+```powershell
+Get-FileHash -Algorithm SHA256 'D:\nova-data\nova-guidelines-2026.zip'
+$env:NOVA_GUIDELINES_DIR = 'D:\nova-data\guidelines'
+$env:NOVA_RAG_SOURCES = 'auto'
+```
+
+대회에서는 제공된 `NOVA_GUIDELINES_DIR`을 그대로 사용하며 코드에 개발 PC 경로를 넣지 않는다. 기본 `auto`는 폴더 존재 여부만으로 두 자료군 사용을 선택한다. 폴더가 있으나 자료가 불완전한 경우 자동으로 기존 검색으로 전환하지 않고 오류를 확인해야 한다. 자료별 이용 조건 미확정 사항은 [기존 권리 보고서](../rights/SOURCE_RIGHTS_REVIEW.md)와 [운영진 자료 권리 기록](OFFICIAL_CONTRACT.md)을 함께 확인한다.
+
 ## 공식 develop.py
 
 키트 폴더에서 실행한다. C01·C10·C03을 각각 선택할 수 있다.
