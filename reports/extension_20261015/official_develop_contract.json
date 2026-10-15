@@ -1,0 +1,32 @@
+{
+  "official_develop_sha256": "5b662b75d157a57ce86a22c27c283186c0bfd45a2953ce75066ac323260bb576",
+  "actual_load_agent_and_prepare": "PASS",
+  "guidelines_documents": 15904,
+  "cases": [
+    {
+      "case": "C01",
+      "case_id": "C01",
+      "start_information_present": true,
+      "full_simulator_data_sent_to_doctor": false,
+      "model_execution": "NOT_EXECUTED"
+    },
+    {
+      "case": "C10",
+      "case_id": "C10",
+      "start_information_present": true,
+      "full_simulator_data_sent_to_doctor": false,
+      "model_execution": "NOT_EXECUTED"
+    },
+    {
+      "case": "C03",
+      "case_id": "C03",
+      "start_information_present": true,
+      "full_simulator_data_sent_to_doctor": false,
+      "model_execution": "NOT_EXECUTED"
+    }
+  ],
+  "model_execution": "NOT_EXECUTED",
+  "reason": "Local RAM insufficient for model run; no model installation or paid substitute",
+  "real_api_calls": 0,
+  "sdk_submission_model_unchanged": true
+}

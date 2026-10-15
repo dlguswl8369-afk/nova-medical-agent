@@ -1,0 +1,190 @@
+{
+  "seed": 20261015,
+  "counts": {
+    "AgentClinic-MedQA": 215,
+    "DDXPlus:train": 1025602,
+    "DDXPlus:validate": 132448,
+    "DDXPlus:test": 134529,
+    "ACI-Bench:train": 67,
+    "ACI-Bench:valid": 20,
+    "ACI-Bench:test1": 40,
+    "ACI-Bench:test2": 40,
+    "ACI-Bench:test3": 40
+  },
+  "sampled": [
+    {
+      "case_id": "agentclinic:extended:2",
+      "dataset": "AgentClinic-MedQA",
+      "split": "extended",
+      "parse": "PASS",
+      "doctor_allowlist": "PASS",
+      "evaluator_target_present": true,
+      "translated": false,
+      "model_run": false,
+      "clinical_score": null
+    },
+    {
+      "case_id": "agentclinic:extended:50",
+      "dataset": "AgentClinic-MedQA",
+      "split": "extended",
+      "parse": "PASS",
+      "doctor_allowlist": "PASS",
+      "evaluator_target_present": true,
+      "translated": false,
+      "model_run": false,
+      "clinical_score": null
+    },
+    {
+      "case_id": "agentclinic:extended:54",
+      "dataset": "AgentClinic-MedQA",
+      "split": "extended",
+      "parse": "PASS",
+      "doctor_allowlist": "PASS",
+      "evaluator_target_present": true,
+      "translated": false,
+      "model_run": false,
+      "clinical_score": null
+    },
+    {
+      "case_id": "agentclinic:extended:112",
+      "dataset": "AgentClinic-MedQA",
+      "split": "extended",
+      "parse": "PASS",
+      "doctor_allowlist": "PASS",
+      "evaluator_target_present": true,
+      "translated": false,
+      "model_run": false,
+      "clinical_score": null
+    },
+    {
+      "case_id": "agentclinic:extended:123",
+      "dataset": "AgentClinic-MedQA",
+      "split": "extended",
+      "parse": "PASS",
+      "doctor_allowlist": "PASS",
+      "evaluator_target_present": true,
+      "translated": false,
+      "model_run": false,
+      "clinical_score": null
+    },
+    {
+      "case_id": "ddxplus:train:859790",
+      "dataset": "DDXPlus",
+      "split": "train",
+      "parse": "PASS",
+      "doctor_allowlist": "PASS",
+      "evaluator_target_present": true,
+      "translated": false,
+      "model_run": false,
+      "clinical_score": null,
+      "question_mapping": "PASS"
+    },
+    {
+      "case_id": "ddxplus:train:863673",
+      "dataset": "DDXPlus",
+      "split": "train",
+      "parse": "PASS",
+      "doctor_allowlist": "PASS",
+      "evaluator_target_present": true,
+      "translated": false,
+      "model_run": false,
+      "clinical_score": null,
+      "question_mapping": "PASS"
+    },
+    {
+      "case_id": "ddxplus:validate:10565",
+      "dataset": "DDXPlus",
+      "split": "validate",
+      "parse": "PASS",
+      "doctor_allowlist": "PASS",
+      "evaluator_target_present": true,
+      "translated": false,
+      "model_run": false,
+      "clinical_score": null,
+      "question_mapping": "PASS"
+    },
+    {
+      "case_id": "ddxplus:test:7832",
+      "dataset": "DDXPlus",
+      "split": "test",
+      "parse": "PASS",
+      "doctor_allowlist": "PASS",
+      "evaluator_target_present": true,
+      "translated": false,
+      "model_run": false,
+      "clinical_score": null,
+      "question_mapping": "PASS"
+    },
+    {
+      "case_id": "ddxplus:test:50881",
+      "dataset": "DDXPlus",
+      "split": "test",
+      "parse": "PASS",
+      "doctor_allowlist": "PASS",
+      "evaluator_target_present": true,
+      "translated": false,
+      "model_run": false,
+      "clinical_score": null,
+      "question_mapping": "PASS"
+    },
+    {
+      "case_id": "aci:train:D2N055",
+      "dataset": "ACI-Bench",
+      "split": "train",
+      "parse": "PASS",
+      "doctor_allowlist": "PASS",
+      "evaluator_target_present": true,
+      "translated": false,
+      "model_run": false,
+      "clinical_score": null
+    },
+    {
+      "case_id": "aci:valid:D2N080",
+      "dataset": "ACI-Bench",
+      "split": "valid",
+      "parse": "PASS",
+      "doctor_allowlist": "PASS",
+      "evaluator_target_present": true,
+      "translated": false,
+      "model_run": false,
+      "clinical_score": null
+    },
+    {
+      "case_id": "aci:test1:D2N124",
+      "dataset": "ACI-Bench",
+      "split": "test1",
+      "parse": "PASS",
+      "doctor_allowlist": "PASS",
+      "evaluator_target_present": true,
+      "translated": false,
+      "model_run": false,
+      "clinical_score": null
+    },
+    {
+      "case_id": "aci:test2:D2N153",
+      "dataset": "ACI-Bench",
+      "split": "test2",
+      "parse": "PASS",
+      "doctor_allowlist": "PASS",
+      "evaluator_target_present": true,
+      "translated": false,
+      "model_run": false,
+      "clinical_score": null
+    },
+    {
+      "case_id": "aci:test3:D2N182",
+      "dataset": "ACI-Bench",
+      "split": "test3",
+      "parse": "PASS",
+      "doctor_allowlist": "PASS",
+      "evaluator_target_present": true,
+      "translated": false,
+      "model_run": false,
+      "clinical_score": null
+    }
+  ],
+  "total": 15,
+  "seconds": 11.359000000000378,
+  "real_api_calls": 0,
+  "scope": "Parsing, projection and mapping only; no clinical performance evaluation"
+}

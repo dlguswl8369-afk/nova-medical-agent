@@ -63,7 +63,21 @@ class State:
 def prepare():
     path = os.environ.get('NOVA_RAG_INDEX', str(Path(__file__).resolve().parents[1] / 'indexes/bm25_ko.json.gz'))
     # No patient access, SDK call, network, or writable cache during prepare.
-    return State(BM25Index.load(path))
+    root = Path(os.environ.get('NOVA_GUIDELINES_DIR', '/opt/nova/guidelines'))
+    sources = os.environ.get('NOVA_RAG_SOURCES', 'auto')
+    if sources == 'auto':
+        sources = 'legacy,guidelines' if root.is_dir() else 'legacy'
+    if sources not in ('legacy', 'guidelines', 'legacy,guidelines', 'none'):
+        raise ValueError('INVALID_RAG_SOURCES')
+    legacy = BM25Index.load(path) if 'legacy' in sources else None
+    if sources == 'legacy':
+        return State(legacy)
+    from nova_retrieval.guidelines import CombinedIndex, GuidelinesIndex
+    guidelines = None
+    if 'guidelines' in sources:
+        database = os.environ.get('NOVA_GUIDELINES_INDEX', str(Path(__file__).resolve().parents[1] / 'indexes/guidelines.sqlite'))
+        guidelines = GuidelinesIndex(database, root)
+    return State(CombinedIndex(legacy, guidelines))
 
 
 class Run:

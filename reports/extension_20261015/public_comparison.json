@@ -1,0 +1,424 @@
+{
+  "purpose": "v3.2 legacy 774 vs v3.3 legacy+organizer; same Config/model/effort, 3 paired public cases",
+  "maximum_new_sessions": 6,
+  "sessions_with_ids": 0,
+  "completed": 0,
+  "official_score": false,
+  "clinical_quality_evaluated": false,
+  "actual_api_cost_usd": null,
+  "cost_note": "No invented dollar conversion; use team billing and recorded usage.",
+  "cases": [
+    {
+      "case": "C01",
+      "version": "v3.2",
+      "status": "NOT_EXECUTED",
+      "prepare_seconds": null,
+      "elapsed_seconds": null,
+      "app_sha256": null,
+      "error_code": null,
+      "evaluation": {
+        "official_score": false,
+        "diagnosis_accuracy_evaluated": false,
+        "domains": {
+          "정보수집": {
+            "maximum": 25,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "진단추론": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "검사·추적": {
+            "maximum": 10,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "안전": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "의사소통": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "효율": {
+            "maximum": 20,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          }
+        },
+        "evidence": {
+          "successful_SAY": 0,
+          "successful_EXAM": 0,
+          "record_present": false,
+          "performed_actions_inferred_from_record": false
+        },
+        "retrieval": {
+          "delivered_packets": null,
+          "empty_packets": null,
+          "max_packet_chars": null,
+          "appropriateness": "NOT_CLINICALLY_REVIEWED",
+          "reference_to_patient_contamination": "REQUIRES_OBSERVATION_VS_RECORD_REVIEW"
+        },
+        "usage": {
+          "doctor_http_attempts": null,
+          "doctor_successes": null,
+          "reported_prompt_tokens": null,
+          "reported_completion_tokens": null,
+          "duration_seconds": null
+        }
+      }
+    },
+    {
+      "case": "C01",
+      "version": "v3.3",
+      "status": "NOT_EXECUTED",
+      "prepare_seconds": null,
+      "elapsed_seconds": null,
+      "app_sha256": null,
+      "error_code": null,
+      "evaluation": {
+        "official_score": false,
+        "diagnosis_accuracy_evaluated": false,
+        "domains": {
+          "정보수집": {
+            "maximum": 25,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "진단추론": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "검사·추적": {
+            "maximum": 10,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "안전": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "의사소통": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "효율": {
+            "maximum": 20,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          }
+        },
+        "evidence": {
+          "successful_SAY": 0,
+          "successful_EXAM": 0,
+          "record_present": false,
+          "performed_actions_inferred_from_record": false
+        },
+        "retrieval": {
+          "delivered_packets": null,
+          "empty_packets": null,
+          "max_packet_chars": null,
+          "appropriateness": "NOT_CLINICALLY_REVIEWED",
+          "reference_to_patient_contamination": "REQUIRES_OBSERVATION_VS_RECORD_REVIEW"
+        },
+        "usage": {
+          "doctor_http_attempts": null,
+          "doctor_successes": null,
+          "reported_prompt_tokens": null,
+          "reported_completion_tokens": null,
+          "duration_seconds": null
+        }
+      },
+      "difference_from_baseline": {
+        "doctor_http_attempts": null,
+        "doctor_successes": null,
+        "reported_prompt_tokens": null,
+        "reported_completion_tokens": null,
+        "duration_seconds": null
+      }
+    },
+    {
+      "case": "C10",
+      "version": "v3.2",
+      "status": "NOT_EXECUTED",
+      "prepare_seconds": null,
+      "elapsed_seconds": null,
+      "app_sha256": null,
+      "error_code": null,
+      "evaluation": {
+        "official_score": false,
+        "diagnosis_accuracy_evaluated": false,
+        "domains": {
+          "정보수집": {
+            "maximum": 25,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "진단추론": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "검사·추적": {
+            "maximum": 10,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "안전": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "의사소통": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "효율": {
+            "maximum": 20,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          }
+        },
+        "evidence": {
+          "successful_SAY": 0,
+          "successful_EXAM": 0,
+          "record_present": false,
+          "performed_actions_inferred_from_record": false
+        },
+        "retrieval": {
+          "delivered_packets": null,
+          "empty_packets": null,
+          "max_packet_chars": null,
+          "appropriateness": "NOT_CLINICALLY_REVIEWED",
+          "reference_to_patient_contamination": "REQUIRES_OBSERVATION_VS_RECORD_REVIEW"
+        },
+        "usage": {
+          "doctor_http_attempts": null,
+          "doctor_successes": null,
+          "reported_prompt_tokens": null,
+          "reported_completion_tokens": null,
+          "duration_seconds": null
+        }
+      }
+    },
+    {
+      "case": "C10",
+      "version": "v3.3",
+      "status": "NOT_EXECUTED",
+      "prepare_seconds": null,
+      "elapsed_seconds": null,
+      "app_sha256": null,
+      "error_code": null,
+      "evaluation": {
+        "official_score": false,
+        "diagnosis_accuracy_evaluated": false,
+        "domains": {
+          "정보수집": {
+            "maximum": 25,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "진단추론": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "검사·추적": {
+            "maximum": 10,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "안전": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "의사소통": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "효율": {
+            "maximum": 20,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          }
+        },
+        "evidence": {
+          "successful_SAY": 0,
+          "successful_EXAM": 0,
+          "record_present": false,
+          "performed_actions_inferred_from_record": false
+        },
+        "retrieval": {
+          "delivered_packets": null,
+          "empty_packets": null,
+          "max_packet_chars": null,
+          "appropriateness": "NOT_CLINICALLY_REVIEWED",
+          "reference_to_patient_contamination": "REQUIRES_OBSERVATION_VS_RECORD_REVIEW"
+        },
+        "usage": {
+          "doctor_http_attempts": null,
+          "doctor_successes": null,
+          "reported_prompt_tokens": null,
+          "reported_completion_tokens": null,
+          "duration_seconds": null
+        }
+      },
+      "difference_from_baseline": {
+        "doctor_http_attempts": null,
+        "doctor_successes": null,
+        "reported_prompt_tokens": null,
+        "reported_completion_tokens": null,
+        "duration_seconds": null
+      }
+    },
+    {
+      "case": "C03",
+      "version": "v3.2",
+      "status": "NOT_EXECUTED",
+      "prepare_seconds": null,
+      "elapsed_seconds": null,
+      "app_sha256": null,
+      "error_code": null,
+      "evaluation": {
+        "official_score": false,
+        "diagnosis_accuracy_evaluated": false,
+        "domains": {
+          "정보수집": {
+            "maximum": 25,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "진단추론": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "검사·추적": {
+            "maximum": 10,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "안전": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "의사소통": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "효율": {
+            "maximum": 20,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          }
+        },
+        "evidence": {
+          "successful_SAY": 0,
+          "successful_EXAM": 0,
+          "record_present": false,
+          "performed_actions_inferred_from_record": false
+        },
+        "retrieval": {
+          "delivered_packets": null,
+          "empty_packets": null,
+          "max_packet_chars": null,
+          "appropriateness": "NOT_CLINICALLY_REVIEWED",
+          "reference_to_patient_contamination": "REQUIRES_OBSERVATION_VS_RECORD_REVIEW"
+        },
+        "usage": {
+          "doctor_http_attempts": null,
+          "doctor_successes": null,
+          "reported_prompt_tokens": null,
+          "reported_completion_tokens": null,
+          "duration_seconds": null
+        }
+      }
+    },
+    {
+      "case": "C03",
+      "version": "v3.3",
+      "status": "NOT_EXECUTED",
+      "prepare_seconds": null,
+      "elapsed_seconds": null,
+      "app_sha256": null,
+      "error_code": null,
+      "evaluation": {
+        "official_score": false,
+        "diagnosis_accuracy_evaluated": false,
+        "domains": {
+          "정보수집": {
+            "maximum": 25,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "진단추론": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "검사·추적": {
+            "maximum": 10,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "안전": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "의사소통": {
+            "maximum": 15,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          },
+          "효율": {
+            "maximum": 20,
+            "score": null,
+            "status": "REQUIRES_LOG_AND_RECORD_REVIEW"
+          }
+        },
+        "evidence": {
+          "successful_SAY": 0,
+          "successful_EXAM": 0,
+          "record_present": false,
+          "performed_actions_inferred_from_record": false
+        },
+        "retrieval": {
+          "delivered_packets": null,
+          "empty_packets": null,
+          "max_packet_chars": null,
+          "appropriateness": "NOT_CLINICALLY_REVIEWED",
+          "reference_to_patient_contamination": "REQUIRES_OBSERVATION_VS_RECORD_REVIEW"
+        },
+        "usage": {
+          "doctor_http_attempts": null,
+          "doctor_successes": null,
+          "reported_prompt_tokens": null,
+          "reported_completion_tokens": null,
+          "duration_seconds": null
+        }
+      },
+      "difference_from_baseline": {
+        "doctor_http_attempts": null,
+        "doctor_successes": null,
+        "reported_prompt_tokens": null,
+        "reported_completion_tokens": null,
+        "duration_seconds": null
+      }
+    }
+  ],
+  "self_review_calls": 0
+}

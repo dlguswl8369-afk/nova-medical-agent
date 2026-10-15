@@ -1,0 +1,227 @@
+{
+  "command": [
+    "sudo",
+    "-n",
+    "docker",
+    "create",
+    "--name",
+    "nova-v33-validation-20261015",
+    "--pull=never",
+    "--cpus=2",
+    "--memory=8589934592",
+    "--memory-swap=8589934592",
+    "--network=none",
+    "--read-only",
+    "--user=65532:65532",
+    "--cap-drop=ALL",
+    "--security-opt=no-new-privileges",
+    "--pids-limit=256",
+    "--tmpfs",
+    "/tmp:rw,nosuid,nodev,size=536870912,mode=1777",
+    "--tmpfs",
+    "/output:rw,nosuid,nodev,size=67108864,mode=1777",
+    "--mount",
+    "type=bind,src=/home/hjlee/nova-v33-validation-20261015/app,dst=/app,readonly",
+    "--mount",
+    "type=bind,src=/home/hjlee/nova-v33-validation-20261015,dst=/fixtures,readonly",
+    "--mount",
+    "type=bind,src=/home/hjlee/nova-v33-validation-20261015/tools,dst=/tools,readonly",
+    "--mount",
+    "type=bind,src=/home/hjlee/nova-v33-validation-20261015,dst=/manifest,readonly",
+    "--mount",
+    "type=bind,src=/home/hjlee/nova-v33-validation-20261015/inputs/guidelines,dst=/opt/nova/guidelines,readonly",
+    "-e",
+    "NOVA_GUIDELINES_DIR=/opt/nova/guidelines",
+    "-e",
+    "NOVA_RAG_SOURCES=legacy,guidelines",
+    "-e",
+    "NOVA_GUIDELINES_INDEX=/app/indexes/guidelines.sqlite",
+    "--entrypoint",
+    "python",
+    "sha256:354e40c79e3579c61b8e56d4ae1abc65a5c1c9741dce207c29ab1e42d18c67a7",
+    "-B",
+    "/fixtures/scripts/linux_extension_supervisor.py"
+  ],
+  "image": "sha256:354e40c79e3579c61b8e56d4ae1abc65a5c1c9741dce207c29ab1e42d18c67a7",
+  "docker_before": {
+    "HostConfig": {
+      "Binds": null,
+      "ContainerIDFile": "",
+      "LogConfig": {
+        "Type": "json-file",
+        "Config": {}
+      },
+      "NetworkMode": "none",
+      "PortBindings": {},
+      "RestartPolicy": {
+        "Name": "no",
+        "MaximumRetryCount": 0
+      },
+      "AutoRemove": false,
+      "VolumeDriver": "",
+      "VolumesFrom": null,
+      "ConsoleSize": [
+        0,
+        0
+      ],
+      "CapAdd": null,
+      "CapDrop": [
+        "ALL"
+      ],
+      "CgroupnsMode": "private",
+      "Dns": null,
+      "DnsOptions": [],
+      "DnsSearch": [],
+      "ExtraHosts": null,
+      "GroupAdd": null,
+      "IpcMode": "private",
+      "Cgroup": "",
+      "Links": null,
+      "OomScoreAdj": 0,
+      "PidMode": "",
+      "Privileged": false,
+      "PublishAllPorts": false,
+      "ReadonlyRootfs": true,
+      "SecurityOpt": [
+        "no-new-privileges"
+      ],
+      "Tmpfs": {
+        "/output": "rw,nosuid,nodev,size=67108864,mode=1777",
+        "/tmp": "rw,nosuid,nodev,size=536870912,mode=1777"
+      },
+      "UTSMode": "",
+      "UsernsMode": "",
+      "ShmSize": 67108864,
+      "Runtime": "runc",
+      "Isolation": "",
+      "CpuShares": 0,
+      "Memory": 8589934592,
+      "NanoCpus": 2000000000,
+      "CgroupParent": "",
+      "BlkioWeight": 0,
+      "BlkioWeightDevice": [],
+      "BlkioDeviceReadBps": [],
+      "BlkioDeviceWriteBps": [],
+      "BlkioDeviceReadIOps": [],
+      "BlkioDeviceWriteIOps": [],
+      "CpuPeriod": 0,
+      "CpuQuota": 0,
+      "CpuRealtimePeriod": 0,
+      "CpuRealtimeRuntime": 0,
+      "CpusetCpus": "",
+      "CpusetMems": "",
+      "Devices": [],
+      "DeviceCgroupRules": null,
+      "DeviceRequests": null,
+      "MemoryReservation": 0,
+      "MemorySwap": 8589934592,
+      "MemorySwappiness": null,
+      "OomKillDisable": false,
+      "PidsLimit": 256,
+      "Ulimits": null,
+      "CpuCount": 0,
+      "CpuPercent": 0,
+      "IOMaximumIOps": 0,
+      "IOMaximumBandwidth": 0,
+      "Mounts": [
+        {
+          "Type": "bind",
+          "Source": "/home/hjlee/nova-v33-validation-20261015/app",
+          "Target": "/app",
+          "ReadOnly": true
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/hjlee/nova-v33-validation-20261015",
+          "Target": "/fixtures",
+          "ReadOnly": true
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/hjlee/nova-v33-validation-20261015/tools",
+          "Target": "/tools",
+          "ReadOnly": true
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/hjlee/nova-v33-validation-20261015",
+          "Target": "/manifest",
+          "ReadOnly": true
+        },
+        {
+          "Type": "bind",
+          "Source": "/home/hjlee/nova-v33-validation-20261015/inputs/guidelines",
+          "Target": "/opt/nova/guidelines",
+          "ReadOnly": true
+        }
+      ],
+      "MaskedPaths": [
+        "/proc/acpi",
+        "/proc/asound",
+        "/proc/interrupts",
+        "/proc/kcore",
+        "/proc/keys",
+        "/proc/latency_stats",
+        "/proc/sched_debug",
+        "/proc/scsi",
+        "/proc/timer_list",
+        "/proc/timer_stats",
+        "/sys/devices/virtual/powercap",
+        "/sys/firmware"
+      ],
+      "ReadonlyPaths": [
+        "/proc/bus",
+        "/proc/fs",
+        "/proc/irq",
+        "/proc/sys",
+        "/proc/sysrq-trigger"
+      ]
+    },
+    "Config": {
+      "Hostname": "e993d72ab093",
+      "Domainname": "",
+      "User": "65532:65532",
+      "AttachStdin": false,
+      "AttachStdout": true,
+      "AttachStderr": true,
+      "Tty": false,
+      "OpenStdin": false,
+      "StdinOnce": false,
+      "Env": [
+        "NOVA_GUIDELINES_DIR=/opt/nova/guidelines",
+        "NOVA_RAG_SOURCES=legacy,guidelines",
+        "NOVA_GUIDELINES_INDEX=/app/indexes/guidelines.sqlite",
+        "PATH=/usr/local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+        "LANG=C.UTF-8",
+        "GPG_KEY=7169605F62C751356D054A26A821E680E5FA6305",
+        "PYTHON_VERSION=3.12.15",
+        "PYTHON_SHA256=c2c4321961fab0fb999d66e0cecf521c2ab3994c7992873ea99e306c1094fd5a",
+        "PYTHONDONTWRITEBYTECODE=1",
+        "PYTHONUNBUFFERED=1",
+        "PIP_DISABLE_PIP_VERSION_CHECK=1",
+        "PYTHONPATH=/opt/dependencies"
+      ],
+      "Cmd": [
+        "-B",
+        "/fixtures/scripts/linux_extension_supervisor.py"
+      ],
+      "Image": "sha256:354e40c79e3579c61b8e56d4ae1abc65a5c1c9741dce207c29ab1e42d18c67a7",
+      "Volumes": null,
+      "WorkingDir": "/app",
+      "Entrypoint": [
+        "python"
+      ],
+      "Labels": {}
+    }
+  },
+  "exit_code": 0,
+  "oom_killed": false,
+  "timeout": false,
+  "export": {
+    "files": 19,
+    "bytes": 383301,
+    "transport": "container_stdout_before_tmpfs_unmount"
+  },
+  "temporary_container_removed": true,
+  "elapsed_seconds": 197.20566880799998
+}

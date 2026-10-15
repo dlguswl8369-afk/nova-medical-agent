@@ -1,0 +1,55 @@
+{
+  "cycles": [
+    {
+      "project": "nova-rag-dev-20261015",
+      "machine": "e2-standard-4",
+      "hourly_compute_usd": 0.13402284,
+      "vm": "nova-v32-validate-20261015",
+      "finished_at": "2026-10-15T21:52:43.1992635+09:00",
+      "started_at": "2026-10-15T21:51:06.4203735+09:00",
+      "error": "TRANSFER_FAILED",
+      "stop_exit": 0,
+      "orchestrator_wall_seconds": 96.77889
+    },
+    {
+      "project": "nova-rag-dev-20261015",
+      "stop_exit": 0,
+      "remote_exit": 1,
+      "error": "RESULT_RECOVERY_FAILED",
+      "machine": "e2-standard-4",
+      "hourly_compute_usd": 0.13402284,
+      "vm": "nova-v32-validate-20261015",
+      "started_at": "2026-10-15T21:53:08.4959756+09:00",
+      "finished_at": "2026-10-15T21:55:56.7361249+09:00",
+      "orchestrator_wall_seconds": 168.240149
+    },
+    {
+      "remote_exit": 0,
+      "machine": "e2-standard-4",
+      "hourly_compute_usd": 0.13402284,
+      "finished_at": "2026-10-15T22:01:50.0217503+09:00",
+      "vm": "nova-v32-validate-20261015",
+      "started_at": "2026-10-15T21:56:07.7465186+09:00",
+      "results_recovered": true,
+      "stop_exit": 0,
+      "project": "nova-rag-dev-20261015",
+      "orchestrator_wall_seconds": 342.275232
+    }
+  ],
+  "total_orchestration_seconds": 607.294271,
+  "hourly_compute_usd": 0.13402284,
+  "hourly_external_ipv4_usd": 0.005,
+  "estimated_compute_usd": 0.022608695254208236,
+  "estimated_external_ipv4_usd": 0.0008434642652777779,
+  "estimate_not_invoice": true,
+  "credit_application": "UNCONFIRMED",
+  "disk_and_egress_not_included": true,
+  "vm_final_status": "TERMINATED",
+  "status_verified_at": "2026-10-15T22:05+09:00",
+  "failures": [
+    "Direct SSH timeout: existing IAP-only access; corrected to IAP",
+    "Docker socket permission denied before container creation; corrected to sudo -n docker"
+  ],
+  "temporary_container_removed": true,
+  "other_vm_or_resources_changed": false
+}

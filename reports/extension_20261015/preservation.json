@@ -1,0 +1,20 @@
+[
+  {
+    "file": "nova_doctor_bm25_candidate_v3_2.zip",
+    "sha256_before": "831560900bd759a0af4260ec9af0b25dede46f98f2a3d293315e061464aceaf8",
+    "sha256_after": "831560900bd759a0af4260ec9af0b25dede46f98f2a3d293315e061464aceaf8",
+    "unchanged": true
+  },
+  {
+    "file": "public_session_budget.json",
+    "sha256_before": "492d1d125f66443800936bc5e2aeca093a3b40becf372f616504a9ade106b3c8",
+    "sha256_after": "492d1d125f66443800936bc5e2aeca093a3b40becf372f616504a9ade106b3c8",
+    "unchanged": true
+  },
+  {
+    "file": "final_sample_authorization.json",
+    "sha256_before": "6efc7c14d0cdc933f9706f3d06f2a72cb66467c837f69ee540e33642ef4a005f",
+    "sha256_after": "6efc7c14d0cdc933f9706f3d06f2a72cb66467c837f69ee540e33642ef4a005f",
+    "unchanged": true
+  }
+]

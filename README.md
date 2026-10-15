@@ -1,5 +1,7 @@
 # NOVA 의료 에이전트 — BM25 RAG
 
+**이 브랜치는 v3.3 운영진 지침 RAG·개발/평가 확장을 포함한다.** [확장 사용법](docs/EXTENSION_V3_3.md), [공식 계약 대조](docs/OFFICIAL_CONTRACT.md), `reports/extension_20261015/`의 새 결과를 참고한다. 아래 v3.2 인계 설명은 기존 기준본의 기록이다.
+
 NOVA 의료 에이전트의 검색 근거 전달과 Doctor 연결 코드를 공동 개발·통합 검토하기 위한 비공개 저장소다. 6개 자료를 **774개 검색 항목**으로 구성한 한국어 BM25 RAG, 공식 NOVA SDK 연결, 진료 루프, 예산·오류 복구·최종 기록 처리와 기존 합성 테스트를 포함한다.
 
 ## 처리 흐름
@@ -38,7 +40,7 @@ query = query_from_facts(facts)
 hits = state.index.search(query, top_k=5)
 refs = reference_packet(state.index, query, top_k=5)
 for hit in hits:
-    print(hit["rank"], hit["title"], hit["source_page"], hit["evidence_ids"])
+    print(hit["rank"], hit["title"], hit.get("source_page"), hit.get("relative_path"), hit.get("evidence_ids"))
 print(refs)
 ```
 
@@ -82,6 +84,6 @@ python -B run.py
 
 요청에 기재된 `cd5e4f2f016d10880c13e56017d1667b0d8733f36d4fde2f8dacbfb45c287071`은 내부 이름 수정 전 ZIP의 해시다. 앞선 이름 정리에서 ZIP 내부 포장 폴더명, HANDOFF.md의 사람 이름 및 파생 해시 기록도 갱신되어 위 해시로 바뀌었다. 바탕화면으로 이동된 실제 ZIP이 앞서 기록한 수정본 해시와 일치하며 내부 해시 목록 105개도 모두 대조했다. 다른 패키지로 대체하지 않았다.
 
-ZIP의 최상위 포장 폴더만 제거했다. 기존 106개 파일은 모두 원본 바이트로 보존했고, 이 저장소에 `README.md`와 `.gitignore`만 추가했다. 업로드에서 별도 제외한 원본 파일은 없다. 키·인증파일·실제 샘플 원장·환자 세션 원문 로그는 기준 패키지에 없으며, 포함된 검증 시나리오와 원장 fixture 코드는 합성 데이터다. `.gitignore`는 향후 비밀정보·가상환경·캐시·실행 산출물·중복 압축파일의 유입을 방지한다.
+초기 커밋은 포장 폴더만 제거하고 106개 원본 파일을 보존했다. 이후 이 브랜치의 v3.3 확장에서 앱 연결 코드·검색 인덱스·평가 도구를 추가/변경했다. 기존 v3.2 후보와 보고서 원본은 별도 프로젝트 경로에 보존한다. 키·인증파일·실제 샘플 원장·환자 세션 원문 로그는 기준 패키지에 없으며, 포함된 검증 시나리오와 원장 fixture 코드는 합성 데이터다. `.gitignore`는 향후 비밀정보·가상환경·캐시·실행 산출물·중복 압축파일의 유입을 방지한다.
 
-`PACKAGE_MANIFEST.json`과 `SHA256SUMS.txt`는 **원래 인계 패키지의 기록**으로 수정하지 않았다. 새 README·.gitignore 및 Git 이력을 포함하는 현재 저장소 전체의 manifest가 아니며, 원래 로컬·컨테이너 경로와 당시 보존 확인은 역사적 기록이다. 앱·인덱스·정책·테스트·기존 보고서는 수정하지 않았다.
+`PACKAGE_MANIFEST.json`과 `SHA256SUMS.txt`는 **원래 인계 패키지의 기록**으로 수정하지 않았다. 새 README·.gitignore 및 Git 이력을 포함하는 현재 저장소 전체의 manifest가 아니며, 원래 로컬·컨테이너 경로와 당시 보존 확인은 역사적 기록이다. 이 브랜치의 새 코드/인덱스는 당시 manifest와 다르며, 원래 인계 manifest를 현재 확장 버전의 해시 목록으로 사용하지 않는다.

@@ -1,0 +1,64 @@
+{
+  "prepare_seconds": 0.2649999999994179,
+  "peak_process_memory_bytes": 151064576,
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "platform": "win32",
+  "real_api_calls": 0,
+  "application_socket_guard": true,
+  "os_network_isolation_claimed": false,
+  "guidelines_documents": 15904,
+  "queries": [
+    {
+      "query": "fever without cough",
+      "seconds": 0.5789999999997235,
+      "packet_chars": 11252,
+      "documents": [
+        "US_StatPearls/statpearls_article-20073.md",
+        "540845d0781514409facfe89"
+      ],
+      "guideline_count": 1,
+      "body_chars": 8688
+    },
+    {
+      "query": "발열 없음 복통",
+      "seconds": 4.811999999999898,
+      "packet_chars": 11953,
+      "documents": [
+        "6d61377496e4552a31e1a6b6",
+        "KR_HealthInfo/health_kdca_6257.md",
+        "KR_HealthInfo/health_kdca_3447.md",
+        "KR_HealthInfo/health_kdca_6305.md"
+      ],
+      "guideline_count": 3,
+      "body_chars": 6896
+    },
+    {
+      "query": "hypertension treatment",
+      "seconds": 0.7810000000008586,
+      "packet_chars": 11970,
+      "documents": [
+        "US_EuropePMC/europepmc_PMC9107389.md",
+        "14f0d8248762a94cdbf4ecdf",
+        "US_StatPearls/statpearls_article-28819.md",
+        "US_EuropePMC/europepmc_PMC6271319.md"
+      ],
+      "guideline_count": 3,
+      "body_chars": 7001
+    },
+    {
+      "query": "고혈압 치료",
+      "seconds": 1.0,
+      "packet_chars": 11490,
+      "documents": [
+        "KR_Journals/kr_journal_10.17340_jkna.2019.2.2.md",
+        "7bccbbb1570bf0133310733c",
+        "KR_HealthInfo/health_kdca_6765.md",
+        "KR_Journals/kr_journal_10.5124_jkma.2014.57.12.1034.md",
+        "KR_Journals/kr_journal_10.17340_jkna.2024.0014.md"
+      ],
+      "guideline_count": 4,
+      "body_chars": 5378
+    }
+  ],
+  "clinical_relevance_evaluated": false
+}
