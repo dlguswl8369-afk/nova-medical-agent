@@ -1,0 +1,51 @@
+# Secrets and local authentication
+.env
+.env.*
+!.env.example
+!.env.template
+credentials.json
+application_default_credentials.json
+*service-account*.json
+*service_account*.json
+*.pem
+*.key
+*.p12
+*.pfx
+.aws/
+.config/gcloud/
+
+# Actual session ledgers and future live-session output (synthetic fixture code stays)
+public_session_budget.json
+final_sample_authorization.json
+**/public_samples/
+**/patient_sessions/
+**/session_logs/
+
+# Local dependencies and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.cache/
+node_modules/
+*.egg-info/
+
+# Generated runs; preserved reports/linux_validation is intentionally included
+/reports/test_runs/
+/reports/v3_test_runs/
+/validation/
+*.log
+
+# Archives and Docker exports; required search index *.json.gz stays included
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.oci
+*.vhdx
+*.qcow2
+.DS_Store
+Thumbs.db

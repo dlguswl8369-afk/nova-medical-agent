@@ -1,0 +1,34 @@
+{
+  "classification_changes.json": {
+    "sha256": "625ccd55e93c7fc18ab8e0a526b62ea376a40f9f614ba045b2424f82e8bf2727",
+    "bytes": 4687
+  },
+  "full_before_after.json": {
+    "sha256": "d3c2bdec15ad1f729de11e3e696dd07550ba9bf860c6602fa29b7d782b5b15c8",
+    "bytes": 7105
+  },
+  "html_restored_blocks.json": {
+    "sha256": "12c5f407f8c068ed909c4be9cde542e135da3fc8a013f0bc3fe5c2a76b0709b2",
+    "bytes": 2875
+  },
+  "original_ai_reviews.jsonl": {
+    "sha256": "8b1b61aaf239aa5c18ee1ba47269f1f1810998e06c93dad5a46f80daac853af3",
+    "bytes": 187116
+  },
+  "original_claims.jsonl": {
+    "sha256": "bf45fef1c459ab4aaa2b37d56b448ffef1893373606f651d22cacd8a52b36097",
+    "bytes": 96801
+  },
+  "source_alignment.json": {
+    "sha256": "bf3d7d2d396c3101f81abfe31dedb2094adcaf3b7aade1c3e1793ff6dc62b91b",
+    "bytes": 10086
+  },
+  "source_inventory.json": {
+    "sha256": "24d6e8c889fb899a1c717136115fd251199ba6501505b97570c012f884bc4379",
+    "bytes": 8254
+  },
+  "summary.json": {
+    "sha256": "f588446791dec80927ee82b9847e47ac8e6f338164ec825b23fa89878f179dfe",
+    "bytes": 1042
+  }
+}

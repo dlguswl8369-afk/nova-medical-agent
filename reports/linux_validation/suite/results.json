@@ -1,0 +1,27 @@
+{
+  "tests": 145,
+  "passed": true,
+  "counts_by_module": {
+    "test_agent": 25,
+    "test_regressions": 18,
+    "test_sample_runner": 4,
+    "test_followup": 6,
+    "test_transport_diagnostics": 3,
+    "test_key_input": 4,
+    "test_budget_v3": 29,
+    "test_record_budget": 14,
+    "test_action_repair": 28,
+    "test_final_sample_runner": 14
+  },
+  "failures": 0,
+  "errors": 0,
+  "python": "3.12.15 (main, Oct  6 2026, 02:02:22) [GCC 14.2.0]",
+  "elapsed_seconds": 64.25773897800002,
+  "synthetic_only": true,
+  "real_server_calls": 0,
+  "network_guard": "Python socket, getaddrinfo, create_connection patched; not OS network namespace",
+  "diagnosis_accuracy_evaluated": false,
+  "clinical_record_quality_evaluated": false,
+  "record_headroom_scenarios": "/tmp/verify/reports/v3_test_runs/25192e2aeddc4c9fa230441e41c0abbb/record_headroom_scenarios.json",
+  "action_repair_scenarios": "/tmp/verify/reports/v3_test_runs/25192e2aeddc4c9fa230441e41c0abbb/action_repair_scenarios.json"
+}

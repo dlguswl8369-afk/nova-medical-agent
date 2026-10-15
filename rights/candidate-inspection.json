@@ -1,0 +1,39 @@
+{
+  "candidate_sha256": "831560900bd759a0af4260ec9af0b25dede46f98f2a3d293315e061464aceaf8",
+  "members": [
+    "ASSET_NOTICE.md",
+    "assets/evidence_units.json",
+    "assets/research_policy.json",
+    "indexes/bm25_ko.json.gz",
+    "nova_agent/__init__.py",
+    "nova_agent/action_repair.py",
+    "nova_agent/budget.py",
+    "nova_agent/context.py",
+    "nova_agent/diagnostics.py",
+    "nova_agent/loop.py",
+    "nova_agent/policy.py",
+    "nova_agent/prompts.py",
+    "nova_agent/record.py",
+    "nova_agent/record_budget.py",
+    "nova_retrieval/__init__.py",
+    "nova_retrieval/common.py",
+    "nova_retrieval/index.py",
+    "nova_retrieval/prepare.py",
+    "nova_retrieval/tokenize.py",
+    "nova_sdk.py",
+    "requirements.txt",
+    "run.py"
+  ],
+  "index_keys": [
+    "b",
+    "evidence",
+    "format",
+    "k1",
+    "lengths",
+    "parents",
+    "postings",
+    "records",
+    "tokenizer"
+  ],
+  "index_sha256": "97278691a71b50a4a36270cfb43c2934a1645f32b76b5bc431a50b80198d231f"
+}

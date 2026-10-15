@@ -1,0 +1,6 @@
+{
+  "method": "union of exact non-whitespace original_text spans located in preserved selected HTML article; not legal substantiality threshold",
+  "covered_nonwhitespace_chars": 10155,
+  "article_nonwhitespace_chars": 10155,
+  "coverage_ratio": 1.0
+}

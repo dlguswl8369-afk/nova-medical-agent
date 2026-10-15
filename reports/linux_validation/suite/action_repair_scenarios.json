@@ -1,0 +1,36 @@
+{
+  "synthetic_only": true,
+  "real_server_calls": 0,
+  "scenarios": {
+    "33_32_25": {
+      "synthetic_only": true,
+      "rejected_lengths": [
+        33,
+        32
+      ],
+      "sent_lengths": [
+        25
+      ],
+      "termination": "DOCTOR_DONE",
+      "mock_usage_input": 1500,
+      "repairs": [
+        {
+          "reason": "CONTENT_OVER_30",
+          "repair_bytes": 980,
+          "candidate_included": true,
+          "candidate_chars": 33,
+          "max_repair_bytes": 4096,
+          "after_doctor_http_attempt": 1
+        },
+        {
+          "reason": "CONTENT_OVER_30",
+          "repair_bytes": 977,
+          "candidate_included": true,
+          "candidate_chars": 32,
+          "max_repair_bytes": 4096,
+          "after_doctor_http_attempt": 2
+        }
+      ]
+    }
+  }
+}

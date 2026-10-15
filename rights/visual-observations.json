@@ -1,0 +1,52 @@
+{
+  "7d955b76ce9a3baf5651394e": {
+    "visual_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      208,
+      209
+    ],
+    "cover_kogl_icons": [
+      "출처표시",
+      "상업적 이용금지",
+      "변경금지"
+    ],
+    "colophon_page": 209,
+    "publication_month": "2026-09",
+    "isbn": "9788958015550",
+    "use_notice_page": 3
+  },
+  "7bccbbb1570bf0133310733c": {
+    "visual_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      15,
+      17,
+      134,
+      135
+    ],
+    "cover_kogl_icons": [
+      "출처표시",
+      "상업적 이용금지",
+      "변경금지"
+    ],
+    "colophon_page": 135,
+    "publication_month": "2026-09",
+    "isbn": "9788958015543",
+    "use_notice_page": 3
+  },
+  "6d61377496e4552a31e1a6b6": {
+    "visual_pages": [
+      1,
+      237
+    ],
+    "cover_version": "2026-05",
+    "kogl_basis": "official individual article text; not inferred from PDF cover"
+  }
+}

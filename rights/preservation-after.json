@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "files_checked": 834,
+  "changed": [],
+  "original_archive_sha256_before": "69794357aa9518095ca2ef290df89a971a94d7f8b34d52f36374a1aaa1f70cf8",
+  "original_archive_sha256_after": "69794357aa9518095ca2ef290df89a971a94d7f8b34d52f36374a1aaa1f70cf8",
+  "candidate_sha256": "831560900bd759a0af4260ec9af0b25dede46f98f2a3d293315e061464aceaf8",
+  "scope": "all existing doctor_agent_v3_2 and input_package files; original archive separately verified",
+  "linux_validation_rerun": false,
+  "vm_started": false,
+  "nova_api_called": false,
+  "inquiries_sent": false
+}

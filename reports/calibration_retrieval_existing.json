@@ -1,0 +1,77 @@
+{
+  "executed_at": "2026-10-15T04:22:22.089812+00:00",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.13.15",
+  "index_sha256": "97278691a71b50a4a36270cfb43c2934a1645f32b76b5bc431a50b80198d231f",
+  "index_load_seconds": 0.22734630000195466,
+  "network_disabled_by_socket_guard": true,
+  "retuned": false,
+  "splits": {
+    "development_32": {
+      "questions": 32,
+      "questions_sha256": "08b2c1aeb2db0ee10e3050214bc4da94df8a24ebb3faca884fdd5b9a98375d7c",
+      "exact_evidence_recall_at_5": 0.90625,
+      "support_hit_at_5": 1,
+      "mrr_at_5": 0.984375,
+      "exact_misses": [
+        "Q20",
+        "Q21",
+        "Q26"
+      ],
+      "support_misses": [],
+      "doctor_packet_expected_text_present_count": 8,
+      "search_ms_median": 0.5445499991765246
+    },
+    "calibration_6": {
+      "questions": 6,
+      "questions_sha256": "53263b6b3814033103fc0f813047ba111665e6997d6fe2fcd24fe632480dcd97",
+      "exact_evidence_recall_at_5": 0.16666666666666666,
+      "support_hit_at_5": 0.5,
+      "mrr_at_5": 0.2638888888888889,
+      "exact_misses": [
+        "C01",
+        "C02",
+        "C04",
+        "C05",
+        "C06"
+      ],
+      "support_misses": [
+        "C01",
+        "C02",
+        "C05"
+      ],
+      "doctor_packet_expected_text_present_count": 0,
+      "search_ms_median": 0.4952000017510727
+    },
+    "holdout_16": {
+      "questions": 16,
+      "questions_sha256": "e197db4d2484654eaee2e3c8cda855a6485831bb78b46bea824169ee3c69bfc2",
+      "exact_evidence_recall_at_5": 0.875,
+      "support_hit_at_5": 0.875,
+      "mrr_at_5": 0.8125,
+      "exact_misses": [
+        "H01",
+        "H07"
+      ],
+      "support_misses": [
+        "H01",
+        "H07"
+      ],
+      "doctor_packet_expected_text_present_count": 0,
+      "search_ms_median": 0.577599996177014
+    }
+  },
+  "metric_definitions": {
+    "exact_evidence_recall_at_5": "Per-question fraction of expected evidence IDs actually present in returned top5, then macro mean.",
+    "support_hit_at_5": "Cases: exact case ID. Other documents: expected document AND all support terms in returned text (case/whitespace normalized). Parent-only content not credited.",
+    "mrr_at_5": "Mean reciprocal first support-relevant rank; 0 if not found.",
+    "doctor_packet_expected_text_present_count": "Separate integration diagnostic after context length/source permission filtering; never substitute for raw retrieval recall."
+  },
+  "limitations": [
+    "Holdout has 16 new queries / 12 cases absent from original development qrels; all share the existing corpus and coding document.",
+    "Queries and relevance were source-derived by implementation author, not external blinded clinicians; labels are not exhaustive.",
+    "Calibration reuses development targets; no tuning in this revision. It is not independent.",
+    "Stored source metadata forbids LLM processing for coding documents; their text is withheld from Doctor even when retrieval succeeds.",
+    "No clinical diagnosis correctness or note-quality score follows from these retrieval metrics."
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "original_claims.jsonl": {
+    "6d61377496e4552a31e1a6b6": {
+      "NEEDS_REVIEW": 7,
+      "REJECTED": 10
+    },
+    "14f0d8248762a94cdbf4ecdf": {
+      "NEEDS_REVIEW": 12
+    },
+    "00cbd2ad3feeaf0ad51da254": {
+      "NEEDS_REVIEW": 9
+    },
+    "540845d0781514409facfe89": {
+      "NEEDS_REVIEW": 4
+    }
+  },
+  "original_ai_reviews.jsonl": {
+    "6d61377496e4552a31e1a6b6": {
+      "APPROVED_BY_AI_TEMPORARILY": 7,
+      "REJECTED": 10
+    },
+    "14f0d8248762a94cdbf4ecdf": {
+      "APPROVED_BY_AI_TEMPORARILY": 6,
+      "NEEDS_REVIEW": 6
+    },
+    "00cbd2ad3feeaf0ad51da254": {
+      "NEEDS_REVIEW": 7,
+      "APPROVED_BY_AI_TEMPORARILY": 2
+    },
+    "540845d0781514409facfe89": {
+      "NEEDS_REVIEW": 1,
+      "APPROVED_BY_AI_TEMPORARILY": 3
+    }
+  }
+}

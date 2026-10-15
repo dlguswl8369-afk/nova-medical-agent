@@ -1,0 +1,50 @@
+[
+  {
+    "original_relative_path": "input_package/NOVA_RAG_전체수정/project/config/research_usage_policy.json",
+    "copy_relative_path": "policies/provenance/config/research_usage_policy.json",
+    "sha256": "533ac68bd76ec5fa8fcc79997ee34ac31673564ca6539a25eb239d22e4aa5e07",
+    "actual_original_sha256": "533ac68bd76ec5fa8fcc79997ee34ac31673564ca6539a25eb239d22e4aa5e07",
+    "actual_copy_sha256": "533ac68bd76ec5fa8fcc79997ee34ac31673564ca6539a25eb239d22e4aa5e07",
+    "match": true
+  },
+  {
+    "original_relative_path": "input_package/NOVA_RAG_전체수정/project/config/sources.json",
+    "copy_relative_path": "policies/provenance/config/sources.json",
+    "sha256": "df8026c801464d65cc5394ca0a8487b7777c62b5407e4aedb28af3e750ac3efc",
+    "actual_original_sha256": "df8026c801464d65cc5394ca0a8487b7777c62b5407e4aedb28af3e750ac3efc",
+    "actual_copy_sha256": "df8026c801464d65cc5394ca0a8487b7777c62b5407e4aedb28af3e750ac3efc",
+    "match": true
+  },
+  {
+    "original_relative_path": "input_package/NOVA_RAG_전체수정/project/medical_rag/collector.py",
+    "copy_relative_path": "policies/provenance/medical_rag/collector.py",
+    "sha256": "3e0ffa53d7973426255ed7ae747e416dae10adf6ab30a64f0cd85b29410694f0",
+    "actual_original_sha256": "3e0ffa53d7973426255ed7ae747e416dae10adf6ab30a64f0cd85b29410694f0",
+    "actual_copy_sha256": "3e0ffa53d7973426255ed7ae747e416dae10adf6ab30a64f0cd85b29410694f0",
+    "match": true
+  },
+  {
+    "original_relative_path": "input_package/NOVA_RAG_전체수정/project/medical_rag/research_export.py",
+    "copy_relative_path": "policies/provenance/medical_rag/research_export.py",
+    "sha256": "00787fb8e3121de5dbf6908713fa298ce273b81fa8212ea7f6cacc1e31eac463",
+    "actual_original_sha256": "00787fb8e3121de5dbf6908713fa298ce273b81fa8212ea7f6cacc1e31eac463",
+    "actual_copy_sha256": "00787fb8e3121de5dbf6908713fa298ce273b81fa8212ea7f6cacc1e31eac463",
+    "match": true
+  },
+  {
+    "original_relative_path": "input_package/NOVA_RAG_전체수정/project/medical_rag/llm.py",
+    "copy_relative_path": "policies/provenance/medical_rag/llm.py",
+    "sha256": "439364912382c4e60ddbc44bb07b3ac95ba4aa67d29273a3395681759694ff84",
+    "actual_original_sha256": "439364912382c4e60ddbc44bb07b3ac95ba4aa67d29273a3395681759694ff84",
+    "actual_copy_sha256": "439364912382c4e60ddbc44bb07b3ac95ba4aa67d29273a3395681759694ff84",
+    "match": true
+  },
+  {
+    "original_relative_path": "input_package/NOVA_RAG_전체수정/project/medical_rag/validation.py",
+    "copy_relative_path": "policies/provenance/medical_rag/validation.py",
+    "sha256": "e09ab2b506f63cf64676ec565a1b797e3d1fc190287ed8c03f3b32408dbb1bfa",
+    "actual_original_sha256": "e09ab2b506f63cf64676ec565a1b797e3d1fc190287ed8c03f3b32408dbb1bfa",
+    "actual_copy_sha256": "e09ab2b506f63cf64676ec565a1b797e3d1fc190287ed8c03f3b32408dbb1bfa",
+    "match": true
+  }
+]

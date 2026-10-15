@@ -1,0 +1,401 @@
+{
+  "phase": "run",
+  "status": "PASS_LINUX_CONTAINER",
+  "real_api_calls": 0,
+  "key_read": false,
+  "linux_container_executed": true,
+  "command": [
+    "/usr/bin/docker",
+    "create",
+    "--name",
+    "nova-local-validation-1f1f0e0d305c",
+    "--pull=never",
+    "--cpus=2",
+    "--memory=8589934592",
+    "--memory-swap=8589934592",
+    "--network=none",
+    "--read-only",
+    "--cap-drop=ALL",
+    "--security-opt=no-new-privileges",
+    "--pids-limit=256",
+    "--tmpfs",
+    "/tmp:rw,nosuid,nodev,size=536870912,mode=1777",
+    "--tmpfs",
+    "/output:rw,nosuid,nodev,size=67108864,mode=1777",
+    "--mount",
+    "type=bind,source=/home/hjlee/nova-v32-validation/tools,target=/tools,readonly",
+    "--mount",
+    "type=bind,source=/home/hjlee/nova-v32-validation/staging/fixtures,target=/fixtures,readonly",
+    "--mount",
+    "type=bind,source=/home/hjlee/nova-v32-validation/staging/manifest,target=/validation_manifest,readonly",
+    "--entrypoint",
+    "python",
+    "sha256:354e40c79e3579c61b8e56d4ae1abc65a5c1c9741dce207c29ab1e42d18c67a7",
+    "-B",
+    "/tools/container_probe.py"
+  ],
+  "image_id": "sha256:354e40c79e3579c61b8e56d4ae1abc65a5c1c9741dce207c29ab1e42d18c67a7",
+  "container_exit_code": 0,
+  "oom_killed": false,
+  "start_attach_exit_code": 0,
+  "artifact_export": {
+    "files": 15,
+    "bytes": 378448,
+    "transport": "container_stdout_before_tmpfs_unmount"
+  },
+  "container_result": {
+    "status": "PASS",
+    "python": "3.12.15 (main, Oct  6 2026, 02:02:22) [GCC 14.2.0]",
+    "limits_before": {
+      "cgroup_version": 2,
+      "cpu_quota_cores": 2.0,
+      "memory_limit_bytes": 8589934592,
+      "swap_limit_bytes": 0,
+      "raw": {
+        "cpu.max": "200000 100000",
+        "memory.max": "8589934592",
+        "memory.swap.max": "0",
+        "memory.current": "11665408",
+        "memory.peak": "11665408",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0"
+      }
+    },
+    "root_readonly_verified": true,
+    "real_api_calls": 0,
+    "scenarios": [
+      {
+        "status": "PASS",
+        "scenario": "normal",
+        "synthetic_only": true,
+        "real_api_calls": 0,
+        "python": "3.12.15 (main, Oct  6 2026, 02:02:22) [GCC 14.2.0]",
+        "platform": "linux",
+        "host_smoke_only": false,
+        "entrypoint": "run.py",
+        "sdk_run_agent_replaced": false,
+        "transport_only_mocked": true,
+        "timing_wrappers_preserve_original_behavior": true,
+        "entrypoint_events": [
+          "prepare",
+          "ready",
+          "consult"
+        ],
+        "official_phase_timeouts_enforced": true,
+        "prepare_limit_seconds": 600,
+        "consult_limit_seconds": 1800,
+        "prepare_and_search_seconds": 0.2917144150000013,
+        "consult_seconds": 2.720242729000006,
+        "max_rss_bytes": 154193920,
+        "memory_method": "Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024",
+        "candidate_sha256": "831560900bd759a0af4260ec9af0b25dede46f98f2a3d293315e061464aceaf8",
+        "executed_files": {
+          "requirements.txt": "d2b2ed1aed141db4390d0e782a7fc25b97328de2828b70958d99c145ea1d0843",
+          "run.py": "90311f6eb505ddfe6100c1b428c3a22837b9e91be99b557eea974f44f539eb1d",
+          "ASSET_NOTICE.md": "5a1160c9f791b9b55679c90b7b0fcf8ed314a8eed30d68b78bca8e1168c0fa6e",
+          "nova_sdk.py": "bb8828548d0c8d03749cc7cb537c4eed639200b2302784dae5bd6cf79a932e7d",
+          "assets/research_policy.json": "126076a811241a13fa51200b2a6ca94eaabf142fa60fe5f42b81efed7af4b554",
+          "assets/evidence_units.json": "3f61117c300803e3bc6e0ff9c5db68dcd8153bdf36dc893e021d0ba7f3bed2ab",
+          "nova_agent/record.py": "ae0c0d78bbed69969d8bd9b72680d3a7618c7707ebea144d29ec1cc5ef588a48",
+          "nova_agent/__init__.py": "8e78f1302cdec1e0c8f9e9ccb73b6dd31bbec5a62f2e96bf429346508e471e0c",
+          "nova_agent/prompts.py": "e5977b32fddc005882cae7c53bb54cd0cd499d03c18e5ce495ab927a5a1d0286",
+          "nova_agent/action_repair.py": "7060aafee417f2f6637d41990e166a66520f5df53820fef3583dba3973e0daef",
+          "nova_agent/record_budget.py": "f6ca144f7df92f9ca9e98d3a53c531fda8650eb39c12de3fa2c7c281090f6809",
+          "nova_agent/budget.py": "37bbab8f60b4daea8d4a0c63959bae354e4443ae9e2b97112ce28758cc9159e9",
+          "nova_agent/loop.py": "1383ead82f1fa2214ca45fca8125c58fae327a7f3727690c58f942f80b668212",
+          "nova_agent/context.py": "a8ae8f4881f76f0cd4338fd2459cb2b0c05638f46cd6f2a21d3019f5a98f6c49",
+          "nova_agent/policy.py": "97a8c917194b5d8114d842ef52387f4386c8cbd1a9531330b8e57652fef99389",
+          "nova_agent/diagnostics.py": "dfaa32c0918e5aa03efdf3de10c86cd07bae2e854e1992a9ec87cfd2f183e0ba",
+          "nova_retrieval/__init__.py": "93b58691695afcb6d98a291f53231e5c36faf1e5cf50cd8d6e61529989272603",
+          "nova_retrieval/common.py": "1607bb9a32d65d8e63d7f82a159bad0388e7177f03d8b29d1b7f846765cc2766",
+          "nova_retrieval/tokenize.py": "d78a02ba9ed5bd11ce02bece8d6e4001a117b9dda9c0828d2bdedc5df9c0b5c6",
+          "nova_retrieval/prepare.py": "80fbbdb9a3e905a272c1e1ec0bf874dda2b7c76cb40fc0672f3c9418aa55a403",
+          "nova_retrieval/index.py": "f74c403b4d2791fc64cc29f41883f01173913df9cb0e47d151e234a0cfcd12cc",
+          "indexes/bm25_ko.json.gz": "97278691a71b50a4a36270cfb43c2934a1645f32b76b5bc431a50b80198d231f"
+        },
+        "app_network_attempts": [],
+        "runtime_downloads": 0,
+        "actions": {
+          "SAY": 1,
+          "EXAM": 1
+        },
+        "termination": "DOCTOR_DONE",
+        "rejection_events": [],
+        "budget": {
+          "confirmed_input": 1200,
+          "confirmed_output": 400,
+          "uncertain_reserved_input": 0,
+          "uncertain_reserved_output": 0
+        },
+        "reference_messages": 4,
+        "record_check": {
+          "observation_ids": [
+            "F0",
+            "F1",
+            "F2",
+            "F3"
+          ],
+          "unknown_observation_ids": [],
+          "so_matches_observed_fact_rendering": true,
+          "objective_tests_empty": true
+        },
+        "mock_diagnose_received": true,
+        "record_outcome": "DOCTOR_RECORD_VALIDATED",
+        "clinical_quality_evaluated": false
+      },
+      {
+        "status": "PASS",
+        "scenario": "recovery",
+        "synthetic_only": true,
+        "real_api_calls": 0,
+        "python": "3.12.15 (main, Oct  6 2026, 02:02:22) [GCC 14.2.0]",
+        "platform": "linux",
+        "host_smoke_only": false,
+        "entrypoint": "run.py",
+        "sdk_run_agent_replaced": false,
+        "transport_only_mocked": true,
+        "timing_wrappers_preserve_original_behavior": true,
+        "entrypoint_events": [
+          "prepare",
+          "ready",
+          "consult"
+        ],
+        "official_phase_timeouts_enforced": true,
+        "prepare_limit_seconds": 600,
+        "consult_limit_seconds": 1800,
+        "prepare_and_search_seconds": 0.27622784100000786,
+        "consult_seconds": 3.3974055040000053,
+        "max_rss_bytes": 154451968,
+        "memory_method": "Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024",
+        "candidate_sha256": "831560900bd759a0af4260ec9af0b25dede46f98f2a3d293315e061464aceaf8",
+        "executed_files": {
+          "requirements.txt": "d2b2ed1aed141db4390d0e782a7fc25b97328de2828b70958d99c145ea1d0843",
+          "run.py": "90311f6eb505ddfe6100c1b428c3a22837b9e91be99b557eea974f44f539eb1d",
+          "ASSET_NOTICE.md": "5a1160c9f791b9b55679c90b7b0fcf8ed314a8eed30d68b78bca8e1168c0fa6e",
+          "nova_sdk.py": "bb8828548d0c8d03749cc7cb537c4eed639200b2302784dae5bd6cf79a932e7d",
+          "assets/research_policy.json": "126076a811241a13fa51200b2a6ca94eaabf142fa60fe5f42b81efed7af4b554",
+          "assets/evidence_units.json": "3f61117c300803e3bc6e0ff9c5db68dcd8153bdf36dc893e021d0ba7f3bed2ab",
+          "nova_agent/record.py": "ae0c0d78bbed69969d8bd9b72680d3a7618c7707ebea144d29ec1cc5ef588a48",
+          "nova_agent/__init__.py": "8e78f1302cdec1e0c8f9e9ccb73b6dd31bbec5a62f2e96bf429346508e471e0c",
+          "nova_agent/prompts.py": "e5977b32fddc005882cae7c53bb54cd0cd499d03c18e5ce495ab927a5a1d0286",
+          "nova_agent/action_repair.py": "7060aafee417f2f6637d41990e166a66520f5df53820fef3583dba3973e0daef",
+          "nova_agent/record_budget.py": "f6ca144f7df92f9ca9e98d3a53c531fda8650eb39c12de3fa2c7c281090f6809",
+          "nova_agent/budget.py": "37bbab8f60b4daea8d4a0c63959bae354e4443ae9e2b97112ce28758cc9159e9",
+          "nova_agent/loop.py": "1383ead82f1fa2214ca45fca8125c58fae327a7f3727690c58f942f80b668212",
+          "nova_agent/context.py": "a8ae8f4881f76f0cd4338fd2459cb2b0c05638f46cd6f2a21d3019f5a98f6c49",
+          "nova_agent/policy.py": "97a8c917194b5d8114d842ef52387f4386c8cbd1a9531330b8e57652fef99389",
+          "nova_agent/diagnostics.py": "dfaa32c0918e5aa03efdf3de10c86cd07bae2e854e1992a9ec87cfd2f183e0ba",
+          "nova_retrieval/__init__.py": "93b58691695afcb6d98a291f53231e5c36faf1e5cf50cd8d6e61529989272603",
+          "nova_retrieval/common.py": "1607bb9a32d65d8e63d7f82a159bad0388e7177f03d8b29d1b7f846765cc2766",
+          "nova_retrieval/tokenize.py": "d78a02ba9ed5bd11ce02bece8d6e4001a117b9dda9c0828d2bdedc5df9c0b5c6",
+          "nova_retrieval/prepare.py": "80fbbdb9a3e905a272c1e1ec0bf874dda2b7c76cb40fc0672f3c9418aa55a403",
+          "nova_retrieval/index.py": "f74c403b4d2791fc64cc29f41883f01173913df9cb0e47d151e234a0cfcd12cc",
+          "indexes/bm25_ko.json.gz": "97278691a71b50a4a36270cfb43c2934a1645f32b76b5bc431a50b80198d231f"
+        },
+        "app_network_attempts": [],
+        "runtime_downloads": 0,
+        "actions": {
+          "SAY": 2,
+          "EXAM": 1
+        },
+        "termination": "DOCTOR_DONE",
+        "rejection_events": [
+          {
+            "phase": "ACTION",
+            "reason": "JSON_PARSE_FAILED",
+            "content_chars": 22,
+            "doctor_http_attempt": 1
+          },
+          {
+            "phase": "ACTION",
+            "reason": "ACTION_NOT_ALLOWED",
+            "content_chars": null,
+            "doctor_http_attempt": 2
+          },
+          {
+            "phase": "ACTION",
+            "reason": "REPEATED_ACTION",
+            "content_chars": 10,
+            "doctor_http_attempt": 4
+          },
+          {
+            "phase": "ACTION",
+            "reason": "CONTENT_OVER_30",
+            "content_chars": 33,
+            "doctor_http_attempt": 5
+          },
+          {
+            "phase": "ACTION",
+            "reason": "INVALID_INTENT",
+            "content_chars": 2,
+            "doctor_http_attempt": 7
+          },
+          {
+            "phase": "ACTION",
+            "reason": "CONTENT_TYPE",
+            "content_chars": null,
+            "doctor_http_attempt": 8
+          }
+        ],
+        "budget": {
+          "confirmed_input": 3300,
+          "confirmed_output": 1100,
+          "uncertain_reserved_input": 0,
+          "uncertain_reserved_output": 0
+        },
+        "reference_messages": 11,
+        "record_check": {
+          "observation_ids": [
+            "F0",
+            "F1",
+            "F2",
+            "F3"
+          ],
+          "unknown_observation_ids": [],
+          "so_matches_observed_fact_rendering": true,
+          "objective_tests_empty": true
+        },
+        "mock_diagnose_received": true,
+        "record_outcome": "DOCTOR_RECORD_VALIDATED",
+        "clinical_quality_evaluated": false
+      },
+      {
+        "status": "PASS",
+        "scenario": "uncertain",
+        "synthetic_only": true,
+        "real_api_calls": 0,
+        "python": "3.12.15 (main, Oct  6 2026, 02:02:22) [GCC 14.2.0]",
+        "platform": "linux",
+        "host_smoke_only": false,
+        "entrypoint": "run.py",
+        "sdk_run_agent_replaced": false,
+        "transport_only_mocked": true,
+        "timing_wrappers_preserve_original_behavior": true,
+        "entrypoint_events": [
+          "prepare",
+          "ready",
+          "consult"
+        ],
+        "official_phase_timeouts_enforced": true,
+        "prepare_limit_seconds": 600,
+        "consult_limit_seconds": 1800,
+        "prepare_and_search_seconds": 0.28228607299999453,
+        "consult_seconds": 2.674074248000011,
+        "max_rss_bytes": 154476544,
+        "memory_method": "Linux resource.getrusage(RUSAGE_SELF).ru_maxrss * 1024",
+        "candidate_sha256": "831560900bd759a0af4260ec9af0b25dede46f98f2a3d293315e061464aceaf8",
+        "executed_files": {
+          "requirements.txt": "d2b2ed1aed141db4390d0e782a7fc25b97328de2828b70958d99c145ea1d0843",
+          "run.py": "90311f6eb505ddfe6100c1b428c3a22837b9e91be99b557eea974f44f539eb1d",
+          "ASSET_NOTICE.md": "5a1160c9f791b9b55679c90b7b0fcf8ed314a8eed30d68b78bca8e1168c0fa6e",
+          "nova_sdk.py": "bb8828548d0c8d03749cc7cb537c4eed639200b2302784dae5bd6cf79a932e7d",
+          "assets/research_policy.json": "126076a811241a13fa51200b2a6ca94eaabf142fa60fe5f42b81efed7af4b554",
+          "assets/evidence_units.json": "3f61117c300803e3bc6e0ff9c5db68dcd8153bdf36dc893e021d0ba7f3bed2ab",
+          "nova_agent/record.py": "ae0c0d78bbed69969d8bd9b72680d3a7618c7707ebea144d29ec1cc5ef588a48",
+          "nova_agent/__init__.py": "8e78f1302cdec1e0c8f9e9ccb73b6dd31bbec5a62f2e96bf429346508e471e0c",
+          "nova_agent/prompts.py": "e5977b32fddc005882cae7c53bb54cd0cd499d03c18e5ce495ab927a5a1d0286",
+          "nova_agent/action_repair.py": "7060aafee417f2f6637d41990e166a66520f5df53820fef3583dba3973e0daef",
+          "nova_agent/record_budget.py": "f6ca144f7df92f9ca9e98d3a53c531fda8650eb39c12de3fa2c7c281090f6809",
+          "nova_agent/budget.py": "37bbab8f60b4daea8d4a0c63959bae354e4443ae9e2b97112ce28758cc9159e9",
+          "nova_agent/loop.py": "1383ead82f1fa2214ca45fca8125c58fae327a7f3727690c58f942f80b668212",
+          "nova_agent/context.py": "a8ae8f4881f76f0cd4338fd2459cb2b0c05638f46cd6f2a21d3019f5a98f6c49",
+          "nova_agent/policy.py": "97a8c917194b5d8114d842ef52387f4386c8cbd1a9531330b8e57652fef99389",
+          "nova_agent/diagnostics.py": "dfaa32c0918e5aa03efdf3de10c86cd07bae2e854e1992a9ec87cfd2f183e0ba",
+          "nova_retrieval/__init__.py": "93b58691695afcb6d98a291f53231e5c36faf1e5cf50cd8d6e61529989272603",
+          "nova_retrieval/common.py": "1607bb9a32d65d8e63d7f82a159bad0388e7177f03d8b29d1b7f846765cc2766",
+          "nova_retrieval/tokenize.py": "d78a02ba9ed5bd11ce02bece8d6e4001a117b9dda9c0828d2bdedc5df9c0b5c6",
+          "nova_retrieval/prepare.py": "80fbbdb9a3e905a272c1e1ec0bf874dda2b7c76cb40fc0672f3c9418aa55a403",
+          "nova_retrieval/index.py": "f74c403b4d2791fc64cc29f41883f01173913df9cb0e47d151e234a0cfcd12cc",
+          "indexes/bm25_ko.json.gz": "97278691a71b50a4a36270cfb43c2934a1645f32b76b5bc431a50b80198d231f"
+        },
+        "app_network_attempts": [],
+        "runtime_downloads": 0,
+        "actions": {
+          "SAY": 1,
+          "EXAM": 1
+        },
+        "termination": "DOCTOR_DONE",
+        "rejection_events": [],
+        "budget": {
+          "confirmed_input": 0,
+          "confirmed_output": 0,
+          "uncertain_reserved_input": 82165,
+          "uncertain_reserved_output": 10240
+        },
+        "reference_messages": 4,
+        "record_check": {
+          "observation_ids": [
+            "F0",
+            "F1",
+            "F2",
+            "F3"
+          ],
+          "unknown_observation_ids": [],
+          "so_matches_observed_fact_rendering": true,
+          "objective_tests_empty": true
+        },
+        "mock_diagnose_received": true,
+        "record_outcome": "DOCTOR_RECORD_VALIDATED",
+        "clinical_quality_evaluated": false
+      }
+    ],
+    "suite": {
+      "exit_code": 0,
+      "tests": 145,
+      "passed": true,
+      "counts_by_module": {
+        "test_agent": 25,
+        "test_regressions": 18,
+        "test_sample_runner": 4,
+        "test_followup": 6,
+        "test_transport_diagnostics": 3,
+        "test_key_input": 4,
+        "test_budget_v3": 29,
+        "test_record_budget": 14,
+        "test_action_repair": 28,
+        "test_final_sample_runner": 14
+      },
+      "failures": 0,
+      "errors": 0,
+      "python": "3.12.15 (main, Oct  6 2026, 02:02:22) [GCC 14.2.0]",
+      "elapsed_seconds": 64.25773897800002,
+      "synthetic_only": true,
+      "real_server_calls": 0,
+      "network_guard": "Python socket, getaddrinfo, create_connection patched; not OS network namespace",
+      "diagnosis_accuracy_evaluated": false,
+      "clinical_record_quality_evaluated": false,
+      "record_headroom_scenarios": "/tmp/verify/reports/v3_test_runs/25192e2aeddc4c9fa230441e41c0abbb/record_headroom_scenarios.json",
+      "action_repair_scenarios": "/tmp/verify/reports/v3_test_runs/25192e2aeddc4c9fa230441e41c0abbb/action_repair_scenarios.json"
+    },
+    "network_isolation": {
+      "interfaces": [
+        "lo"
+      ],
+      "default_route": false,
+      "probe_is_separate_from_app": true,
+      "external_connect": {
+        "blocked": true,
+        "errno": 101
+      },
+      "dns": {
+        "blocked": true,
+        "errno": -3
+      }
+    },
+    "exit_code": 0,
+    "limits_after": {
+      "cgroup_version": 2,
+      "cpu_quota_cores": 2.0,
+      "memory_limit_bytes": 8589934592,
+      "swap_limit_bytes": 0,
+      "raw": {
+        "cpu.max": "200000 100000",
+        "memory.max": "8589934592",
+        "memory.swap.max": "0",
+        "memory.current": "13340672",
+        "memory.peak": "285577216",
+        "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\nsock_throttled 0"
+      }
+    },
+    "elapsed_seconds": 77.24432321100002
+  }
+}
