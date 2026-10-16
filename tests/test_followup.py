@@ -60,12 +60,9 @@ class FollowupTests(unittest.TestCase):
         self.assertEqual(len(row['usage_missing_fields']),3);self.assertTrue(row['empty_content'])
 
     def simulated_session(self,finish='stop'):
-        from test_consultation_v34 import say, exam, finish as done
         p=plan();p['source_refs']['S']['hpi']=['F2'];p['source_refs']['O']['exam']=['F3']
-        # Production prepare() now requires the v3.4 decision-review protocol.
-        # Keep this transport/record audit's observations and assertions unchanged.
-        step=exam();step['content']='복부 반발통 확인';step['targets']=['복부 반발통']
-        mock=MockClient([say('언제부터 아팠나요?'),step,done(exempt=True),p])
+        mock=MockClient([{'action':'SAY','content':'언제부터 아팠나요?'},
+                         {'action':'EXAM','content':'복부 반발통 확인'}, {'action':'DONE'},p])
         def transport(client,method,path,body=None):
             if path=='/v1/sample/cases':return {'cases':[{'case_id':'00000000-0000-4000-8000-000000000001'}]}
             if path=='/v1/sample/sessions':return {'session_id':'00000000-0000-4000-8000-000000000002'}

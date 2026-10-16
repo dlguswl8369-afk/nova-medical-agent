@@ -1,28 +1,6 @@
 """Render S/O from observations, never from generated clinical prose."""
 import json
-import re
 from nova_sdk import empty_record, RECORD_FIELDS
-
-# Conservative output boundary, not a semantic clinical verifier. Verified
-# negative/normal findings remain verbatim in the cited observation text.
-NEGATIVE_ASSERTION = re.compile(
-    r'없(?:음|다|다고|고|으며|는(?!지)|어요|습니다|어)|않(?:다|고|음|으며)|'
-    r'(?<![가-힣])(?:정상|음성)(?:이다|임|이며|으로|이라|이었다|이므로| 소견)|'
-    r'(?<![가-힣])(?:정상|음성|부인)(?=\s*(?:$|[.,;]))|'
-    r'(?<![가-힣])부인(?:함|한다|하고|하며|했다)|\(\s*-\s*\)|'
-    r'\b(?:no|without|denies?)\s+\w|\b(?:is|are|was|were)\s+(?:normal|negative|absent)\b', re.I)
-
-
-def assessment_text(value):
-    value = clean_string(value)
-    # Mask only local epistemic predicates, never a whole sentence merely
-    # because it also contains uncertainty. Disease names are not findings.
-    checked = re.sub(r'(?:없다고|정상이라고|음성이라고)\s*(?:확정|단정|판단)할 수 없\w*', '판단유보', value)
-    checked = re.sub(r'(?:배제|확정|단정|확인|판단|예측)할 수 없\w*|알 수 없\w*', '판단유보', checked)
-    checked = re.sub(r'(?:단정|확정|판단|배제|확인)(?:하|되)지\s*않\w*', '판단유보', checked)
-    if NEGATIVE_ASSERTION.search(checked):
-        raise ValueError('FREE_TEXT_FINDING_FORBIDDEN')
-    return value
 
 
 def clean_string(value, limit=1200):
@@ -95,7 +73,7 @@ def render_record(plan, facts, explanations):
             cited = refs(entry.get('fact_ids'))
             if not cited:
                 raise ValueError('ASSESSMENT_BASIS_REQUIRED')
-            lines.append('[추론/미확정] ' + assessment_text(entry.get('text')) + ' (근거: ' + ', '.join(f['id'] for f in cited) + ')')
+            lines.append('[추론/미확정] ' + clean_string(entry.get('text')) + ' (근거: ' + ', '.join(f['id'] for f in cited) + ')')
         note['A'][field] += ('\n' if note['A'][field] and lines else '') + '\n'.join(lines)
     plans = plan.get('plans')
     if not isinstance(plans, dict) or set(plans) != set(RECORD_FIELDS['P']):
@@ -104,7 +82,7 @@ def render_record(plan, facts, explanations):
         value = clean_string(plans[field])
         note['P'][field] = ('[계획; 시행 여부 미확인] ' + value) if value else ''
     if explanations:
-        note['P']['education'] = '[실제 SAY 설명]\n' + '\n'.join(explanations) + '\n' + note['P']['education']
+        note['P']['education'] = '[실제 SAY 설명]\n전송 성공 기록이며 환자 이해 여부는 미확인. 반응은 S의 답변 원문 참조.\n' + '\n'.join(explanations) + '\n' + note['P']['education']
     if len(json.dumps(note, ensure_ascii=False).encode('utf-8')) > 100000 or len(diagnosis.encode('utf-8')) > 500:
         raise ValueError('RECORD_BYTE_BUDGET')
     return note, diagnosis
@@ -116,5 +94,5 @@ def fallback_record(facts, explanations):
     note['S']['hpi'] = '\n'.join(format_fact(f) for f in facts if f['kind'] == 'patient_reply')
     note['O']['exam'] = '\n'.join(format_fact(f) for f in facts if f['kind'] in {'vitals', 'exam'})
     note['A']['evidence'] = '진단 미정: Doctor 응답 오류 또는 정보 부족. 확인된 원문만 보존함.'
-    note['P']['education'] = '[실제 SAY 설명]\n' + '\n'.join(explanations) if explanations else ''
+    note['P']['education'] = '[실제 SAY 설명]\n전송 성공 기록이며 환자 이해 여부는 미확인. 반응은 S의 답변 원문 참조.\n' + '\n'.join(explanations) if explanations else ''
     return note, '진단 미정'

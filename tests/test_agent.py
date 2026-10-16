@@ -120,7 +120,8 @@ class AgentTests(unittest.TestCase):
 
     def test_no_retrieval_results(self):
         r = self.run_case(MockClient([{'action': 'DONE'}, plan()]), index=NoResults())
-        self.assertEqual(r['empty_retrievals'], 2)
+        self.assertEqual(r['empty_retrievals'], 1)
+        self.assertEqual(r['retrieval_cache_hits'], 1)
         self.assertTrue(r['successful_execution'])
 
     def test_invalid_test_long_action_and_json_recovered(self):

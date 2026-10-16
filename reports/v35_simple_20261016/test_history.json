@@ -1,0 +1,112 @@
+{
+  "runs": [
+    {
+      "tests": 52,
+      "passed": false,
+      "counts_by_module": {
+        "test_simple_v35": 30,
+        "test_extension": 13,
+        "test_comparison_workflow": 9
+      },
+      "failures": 0,
+      "errors": 34,
+      "elapsed_seconds": 0.9069999999992433,
+      "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+      "real_api_calls": 0,
+      "synthetic_only": true,
+      "full_regression": false,
+      "simple_flow_in_consultation_and_production_entry_tests": true,
+      "network_guard": "Python socket/getaddrinfo/create_connection blocked; not OS container isolation",
+      "clinical_quality_or_score_improvement_verified": false,
+      "run": "targeted_01",
+      "raw_log_sha256": "125041095becd56e8019d329261f99d624c3ad21f7b9b5a17b155540fc4c58b3"
+    },
+    {
+      "tests": 52,
+      "passed": true,
+      "counts_by_module": {
+        "test_simple_v35": 30,
+        "test_extension": 13,
+        "test_comparison_workflow": 9
+      },
+      "failures": 0,
+      "errors": 0,
+      "elapsed_seconds": 0.6880000000019209,
+      "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+      "real_api_calls": 0,
+      "synthetic_only": true,
+      "full_regression": false,
+      "simple_flow_in_consultation_and_production_entry_tests": true,
+      "network_guard": "Python socket/getaddrinfo/create_connection blocked; not OS container isolation",
+      "clinical_quality_or_score_improvement_verified": false,
+      "run": "targeted_02",
+      "raw_log_sha256": "3e4c0384bb6cca3b2b6b5cf3629bd24aba5506a43e92976c7fb7af4b975eb1bf"
+    },
+    {
+      "tests": 197,
+      "passed": true,
+      "counts_by_module": {
+        "test_agent": 25,
+        "test_regressions": 18,
+        "test_sample_runner": 4,
+        "test_followup": 6,
+        "test_transport_diagnostics": 3,
+        "test_key_input": 4,
+        "test_budget_v3": 29,
+        "test_record_budget": 14,
+        "test_action_repair": 28,
+        "test_final_sample_runner": 14,
+        "test_simple_v35": 30,
+        "test_extension": 13,
+        "test_comparison_workflow": 9
+      },
+      "failures": 0,
+      "errors": 0,
+      "elapsed_seconds": 29.70300000000134,
+      "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+      "real_api_calls": 0,
+      "synthetic_only": true,
+      "full_regression": true,
+      "simple_flow_in_consultation_and_production_entry_tests": true,
+      "network_guard": "Python socket/getaddrinfo/create_connection blocked; not OS container isolation",
+      "clinical_quality_or_score_improvement_verified": false,
+      "run": "full_offline_01",
+      "raw_log_sha256": "ffee57adaa556bd614338b3588c980b953211eb223273ef4ffd5d1af243c7d3d"
+    },
+    {
+      "tests": 197,
+      "passed": true,
+      "counts_by_module": {
+        "test_agent": 25,
+        "test_regressions": 18,
+        "test_sample_runner": 4,
+        "test_followup": 6,
+        "test_transport_diagnostics": 3,
+        "test_key_input": 4,
+        "test_budget_v3": 29,
+        "test_record_budget": 14,
+        "test_action_repair": 28,
+        "test_final_sample_runner": 14,
+        "test_simple_v35": 30,
+        "test_extension": 13,
+        "test_comparison_workflow": 9
+      },
+      "failures": 0,
+      "errors": 0,
+      "elapsed_seconds": 34.953999999997905,
+      "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+      "real_api_calls": 0,
+      "synthetic_only": true,
+      "full_regression": true,
+      "simple_flow_in_consultation_and_production_entry_tests": true,
+      "network_guard": "Python socket/getaddrinfo/create_connection blocked; not OS container isolation",
+      "clinical_quality_or_score_improvement_verified": false,
+      "run": "full_offline_02",
+      "raw_log_sha256": "b3cfa5093a3b1b0e09d3e4c7c7bced30eed8920bdd4cd04c6b01dd1d18c626b9"
+    }
+  ],
+  "initial_failure_resolution": "Restored empty_record and RECORD_FIELDS imports accidentally removed with obsolete regex block.",
+  "second_full_run_reason": "Final prompt JSON example now uses valid ASK enum; EXPLAIN is explained separately.",
+  "full_suite_runs": 2,
+  "final_prompt_full_suite_runs": 1
+}

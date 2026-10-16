@@ -1,0 +1,21 @@
+{
+  "passed": true,
+  "candidate_sha256": "31648ae7be3285c08f1103b9e7c741ba1b9af5e32f757b54cb91aebb2ea5faf7",
+  "platform": "win32",
+  "real_candidate_run_py_and_sdk": true,
+  "transport": "mock",
+  "rag_source": "legacy",
+  "network_guard": "Python socket/getaddrinfo/create_connection blocked",
+  "termination_reason": "DOCTOR_DONE",
+  "record_outcome": "DOCTOR_RECORD_VALIDATED",
+  "invalid_model_outputs": 0,
+  "actions_succeeded": 3,
+  "retrieval_calls": 3,
+  "retrieval_cache_hits": 2,
+  "observations_and_initial_vitals_preserved": true,
+  "explanation_understanding_unverified": true,
+  "extracted_files_unchanged_after_execution": true,
+  "real_api_calls": 0,
+  "clinical_quality_or_score_improvement_verified": false,
+  "linux_validation": false
+}
