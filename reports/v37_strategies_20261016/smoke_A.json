@@ -1,0 +1,14 @@
+{
+  "strategy": "A",
+  "zip_entrypoint": true,
+  "mock_doctor_calls": 5,
+  "mock_actions": [
+    "SAY",
+    "EXAM",
+    "SAY",
+    "DIAGNOSE"
+  ],
+  "real_api_calls": 0,
+  "elapsed_seconds": 0.13999999999941792,
+  "network_guard": "Python socket/getaddrinfo/create_connection blocked; not OS isolation"
+}

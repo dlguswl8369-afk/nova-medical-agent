@@ -19,6 +19,8 @@ from .budget import Budget
 from .diagnostics import parse_object, parse_action, rejection_event
 from .action_repair import repair_request
 from .record_budget import RecordEnvelope, RECORD_REPAIR, fit_record_envelope, input_charge, messages_for
+from . import strategy_config
+from .strategies import action_prompt, action_facts, decision_view, validate_strategy
 
 MODEL = 'openai/gpt-6-luna'
 TRANSIENT = {'PROVIDER_UNAVAILABLE', 'PROVIDER_RESPONSE_INVALID', 'PATIENT_RESPONSE_INVALID', 'EXAMINER_RESPONSE_INVALID', 'API_UNAVAILABLE', 'REQUEST_PENDING', 'LOCAL_GATEWAY_UNAVAILABLE'}
@@ -59,6 +61,7 @@ class State:
     index: BM25Index
     config: Config = field(default_factory=Config)
     report: dict = field(default_factory=dict)
+    strategy: str = field(default_factory=lambda: strategy_config.STRATEGY)
 
 
 def prepare():
@@ -84,6 +87,8 @@ def prepare():
 class Run:
     def __init__(self, client, state, session):
         self.client, self.state, self.config, self.session = client, state, state.config, session
+        self.strategy = validate_strategy(state.strategy)
+        self.step_prompt = action_prompt(self.strategy)
         self.facts, self.explanations = [], []
         self.reference_cache = None  # Last query only; session memory, never disk.
         self.report = {'model': MODEL, 'doctor_http_attempts': 0, 'doctor_unique_requests': 0, 'doctor_successes': 0,
@@ -93,6 +98,7 @@ class Run:
             'reference_packets': [], 'query_selection': [], 'action_counts': {}, 'model_retries': 0, 'action_retries': 0,
             'submitted': False, 'degraded': False, 'diagnosis_accuracy_evaluated': False, 'clinical_record_quality_evaluated': False}
         state.report = self.report
+        self.report.update(strategy=self.strategy, strategy_context=[])
         self.budget = Budget(self.config.max_input_budget, self.config.max_output_budget, self.config.max_doctor_requests)
         self.report.update(rejection_events=[], action_sequence=[], final_http_attempts=0,
             termination_reason=None, termination_kind=None, record_outcome=None,
@@ -213,7 +219,7 @@ class Run:
                     request_id = str(uuid.uuid4())
                 time.sleep(min(self.config.retry_delay, max(0, self.left() - 2)))
 
-    def context(self, turns_left):
+    def context(self, turns_left, for_record=False):
         qa, ra = {}, {}
         query = query_from_facts(self.facts, audit=qa)
         cache_hit = bool(self.reference_cache and self.reference_cache[0] == query)
@@ -241,6 +247,16 @@ class Run:
             'recent_action_error_codes_not_patient_facts': self.report['errors'][-3:]}
         user = json.dumps(value, ensure_ascii=False)
         self.record_user = user
+        if self.strategy != 'baseline' and not for_record:
+            current = action_facts(self.facts, self.strategy, self.config.fact_chars)
+            value['current_patient_observations'] = current
+            value['observations_omitted'] = len(self.facts) - len(current)
+            value['decision_view'] = decision_view(current, refs, self.strategy)
+            user = json.dumps(value, ensure_ascii=False)
+            self.report['strategy_context'].append({'visible_ids': [f['id'] for f in current],
+                'omitted_count': value['observations_omitted'],
+                'action_context_bytes': len(user.encode('utf-8')),
+                'baseline_context_bytes': len(self.record_user.encode('utf-8'))})
         self.report['max_prompt_chars'] = max(self.report['max_prompt_chars'], len(user))
         return user, current
 
@@ -261,7 +277,7 @@ class Run:
             for attempt in range(self.config.attempts):
                 obj = None
                 try:
-                    obj = parse_object(self.doctor(STEP, user))
+                    obj = parse_object(self.doctor(self.step_prompt, user))
                     step = parse_action(obj, performed)
                     self.report['action_sequence'].append({'event': 'MODEL_SELECTED', 'action': step[0],
                         'intent': step[2] if step[0] == 'SAY' else None, 'content_chars': len(step[1]),
@@ -328,7 +344,7 @@ class Run:
                 break
         if self.report['termination_reason'] is None:
             self.stop('LOCAL_TURN_LIMIT', 'EXPECTED_LIMIT')
-        user, current = self.context(remaining)
+        user, current = self.context(remaining, for_record=True)
         note, diagnosis = None, None
         ready_for_record = True
         try:

@@ -1,0 +1,15 @@
+{
+  "tests": 8,
+  "passed": true,
+  "counts": {
+    "test_strategies": 8
+  },
+  "failures": 0,
+  "errors": 0,
+  "historical_replay": [],
+  "real_api_calls": 0,
+  "model_quality_evaluated": false,
+  "full_suite": false,
+  "elapsed_seconds": 0.34399999999732245,
+  "network_guard": "Python socket/getaddrinfo/create_connection blocked; not OS isolation"
+}
