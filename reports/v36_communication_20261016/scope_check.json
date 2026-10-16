@@ -1,0 +1,17 @@
+{
+  "base_commit": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+  "tracked_changes_before_reports": [
+    "app/nova_agent/prompts.py"
+  ],
+  "only_step_communication_span_changed": true,
+  "record_exactly_unchanged": true,
+  "all_other_tracked_files_unchanged": true,
+  "step_chars_before": 1155,
+  "step_chars_after": 1643,
+  "record_sha256": "21f6e134d14457334372a94b53d88e3577d4727a17f7f2560a779db66ade0c3d",
+  "new_tests_or_model_calls_added": false,
+  "zip_files_changed_from_v35": [
+    "nova_agent/prompts.py"
+  ],
+  "unchanged_zip_files": 23
+}

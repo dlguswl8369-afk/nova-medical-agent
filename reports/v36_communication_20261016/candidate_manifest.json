@@ -1,0 +1,164 @@
+{
+  "version": "v3_6_communication",
+  "base_commit": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+  "filename": "nova_doctor_bm25_candidate_v3_6_communication_20261016.zip",
+  "bytes": 44989723,
+  "sha256": "1c01e5cf5fce3657c017ca31788512ca240965c2cd2c2c6811c78f0c275ee3fe",
+  "file_count": 24,
+  "expanded_bytes": 95113203,
+  "zip_limit_bytes": 50000000,
+  "expanded_limit_bytes": 500000000,
+  "file_limit": 5000,
+  "limits_and_crc_verified": true,
+  "duplicate_or_escaping_paths": false,
+  "all_file_hashes_match_working_app": true,
+  "tracked_app_allowlist_only": true,
+  "config_class_matches_v35": true,
+  "unchanged_app_files_since_v35": [
+    "ASSET_NOTICE.md",
+    "assets/evidence_units.json",
+    "assets/research_policy.json",
+    "indexes/bm25_ko.json.gz",
+    "indexes/guidelines.sqlite",
+    "nova_agent/__init__.py",
+    "nova_agent/action_repair.py",
+    "nova_agent/budget.py",
+    "nova_agent/context.py",
+    "nova_agent/diagnostics.py",
+    "nova_agent/loop.py",
+    "nova_agent/policy.py",
+    "nova_agent/record.py",
+    "nova_agent/record_budget.py",
+    "nova_retrieval/__init__.py",
+    "nova_retrieval/common.py",
+    "nova_retrieval/guidelines.py",
+    "nova_retrieval/index.py",
+    "nova_retrieval/prepare.py",
+    "nova_retrieval/tokenize.py",
+    "nova_sdk.py",
+    "requirements.txt",
+    "run.py"
+  ],
+  "files": [
+    {
+      "path": "ASSET_NOTICE.md",
+      "bytes": 2008,
+      "sha256": "5a1160c9f791b9b55679c90b7b0fcf8ed314a8eed30d68b78bca8e1168c0fa6e"
+    },
+    {
+      "path": "assets/evidence_units.json",
+      "bytes": 364488,
+      "sha256": "3f61117c300803e3bc6e0ff9c5db68dcd8153bdf36dc893e021d0ba7f3bed2ab"
+    },
+    {
+      "path": "assets/research_policy.json",
+      "bytes": 21767,
+      "sha256": "126076a811241a13fa51200b2a6ca94eaabf142fa60fe5f42b81efed7af4b554"
+    },
+    {
+      "path": "indexes/bm25_ko.json.gz",
+      "bytes": 2795370,
+      "sha256": "97278691a71b50a4a36270cfb43c2934a1645f32b76b5bc431a50b80198d231f"
+    },
+    {
+      "path": "indexes/guidelines.sqlite",
+      "bytes": 91832320,
+      "sha256": "c3c641950547d2500d25d68122db95a686262232bb6d4c0cacc403ea6c697955"
+    },
+    {
+      "path": "nova_agent/__init__.py",
+      "bytes": 69,
+      "sha256": "8e78f1302cdec1e0c8f9e9ccb73b6dd31bbec5a62f2e96bf429346508e471e0c"
+    },
+    {
+      "path": "nova_agent/action_repair.py",
+      "bytes": 4524,
+      "sha256": "77d7f12042603335ffcbd36c7d6d44896766a7a896d1b9bcb23d0d18ec5e2489"
+    },
+    {
+      "path": "nova_agent/budget.py",
+      "bytes": 5491,
+      "sha256": "37bbab8f60b4daea8d4a0c63959bae354e4443ae9e2b97112ce28758cc9159e9"
+    },
+    {
+      "path": "nova_agent/context.py",
+      "bytes": 9560,
+      "sha256": "87bb4395f0d51cbf385eaa6a410e3b8131ec89eeda68b884d92dd728a8350dfe"
+    },
+    {
+      "path": "nova_agent/diagnostics.py",
+      "bytes": 2446,
+      "sha256": "dfaa32c0918e5aa03efdf3de10c86cd07bae2e854e1992a9ec87cfd2f183e0ba"
+    },
+    {
+      "path": "nova_agent/loop.py",
+      "bytes": 21909,
+      "sha256": "cc996363f4f9a52624aa7f30a3711027655b258f655b327e64fc18b5881ab0b8"
+    },
+    {
+      "path": "nova_agent/policy.py",
+      "bytes": 1153,
+      "sha256": "97a8c917194b5d8114d842ef52387f4386c8cbd1a9531330b8e57652fef99389"
+    },
+    {
+      "path": "nova_agent/prompts.py",
+      "bytes": 6098,
+      "sha256": "5fca3a24d273202d84d7c61bec6450e5aa3217dfdb643d1a98e48341601b9342"
+    },
+    {
+      "path": "nova_agent/record.py",
+      "bytes": 5694,
+      "sha256": "b333ffd6600da15b7cf376248dc8205bf2e768ef835ed8edf4915601d15d9c0c"
+    },
+    {
+      "path": "nova_agent/record_budget.py",
+      "bytes": 3969,
+      "sha256": "8b2f8e0eccfb6692652bcb60c12c38441d5c1a3ecf5153fc4c457eab16941673"
+    },
+    {
+      "path": "nova_retrieval/__init__.py",
+      "bytes": 131,
+      "sha256": "93b58691695afcb6d98a291f53231e5c36faf1e5cf50cd8d6e61529989272603"
+    },
+    {
+      "path": "nova_retrieval/common.py",
+      "bytes": 1438,
+      "sha256": "1607bb9a32d65d8e63d7f82a159bad0388e7177f03d8b29d1b7f846765cc2766"
+    },
+    {
+      "path": "nova_retrieval/guidelines.py",
+      "bytes": 9895,
+      "sha256": "3341406257bbec33ac006fe40e599f8b4d3eeba5de240cf0753263822291be28"
+    },
+    {
+      "path": "nova_retrieval/index.py",
+      "bytes": 4473,
+      "sha256": "f74c403b4d2791fc64cc29f41883f01173913df9cb0e47d151e234a0cfcd12cc"
+    },
+    {
+      "path": "nova_retrieval/prepare.py",
+      "bytes": 10790,
+      "sha256": "80fbbdb9a3e905a272c1e1ec0bf874dda2b7c76cb40fc0672f3c9418aa55a403"
+    },
+    {
+      "path": "nova_retrieval/tokenize.py",
+      "bytes": 1205,
+      "sha256": "d78a02ba9ed5bd11ce02bece8d6e4001a117b9dda9c0828d2bdedc5df9c0b5c6"
+    },
+    {
+      "path": "nova_sdk.py",
+      "bytes": 8040,
+      "sha256": "bb8828548d0c8d03749cc7cb537c4eed639200b2302784dae5bd6cf79a932e7d"
+    },
+    {
+      "path": "requirements.txt",
+      "bytes": 168,
+      "sha256": "d2b2ed1aed141db4390d0e782a7fc25b97328de2828b70958d99c145ea1d0843"
+    },
+    {
+      "path": "run.py",
+      "bytes": 197,
+      "sha256": "90311f6eb505ddfe6100c1b428c3a22837b9e91be99b557eea974f44f539eb1d"
+    }
+  ]
+}

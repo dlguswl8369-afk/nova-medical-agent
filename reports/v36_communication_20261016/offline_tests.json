@@ -1,0 +1,31 @@
+{
+  "tests": 197,
+  "passed": true,
+  "counts_by_module": {
+    "test_agent": 25,
+    "test_regressions": 18,
+    "test_sample_runner": 4,
+    "test_followup": 6,
+    "test_transport_diagnostics": 3,
+    "test_key_input": 4,
+    "test_budget_v3": 29,
+    "test_record_budget": 14,
+    "test_action_repair": 28,
+    "test_final_sample_runner": 14,
+    "test_simple_v35": 30,
+    "test_extension": 13,
+    "test_comparison_workflow": 9
+  },
+  "failures": 0,
+  "errors": 0,
+  "elapsed_seconds": 35.21799999999348,
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "real_api_calls": 0,
+  "synthetic_only": true,
+  "full_regression": true,
+  "simple_flow_in_consultation_and_production_entry_tests": true,
+  "network_guard": "Python socket/getaddrinfo/create_connection blocked; not OS container isolation",
+  "clinical_quality_or_score_improvement_verified": false,
+  "raw_log_sha256": "a14f25dcdc895f200e998b5c28e173025be333a7b97b37e2fcf3c2e4af862d47",
+  "runs": 1
+}
