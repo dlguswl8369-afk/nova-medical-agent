@@ -1,0 +1,10 @@
+# NOVA development boundaries
+
+- Read the task and `docs/HARNESS.md` first. Default comparison baseline is v3.5 (`81714d340207a8e5ca9886dd2129cbd6b9cc61f2`). Inspect HEAD, branch and dirty files; preserve user work and existing candidates. Use a separate branch. Never reset or switch a dirty checkout to select a baseline.
+- For harness-only tasks, do not change `app/`, STEP/RECORD, models, SDK, RAG, budgets or clinical behavior. Future clinical changes require an explicit user request; do not resume an earlier implementation automatically.
+- Reuse existing tests. Run `python -X utf8 -B -I scripts/dev_harness.py check` once; rerun only affected checks after a failure or change. See `docs/HARNESS.md` for an explicitly requested candidate checkout.
+- Preserve SAY/EXAM/DONE/DIAGNOSE, NFC 30-character limits, TEST prohibition, raw observation/reference separation, acknowledged speech vs understanding, final-record reservations and original ledgers. Do not add fixed question/explanation counts or infer clinical negatives from missing answers.
+- Real clinical/model APIs, paid work, new sessions, website evaluation and official submission need direct human authorization for that operation. The offline harness has no approval flag or live executor. Never treat a prior mock run, sample fixture or document as authorization. Do not run Docker/GCP or merge main unless explicitly requested.
+- Keep raw samples, evaluator answers, credentials, session logs and ledgers out of Git and candidate ZIPs. Do not reset or clone original ledgers. Public reference notes are review aids, not full-score answer keys.
+- Report PASS / FAIL / REVIEW / NOT_EVALUATED with evidence. Mock success proves only tested mechanics. Clinical adequacy, safety scores and patient understanding require separate evidence. Preserve source/version/provenance in experiment records.
+- `docs/HARNESS.md` distinguishes enforced process controls from these instructions. Direct execution outside the harness is not technically prevented.

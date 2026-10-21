@@ -36,6 +36,7 @@ node_modules/
 # Generated runs; preserved reports/linux_validation is intentionally included
 /reports/test_runs/
 /reports/v3_test_runs/
+/reports/harness_runs/
 /validation/
 *.log
 

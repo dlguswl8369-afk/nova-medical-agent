@@ -1,5 +1,7 @@
 # NOVA 의료 에이전트 — BM25 RAG
 
+개발 작업 경계와 키 없는 자동 검사는 [개발 하네스](docs/HARNESS.md), 평가 근거 형식은 [평가 문서](docs/EVALUATION.md), 버전별 관측은 [실험 이력](docs/EXPERIMENTS.md)를 먼저 확인한다. 하네스는 진료 동작을 변경하지 않는다.
+
 **현재 브랜치는 v3.5 simple 후보다.** v3.3의 단순 행동·종료 흐름을 복원하고 검색 캐시·실제 설명 확인·관찰 원문 보존·길이 재생성은 유지했다. [최신 변경·이번 197개 오프라인 검증·후보 정보](reports/v35_simple_20261016/REPORT.md)를 확인한다. 실제 진료 품질·안전 점수 개선과 새 후보 Linux 동작은 미확인이다. [이전 v3.4 후속 결과](reports/v34_followup_20261016/REPORT.md)와 아래 과거 검증 기록은 현재 후보의 통과 근거로 재사용하지 않는다.
 
 **기준 버전 v3.3은 v3.2에 운영진 지침 검색과 개발·평가 흐름을 추가했다.** [확장 사용법](docs/EXTENSION_V3_3.md), [공식 계약 대조](docs/OFFICIAL_CONTRACT.md), [v3.3 검증 결과](reports/extension_20261015/REPORT.md), [실제 공개 샘플 비교](reports/extension_20261015/PUBLIC_COMPARISON.md)를 참고한다. 아래 v3.2 검증·인계 패키지 기록은 별도로 구분한다.

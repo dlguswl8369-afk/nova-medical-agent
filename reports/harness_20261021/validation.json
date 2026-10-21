@@ -1,0 +1,295 @@
+{
+  "date": "2026-10-21",
+  "baseline": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+  "status": "REVIEW",
+  "automated_checks": [
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.CacheTests.test_cache_packet_not_aliased_to_returned_context"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.CacheTests.test_doctor_explanation_not_retrieved_as_patient_fact"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.CacheTests.test_only_immediately_previous_query_cached"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.CacheTests.test_same_query_reused_new_patient_information_retrieved"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.RecordTests.test_assessment_still_requires_actual_observation_ids"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.RecordTests.test_disease_names_and_uncertain_hypotheses_allowed"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.RecordTests.test_new_information_after_explanation_preserved_in_record"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.RecordTests.test_observed_negative_and_normal_findings_allowed_in_assessment"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.RecordTests.test_omitted_reply_and_performed_exam_are_retained"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.RecordTests.test_partial_and_unknown_answers_preserved_without_synthesized_negatives"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.RecordTests.test_plan_does_not_count_as_delivered_education"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.RecordTests.test_vitals_deduplicated_and_selected_reply_not_duplicated"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.SimpleFlowTests.test_confusion_and_empty_reply_preserved_without_forced_continuation"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.SimpleFlowTests.test_done_and_fallback_are_reported_separately"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.SimpleFlowTests.test_done_does_not_require_explanations_or_exemptions"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.SimpleFlowTests.test_exhausted_say_retries_do_not_create_observations"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.SimpleFlowTests.test_explanations_have_no_fixed_tag_count_or_repeat_limit"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.SimpleFlowTests.test_final_record_reserve_without_communication_buffer"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.SimpleFlowTests.test_mixed_reply_no_longer_requires_status_or_rejects_confirmed_quote"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.SimpleFlowTests.test_nfc_and_repeat_guards_remain"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.SimpleFlowTests.test_optional_goal_status_and_importance_cannot_block_actions"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.SimpleFlowTests.test_prior_specialty_false_positives_are_sent"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.SimpleFlowTests.test_production_prepare_and_entrypoint_use_simple_flow"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.SimpleFlowTests.test_question_exam_explanation_done_need_no_metadata"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.SimpleFlowTests.test_reasking_is_not_blocked_by_goal_name_or_attempt_count"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.SimpleFlowTests.test_refused_or_malformed_say_is_not_delivered"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.SimpleFlowTests.test_repeated_length_error_tightens_target_without_review_schema"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.SimpleFlowTests.test_reports_do_not_export_patient_or_model_text"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.SimpleFlowTests.test_successful_retry_records_one_explanation_after_acknowledgment"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_simple_v35.SimpleFlowTests.test_three_tags_do_not_prove_safety_or_understanding"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_record_budget.ConsultationTests.test_actual_calls_reject_context_mutation_not_just_oversize"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_record_budget.ConsultationTests.test_final_new_id_provider_regeneration_is_separately_reserved"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_record_budget.ConsultationTests.test_growing_observations_update_exact_current_context"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_record_budget.ConsultationTests.test_missing_final_usage_and_same_id_retry_keep_remaining_headroom"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_record_budget.ConsultationTests.test_multiple_turns_normal_usage_improves_over_fixed_300000"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_record_budget.ConsultationTests.test_uncertain_requests_accumulate_and_leave_three_final_generations"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_record_budget.EnvelopeTests.test_each_retry_charge_uses_actual_serialization"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_record_budget.EnvelopeTests.test_insufficient_output_or_calls_does_not_discard_context_to_hide_it"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_record_budget.EnvelopeTests.test_mutated_clinical_context_rejected_even_if_shorter"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_record_budget.EnvelopeTests.test_new_context_fits_by_removing_whole_lowest_ranked_reference"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_record_budget.EnvelopeTests.test_repair_count_cannot_outrun_transmission_ordinal"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_record_budget.EnvelopeTests.test_reported_170k_plus_40k_boundary_is_admitted"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_record_budget.EnvelopeTests.test_single_prompt_limit_applies_to_all_repair_generations"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_record_budget.EnvelopeTests.test_unfundable_observations_fail_closed_without_slicing"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_budget_v3.BudgetTests.test_uncertain_request_keeps_reservation"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_budget_v3.BudgetTests.test_same_id_retry_no_double_reservation"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_budget_v3.BudgetTests.test_calls_count_same_id_retries_conservatively"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_budget_v3.LoopV3Tests.test_budget_stop_is_expected_and_final_call_preserved"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_action_repair.RepairTests.test_nfc_boundary_and_exact_transmitted_string"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_action_repair.RepairTests.test_repairs_do_not_enter_observations_or_final_context"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_extension.SeparationTests.test_aci_has_no_diagnosis_score_or_note_leak"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_extension.SeparationTests.test_agentclinic_secrets_only_evaluator"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_extension.SeparationTests.test_ddx_one_question_only_and_split_preserved"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_extension.SeparationTests.test_local_model_alias_only_in_dev_adapter"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_extension.SeparationTests.test_record_alone_does_not_imply_action"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_dev_harness.HarnessTests.test_candidate_cannot_change_model_or_record_through_editable_files"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_dev_harness.HarnessTests.test_cases_require_evidence_and_never_certify_quality"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_dev_harness.HarnessTests.test_explicit_candidate_scope_cannot_unlock_protected_code"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_dev_harness.HarnessTests.test_network_process_and_external_write_audit_rules"
+    },
+    {
+      "status": "PASS",
+      "evidence": "test_dev_harness.HarnessTests.test_worker_audit_hook_is_actually_installed"
+    }
+  ],
+  "existing_regressions": 55,
+  "new_harness_tests": 5,
+  "first_run": {
+    "tests": 59,
+    "passed": 58,
+    "error": "example JSON missing final brace; fixed"
+  },
+  "rerun_scope": "harness only, 5/5 including added protected-AST coverage",
+  "scope_guard": {
+    "status": "PASS",
+    "evidence": {
+      "status": "FAIL",
+      "evidence": [
+        "app/nova_agent/coverage.py",
+        "app/nova_agent/loop.py",
+        "app/nova_agent/prompts.py"
+      ],
+      "method": "Git blob hashes including untracked app files"
+    },
+    "expected_denial": true,
+    "worker_not_started": true
+  },
+  "app_unchanged": {
+    "status": "PASS",
+    "evidence": "All app byte hashes unchanged during run"
+  },
+  "protected_sections": {
+    "status": "PASS",
+    "evidence": [],
+    "method": "AST comparison of MODEL/Config/prepare/Doctor/action/deadline and RECORD"
+  },
+  "original_v38_work_preserved": {
+    "app/nova_agent/loop.py": "811fca322fa0b3341994dce9a0da2d282a915e9e095d866b695dcafa97de4505",
+    "app/nova_agent/prompts.py": "7f0842b8b8d615e14763950a1e4e412a7bdd89231a0176d8f5aa05ca248f09b5",
+    "app/nova_agent/coverage.py": "4963a8a7f18b939d3015562aeb874b8cf5963b75bbee75cf487f616f51eacbb3"
+  },
+  "existing_artifacts_verified_unchanged": 18,
+  "preservation_method": "read-only hashes; no original ledger/log copies",
+  "clinical_quality": {
+    "status": "NOT_EVALUATED",
+    "evidence": "No real model/clinical API/website evaluation"
+  },
+  "manual_review": {
+    "status": "REVIEW",
+    "evidence": "Clinical adequacy and authorization outside the offline process guard"
+  },
+  "real_api_calls": 0,
+  "ci_added": false
+}

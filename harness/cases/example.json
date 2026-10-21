@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "case_id": "synthetic-partial-answer-and-delivery",
+  "provenance": {"kind": "synthetic", "source": "hand-authored harness fixture; not an official case"},
+  "doctor_input": {
+    "opening": "증상이 있어 상담받고 싶어요",
+    "vital_signs": {},
+    "observations": [{"id": "F0", "kind": "opening", "text": "증상이 있어 상담받고 싶어요", "question": null}]
+  },
+  "evaluator_only": {
+    "patient_script": "합성 검토용. 실제 질문에 응답한 내용만 관찰로 추가한다.",
+    "exam_results": [],
+    "reference_record": "모범 기록은 선택적 참고이며 만점 기준이나 Doctor 입력이 아니다."
+  },
+  "trace": [
+    {"id": "T1", "action": "SAY", "intent": "ASK", "content": "약 복용과 알레르기가 있나요?", "response": "약은 먹지만 이름은 몰라요", "acknowledged": true},
+    {"id": "T2", "action": "SAY", "intent": "EXPLAIN", "content": "추가 평가가 필요할 수 있어요", "response": "무슨 뜻인가요?", "acknowledged": true}
+  ],
+  "final_record": {},
+  "criteria": [
+    {"id": "history", "domain": "information", "applicability": "주호소 판단을 바꾸는 병력이 있는 경우", "review_question": "필요한 문진을 실제 수행하고 기록했는가?", "status": "NOT_EVALUATED", "evidence": [], "reason": "임상 적정성 검토 필요"},
+    {"id": "exam", "domain": "information", "applicability": "신체 소견이 다음 판단에 필요한 경우", "review_question": "핵심 진찰 없이 종료하지 않았는가?", "status": "NOT_EVALUATED", "evidence": [], "reason": "전체 증례·행동 근거 필요"},
+    {"id": "partial", "domain": "information", "applicability": "복합 질문의 일부에만 답한 경우", "review_question": "미답변을 음성으로 확대했는가?", "status": "NOT_EVALUATED", "evidence": [], "reason": "답변과 A 기록 대조 필요"},
+    {"id": "repeat", "domain": "efficiency", "applicability": "동일 주제가 다시 등장한 경우", "review_question": "필요한 보완 질문인지 불필요한 반복인지?", "status": "NOT_EVALUATED", "evidence": [], "reason": "주제 중복만으로 실패 판정 금지"},
+    {"id": "patient_question", "domain": "communication", "applicability": "환자가 직접 질문·이해 곤란을 표현한 경우", "review_question": "새 환자 반응에 적절히 대응했는가?", "status": "NOT_EVALUATED", "evidence": [], "reason": "후속 발화 및 긴급도 검토 필요"},
+    {"id": "delivery", "domain": "communication", "applicability": "전달할 필요가 있는 계획·악화 시 대응이 있는 경우", "review_question": "P에만 적었는지 실제 SAY로 전달했는지?", "status": "NOT_EVALUATED", "evidence": [], "reason": "전송 성공과 임상적 충분성을 별도 검토"},
+    {"id": "red_flags", "domain": "safety", "applicability": "현재 증례에서 위험 확인이 필요한 경우", "review_question": "중요한 위험 신호 확인이 설명 등에 밀렸는가?", "status": "NOT_EVALUATED", "evidence": [], "reason": "증례별 판단 필요; 고정 목록 아님"},
+    {"id": "extra_turns", "domain": "efficiency", "applicability": "추가 문진의 결정 가치가 의심되는 경우", "review_question": "필수 확인을 해치지 않고 불필요한 행동·비용을 줄였는가?", "status": "NOT_EVALUATED", "evidence": [], "reason": "턴 수만으로 품질을 평가하지 않음"}
+  ]
+}
