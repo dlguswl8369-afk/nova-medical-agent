@@ -1,0 +1,265 @@
+{
+  "status": "PASS",
+  "clinical_quality": "NOT_EVALUATED",
+  "full_manifest": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_batch_clinical_experiments_20261021\\deliverables\\manifest.json",
+  "branch": "codex/nova-batch-clinical-experiments",
+  "candidates": [
+    {
+      "candidate": "V0_baseline",
+      "strategy": "V0",
+      "baseline": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_v35_simple_20261016\\deliverables\\nova_doctor_bm25_candidate_v3_5_simple_20261016.zip",
+      "bytes": 44989264,
+      "sha256": "31648ae7be3285c08f1103b9e7c741ba1b9af5e32f757b54cb91aebb2ea5faf7",
+      "reused": true,
+      "changed_app_files": [],
+      "smoke": {
+        "status": "PASS",
+        "strategy": "V0",
+        "entrypoint": "extracted run.py",
+        "sdk": "extracted unmodified SDK; transport mocked",
+        "network_process_guard": "pinned harness audit hook",
+        "doctor_calls": 5,
+        "real_api_calls": 0,
+        "model": "openai/gpt-6-luna",
+        "termination": "DOCTOR_DONE",
+        "record": "DOCTOR_RECORD_VALIDATED",
+        "action_observation_representation": "list",
+        "step_sha256": "b08dee1b848aed0fd4e69e2cfe44a5ab05bab5a6a685a4ffb16e5b036338ad8f",
+        "record_prompt_sha256": "21f6e134d14457334372a94b53d88e3577d4727a17f7f2560a779db66ade0c3d",
+        "record_context_sha256": "6de429add3bcc0aa7b293652a8ab020e0b7667f881d6bee72a26d82944299083",
+        "note_sha256": "28aea390c6919796fff1ab7d345fa91f8f4add60f35a908ef0ab4b8b240ad7da",
+        "action_input_bytes": [
+          18783,
+          17755,
+          20945,
+          21810
+        ],
+        "packet_statuses": [],
+        "clinical_quality": "NOT_EVALUATED",
+        "understanding": "REVIEW"
+      },
+      "features": [],
+      "file_count": 24,
+      "changed_file_sha256": {}
+    },
+    {
+      "candidate": "V1_clinical_rag",
+      "strategy": "V1",
+      "baseline": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_batch_clinical_experiments_20261021\\deliverables\\nova_doctor_bm25_candidate_V1_clinical_rag_20261021.zip",
+      "bytes": 44993255,
+      "sha256": "cf1aa5346b54e6c521c2c5186ba8f29f4d809940046bf3e2b4a03400d30d5103",
+      "reused": false,
+      "changed_app_files": [
+        "app/nova_agent/experiment_config.py",
+        "app/nova_agent/experiments.py",
+        "app/nova_agent/loop.py"
+      ],
+      "smoke": {
+        "status": "PASS",
+        "strategy": "V1",
+        "entrypoint": "extracted run.py",
+        "sdk": "extracted unmodified SDK; transport mocked",
+        "network_process_guard": "pinned harness audit hook",
+        "doctor_calls": 5,
+        "real_api_calls": 0,
+        "model": "openai/gpt-6-luna",
+        "termination": "DOCTOR_DONE",
+        "record": "DOCTOR_RECORD_VALIDATED",
+        "action_observation_representation": "list",
+        "step_sha256": "b08dee1b848aed0fd4e69e2cfe44a5ab05bab5a6a685a4ffb16e5b036338ad8f",
+        "record_prompt_sha256": "21f6e134d14457334372a94b53d88e3577d4727a17f7f2560a779db66ade0c3d",
+        "record_context_sha256": "6de429add3bcc0aa7b293652a8ab020e0b7667f881d6bee72a26d82944299083",
+        "note_sha256": "28aea390c6919796fff1ab7d345fa91f8f4add60f35a908ef0ab4b8b240ad7da",
+        "action_input_bytes": [
+          18783,
+          17755,
+          20945,
+          21810
+        ],
+        "packet_statuses": [
+          "BASELINE_FALLBACK",
+          "BASELINE_FALLBACK",
+          "BASELINE_FALLBACK",
+          "BASELINE_FALLBACK"
+        ],
+        "clinical_quality": "NOT_EVALUATED",
+        "understanding": "REVIEW"
+      },
+      "features": [
+        "rag"
+      ],
+      "file_count": 26,
+      "changed_file_sha256": {
+        "nova_agent/experiment_config.py": "fa5c93e9e42bd728103e144c69112a7b12b0c7a0cd52758096f791e7c38e8992",
+        "nova_agent/experiments.py": "7662abeb2630de3e2d9715519d85a6afc1f394bae8efdd1367559aac760bb0a7",
+        "nova_agent/loop.py": "c5acac977d1f9b81fd8890815167b6c9bf043b1e7b414de9a6fe7ed09118c75c"
+      }
+    },
+    {
+      "candidate": "V2_clinical_interview",
+      "strategy": "V2",
+      "baseline": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_batch_clinical_experiments_20261021\\deliverables\\nova_doctor_bm25_candidate_V2_clinical_interview_20261021.zip",
+      "bytes": 44993255,
+      "sha256": "3d1dd8bb01ddd723b6ae31723db67633465ec566422a0184b96689c24daf14a7",
+      "reused": false,
+      "changed_app_files": [
+        "app/nova_agent/experiment_config.py",
+        "app/nova_agent/experiments.py",
+        "app/nova_agent/loop.py"
+      ],
+      "smoke": {
+        "status": "PASS",
+        "strategy": "V2",
+        "entrypoint": "extracted run.py",
+        "sdk": "extracted unmodified SDK; transport mocked",
+        "network_process_guard": "pinned harness audit hook",
+        "doctor_calls": 5,
+        "real_api_calls": 0,
+        "model": "openai/gpt-6-luna",
+        "termination": "DOCTOR_DONE",
+        "record": "DOCTOR_RECORD_VALIDATED",
+        "action_observation_representation": "dict",
+        "step_sha256": "265b37dbd1a699f13bb17dc7d13b87bbf8424a72932eb4f936727acc3dc19dab",
+        "record_prompt_sha256": "21f6e134d14457334372a94b53d88e3577d4727a17f7f2560a779db66ade0c3d",
+        "record_context_sha256": "6de429add3bcc0aa7b293652a8ab020e0b7667f881d6bee72a26d82944299083",
+        "note_sha256": "28aea390c6919796fff1ab7d345fa91f8f4add60f35a908ef0ab4b8b240ad7da",
+        "action_input_bytes": [
+          19101,
+          18024,
+          21165,
+          21981
+        ],
+        "packet_statuses": [
+          "DISABLED",
+          "DISABLED",
+          "DISABLED",
+          "DISABLED"
+        ],
+        "clinical_quality": "NOT_EVALUATED",
+        "understanding": "REVIEW"
+      },
+      "features": [
+        "interview"
+      ],
+      "file_count": 26,
+      "changed_file_sha256": {
+        "nova_agent/experiment_config.py": "c6129224c63cb9787a5136bac274f8db40e47f4049e13c0438f50eeaaf989757",
+        "nova_agent/experiments.py": "7662abeb2630de3e2d9715519d85a6afc1f394bae8efdd1367559aac760bb0a7",
+        "nova_agent/loop.py": "c5acac977d1f9b81fd8890815167b6c9bf043b1e7b414de9a6fe7ed09118c75c"
+      }
+    },
+    {
+      "candidate": "V3_communication",
+      "strategy": "V3",
+      "baseline": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_batch_clinical_experiments_20261021\\deliverables\\nova_doctor_bm25_candidate_V3_communication_20261021.zip",
+      "bytes": 44993255,
+      "sha256": "d748d88b1e9efb6e77508d929f4ac79fe3543d04f18d66e9718f8078aa4230ee",
+      "reused": false,
+      "changed_app_files": [
+        "app/nova_agent/experiment_config.py",
+        "app/nova_agent/experiments.py",
+        "app/nova_agent/loop.py"
+      ],
+      "smoke": {
+        "status": "PASS",
+        "strategy": "V3",
+        "entrypoint": "extracted run.py",
+        "sdk": "extracted unmodified SDK; transport mocked",
+        "network_process_guard": "pinned harness audit hook",
+        "doctor_calls": 5,
+        "real_api_calls": 0,
+        "model": "openai/gpt-6-luna",
+        "termination": "DOCTOR_DONE",
+        "record": "DOCTOR_RECORD_VALIDATED",
+        "action_observation_representation": "dict",
+        "step_sha256": "e56c2cbe58bdce563371c5637c01357154baed9391e23ec2e1ab5492886f560b",
+        "record_prompt_sha256": "21f6e134d14457334372a94b53d88e3577d4727a17f7f2560a779db66ade0c3d",
+        "record_context_sha256": "6de429add3bcc0aa7b293652a8ab020e0b7667f881d6bee72a26d82944299083",
+        "note_sha256": "28aea390c6919796fff1ab7d345fa91f8f4add60f35a908ef0ab4b8b240ad7da",
+        "action_input_bytes": [
+          19142,
+          18065,
+          21206,
+          21991
+        ],
+        "packet_statuses": [
+          "DISABLED",
+          "DISABLED",
+          "DISABLED",
+          "DISABLED"
+        ],
+        "clinical_quality": "NOT_EVALUATED",
+        "understanding": "REVIEW"
+      },
+      "features": [
+        "communication"
+      ],
+      "file_count": 26,
+      "changed_file_sha256": {
+        "nova_agent/experiment_config.py": "5e4d1fd2a1ae789d1c140c4e5a9c1e2efc737e75aa58ed0cdc07c3ec38db4025",
+        "nova_agent/experiments.py": "7662abeb2630de3e2d9715519d85a6afc1f394bae8efdd1367559aac760bb0a7",
+        "nova_agent/loop.py": "c5acac977d1f9b81fd8890815167b6c9bf043b1e7b414de9a6fe7ed09118c75c"
+      }
+    },
+    {
+      "candidate": "V4_integrated",
+      "strategy": "V4",
+      "baseline": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_batch_clinical_experiments_20261021\\deliverables\\nova_doctor_bm25_candidate_V4_integrated_20261021.zip",
+      "bytes": 44993255,
+      "sha256": "b608b2ee87a28dd9d99d251f5815f0d46d4cbef99a5b64f1ef102645d4659d4f",
+      "reused": false,
+      "changed_app_files": [
+        "app/nova_agent/experiment_config.py",
+        "app/nova_agent/experiments.py",
+        "app/nova_agent/loop.py"
+      ],
+      "smoke": {
+        "status": "PASS",
+        "strategy": "V4",
+        "entrypoint": "extracted run.py",
+        "sdk": "extracted unmodified SDK; transport mocked",
+        "network_process_guard": "pinned harness audit hook",
+        "doctor_calls": 5,
+        "real_api_calls": 0,
+        "model": "openai/gpt-6-luna",
+        "termination": "DOCTOR_DONE",
+        "record": "DOCTOR_RECORD_VALIDATED",
+        "action_observation_representation": "dict",
+        "step_sha256": "44b4bc8262ca7f88a89920bfc152eefbb6837eb47e05c74eab46cd1279498a49",
+        "record_prompt_sha256": "21f6e134d14457334372a94b53d88e3577d4727a17f7f2560a779db66ade0c3d",
+        "record_context_sha256": "6de429add3bcc0aa7b293652a8ab020e0b7667f881d6bee72a26d82944299083",
+        "note_sha256": "28aea390c6919796fff1ab7d345fa91f8f4add60f35a908ef0ab4b8b240ad7da",
+        "action_input_bytes": [
+          19203,
+          18126,
+          21267,
+          22052
+        ],
+        "packet_statuses": [
+          "BASELINE_FALLBACK",
+          "BASELINE_FALLBACK",
+          "BASELINE_FALLBACK",
+          "BASELINE_FALLBACK"
+        ],
+        "clinical_quality": "NOT_EVALUATED",
+        "understanding": "REVIEW"
+      },
+      "features": [
+        "rag",
+        "interview",
+        "communication"
+      ],
+      "file_count": 26,
+      "changed_file_sha256": {
+        "nova_agent/experiment_config.py": "bb0cf8dd50f46dce1c561892386b5ac8cd45eb96458e97814a8f2ce7a3b3d867",
+        "nova_agent/experiments.py": "7662abeb2630de3e2d9715519d85a6afc1f394bae8efdd1367559aac760bb0a7",
+        "nova_agent/loop.py": "c5acac977d1f9b81fd8890815167b6c9bf043b1e7b414de9a6fe7ed09118c75c"
+      }
+    }
+  ]
+}

@@ -19,6 +19,8 @@ from .budget import Budget
 from .diagnostics import parse_object, parse_action, rejection_event
 from .action_repair import repair_request
 from .record_budget import RecordEnvelope, RECORD_REPAIR, fit_record_envelope, input_charge, messages_for
+from .experiment_config import STRATEGY
+from .experiments import flags, action_prompt, action_view, clinical_packet
 
 MODEL = 'openai/gpt-6-luna'
 TRANSIENT = {'PROVIDER_UNAVAILABLE', 'PROVIDER_RESPONSE_INVALID', 'PATIENT_RESPONSE_INVALID', 'EXAMINER_RESPONSE_INVALID', 'API_UNAVAILABLE', 'REQUEST_PENDING', 'LOCAL_GATEWAY_UNAVAILABLE'}
@@ -59,6 +61,7 @@ class State:
     index: BM25Index
     config: Config = field(default_factory=Config)
     report: dict = field(default_factory=dict)
+    strategy: str = STRATEGY
 
 
 def prepare():
@@ -85,6 +88,9 @@ class Run:
     def __init__(self, client, state, session):
         self.client, self.state, self.config, self.session = client, state, state.config, session
         self.facts, self.explanations = [], []
+        self.features = flags(state.strategy)
+        self.step_prompt = action_prompt(STEP, state.strategy)
+        self.clinical_cache = None  # Last query only; session-local, never on disk.
         self.reference_cache = None  # Last query only; session memory, never disk.
         self.report = {'model': MODEL, 'doctor_http_attempts': 0, 'doctor_unique_requests': 0, 'doctor_successes': 0,
             'input_budget_reserved': 0, 'output_budget_reserved': 0, 'reported_prompt_tokens': 0, 'reported_completion_tokens': 0,
@@ -93,6 +99,7 @@ class Run:
             'reference_packets': [], 'query_selection': [], 'action_counts': {}, 'model_retries': 0, 'action_retries': 0,
             'submitted': False, 'degraded': False, 'diagnosis_accuracy_evaluated': False, 'clinical_record_quality_evaluated': False}
         state.report = self.report
+        self.report.update(strategy=state.strategy, experiment_packets=[])
         self.budget = Budget(self.config.max_input_budget, self.config.max_output_budget, self.config.max_doctor_requests)
         self.report.update(rejection_events=[], action_sequence=[], final_http_attempts=0,
             termination_reason=None, termination_kind=None, record_outcome=None,
@@ -213,7 +220,7 @@ class Run:
                     request_id = str(uuid.uuid4())
                 time.sleep(min(self.config.retry_delay, max(0, self.left() - 2)))
 
-    def context(self, turns_left):
+    def context(self, turns_left, for_record=False):
         qa, ra = {}, {}
         query = query_from_facts(self.facts, audit=qa)
         cache_hit = bool(self.reference_cache and self.reference_cache[0] == query)
@@ -241,6 +248,24 @@ class Run:
             'recent_action_error_codes_not_patient_facts': self.report['errors'][-3:]}
         user = json.dumps(value, ensure_ascii=False)
         self.record_user = user
+        if not for_record and self.features:
+            baseline_bytes = len(user.encode('utf-8'))
+            selection = {'status': 'DISABLED', 'added_ids': [], 'searches': 0}
+            if 'rag' in self.features:
+                if self.clinical_cache and self.clinical_cache[0] == query:
+                    value['reference_evidence'], selection = copy.deepcopy(self.clinical_cache[1:])
+                    selection['searches'] = 0
+                    selection['cache_hit'] = True
+                else:
+                    value['reference_evidence'], selection = clinical_packet(
+                        self.state.index, query, refs, self.config.reference_chars)
+                    self.clinical_cache = (query, copy.deepcopy(value['reference_evidence']), copy.deepcopy(selection))
+            value = action_view(value, self.state.strategy)
+            user = json.dumps(value, ensure_ascii=False)
+            self.report['experiment_packets'].append(selection | {
+                'baseline_ids': [r['unit_id'] for r in refs],
+                'action_ids': [r['unit_id'] for r in value['reference_evidence']],
+                'input_byte_delta': len(user.encode('utf-8')) - baseline_bytes})
         self.report['max_prompt_chars'] = max(self.report['max_prompt_chars'], len(user))
         return user, current
 
@@ -261,7 +286,7 @@ class Run:
             for attempt in range(self.config.attempts):
                 obj = None
                 try:
-                    obj = parse_object(self.doctor(STEP, user))
+                    obj = parse_object(self.doctor(self.step_prompt, user))
                     step = parse_action(obj, performed)
                     self.report['action_sequence'].append({'event': 'MODEL_SELECTED', 'action': step[0],
                         'intent': step[2] if step[0] == 'SAY' else None, 'content_chars': len(step[1]),
@@ -328,7 +353,7 @@ class Run:
                 break
         if self.report['termination_reason'] is None:
             self.stop('LOCAL_TURN_LIMIT', 'EXPECTED_LIMIT')
-        user, current = self.context(remaining)
+        user, current = self.context(remaining, for_record=True)
         note, diagnosis = None, None
         ready_for_record = True
         try:

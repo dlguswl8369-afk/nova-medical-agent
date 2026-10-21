@@ -22,7 +22,7 @@ from evaluation_summary import summarize
 
 class GuidelineTests(unittest.TestCase):
     def setUp(self):
-        work=ROOT/'validation';work.mkdir(exist_ok=True)
+        work=Path(os.environ.get('NOVA_TEST_OUTPUT_DIR', str(ROOT/'validation')));work.mkdir(parents=True, exist_ok=True)
         self.temp=tempfile.TemporaryDirectory(dir=work);self.root=Path(self.temp.name)
         (self.root/'US_TEST').mkdir()
         fields=['파일명','제목','발행기관','연도','언어','문서 유형','형식','라이선스','출처 URL']
