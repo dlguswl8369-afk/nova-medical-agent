@@ -1,0 +1,269 @@
+{
+  "baseline_commit": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+  "harness_commit": "93abcdcdef146a0ade5a55c0ae5b4b70a7a0bb2c",
+  "branch": "codex/nova-high-intensity-clinical-experiments",
+  "automatic_contracts": "PASS",
+  "clinical_quality": "NOT_EVALUATED",
+  "clinical_review": "REVIEW",
+  "regressions": {
+    "status": "PASS",
+    "tests": 77,
+    "counts": {
+      "action_observation_delivery": 30,
+      "final_record_budget": 14,
+      "accounting": 4,
+      "repair": 2,
+      "evaluator_separation": 5,
+      "high_intensity": 22
+    }
+  },
+  "context_projections": {
+    "cases": 10,
+    "projections": 50,
+    "source_files_verified": 20,
+    "real_api_calls": 0,
+    "new_sessions": 0,
+    "new_actions": 0,
+    "maximum_omitted_observations": 0
+  },
+  "action_input_byte_deltas_no_plan": {
+    "BASELINE": [
+      0
+    ],
+    "H1": [
+      743
+    ],
+    "H2": [
+      837
+    ],
+    "H3": [
+      288
+    ],
+    "H4": [
+      1292
+    ]
+  },
+  "protected_policy": {
+    "baseline_action": "2048/medium",
+    "record": "4096/medium",
+    "auxiliary_http_attempts_per_invocation": 1,
+    "planner": "3072/medium",
+    "audit": "3072/medium; H4 only 4096/high with >300 seconds beyond final time margin",
+    "reservation_and_settlement": "identical v3.5 statements",
+    "final_record_envelope": "identical v3.5 statements"
+  },
+  "candidates": [
+    {
+      "candidate": "H1_clinical_planner",
+      "strategy": "H1",
+      "baseline_commit": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_high_intensity_experiments_20261022\\deliverables\\nova_doctor_bm25_candidate_H1_clinical_planner_20261022.zip",
+      "bytes": 44993741,
+      "sha256": "412aec863000693abaadb34f77e07014a65bda9ba47aa3eaaf2ac99ade131ef6",
+      "below_45mb_target": true,
+      "changed_app_files": [
+        "app/nova_agent/clinical_strategy.py",
+        "app/nova_agent/experiment_config.py",
+        "app/nova_agent/loop.py"
+      ],
+      "max_auxiliary_http_calls": 1,
+      "clinical_quality": "NOT_EVALUATED",
+      "offline_smoke": {
+        "status": "PASS",
+        "mock_phase_sequence": [
+          "ACTION",
+          "ACTION",
+          "PLAN",
+          "ACTION",
+          "ACTION",
+          "RECORD"
+        ],
+        "actual_mock_http_calls": 6,
+        "actual_auxiliary_http_calls": 1,
+        "request_output_caps": [
+          2048,
+          2048,
+          3072,
+          2048,
+          2048,
+          4096
+        ],
+        "reasoning_efforts": [
+          "medium",
+          "medium",
+          "medium",
+          "medium",
+          "medium",
+          "medium"
+        ],
+        "record_prompt_sha256": "21f6e134d14457334372a94b53d88e3577d4727a17f7f2560a779db66ade0c3d",
+        "real_api_calls": 0
+      }
+    },
+    {
+      "candidate": "H2_focused_examination",
+      "strategy": "H2",
+      "baseline_commit": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_high_intensity_experiments_20261022\\deliverables\\nova_doctor_bm25_candidate_H2_focused_examination_20261022.zip",
+      "bytes": 44993741,
+      "sha256": "cc0044d33bc3c0a21069497381b8733671c86373b88bc941a2c083e01ef367d7",
+      "below_45mb_target": true,
+      "changed_app_files": [
+        "app/nova_agent/clinical_strategy.py",
+        "app/nova_agent/experiment_config.py",
+        "app/nova_agent/loop.py"
+      ],
+      "max_auxiliary_http_calls": 0,
+      "clinical_quality": "NOT_EVALUATED",
+      "offline_smoke": {
+        "status": "PASS",
+        "mock_phase_sequence": [
+          "ACTION",
+          "ACTION",
+          "ACTION",
+          "ACTION",
+          "RECORD"
+        ],
+        "actual_mock_http_calls": 5,
+        "actual_auxiliary_http_calls": 0,
+        "request_output_caps": [
+          2048,
+          2048,
+          2048,
+          2048,
+          4096
+        ],
+        "reasoning_efforts": [
+          "medium",
+          "medium",
+          "medium",
+          "medium",
+          "medium"
+        ],
+        "record_prompt_sha256": "21f6e134d14457334372a94b53d88e3577d4727a17f7f2560a779db66ade0c3d",
+        "real_api_calls": 0
+      }
+    },
+    {
+      "candidate": "H3_pre_done_audit",
+      "strategy": "H3",
+      "baseline_commit": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_high_intensity_experiments_20261022\\deliverables\\nova_doctor_bm25_candidate_H3_pre_done_audit_20261022.zip",
+      "bytes": 44993741,
+      "sha256": "181bbb2c9b7953ab1db3c442eac40addec80f94f3b3e62cee0b0e2e66cf09f5f",
+      "below_45mb_target": true,
+      "changed_app_files": [
+        "app/nova_agent/clinical_strategy.py",
+        "app/nova_agent/experiment_config.py",
+        "app/nova_agent/loop.py"
+      ],
+      "max_auxiliary_http_calls": 1,
+      "clinical_quality": "NOT_EVALUATED",
+      "offline_smoke": {
+        "status": "PASS",
+        "mock_phase_sequence": [
+          "ACTION",
+          "ACTION",
+          "AUDIT",
+          "ACTION",
+          "RECORD"
+        ],
+        "actual_mock_http_calls": 5,
+        "actual_auxiliary_http_calls": 1,
+        "request_output_caps": [
+          2048,
+          2048,
+          3072,
+          2048,
+          4096
+        ],
+        "reasoning_efforts": [
+          "medium",
+          "medium",
+          "medium",
+          "medium",
+          "medium"
+        ],
+        "record_prompt_sha256": "21f6e134d14457334372a94b53d88e3577d4727a17f7f2560a779db66ade0c3d",
+        "real_api_calls": 0
+      }
+    },
+    {
+      "candidate": "H4_integrated_clinician",
+      "strategy": "H4",
+      "baseline_commit": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_high_intensity_experiments_20261022\\deliverables\\nova_doctor_bm25_candidate_H4_integrated_clinician_20261022.zip",
+      "bytes": 44993741,
+      "sha256": "2d993cd6a29514a3243fa4e180f0313954e3aac6b1cb630c7de5fa4003f302fe",
+      "below_45mb_target": true,
+      "changed_app_files": [
+        "app/nova_agent/clinical_strategy.py",
+        "app/nova_agent/experiment_config.py",
+        "app/nova_agent/loop.py"
+      ],
+      "max_auxiliary_http_calls": 2,
+      "clinical_quality": "NOT_EVALUATED",
+      "offline_smoke": {
+        "status": "PASS",
+        "mock_phase_sequence": [
+          "ACTION",
+          "ACTION",
+          "PLAN",
+          "ACTION",
+          "AUDIT",
+          "ACTION",
+          "RECORD"
+        ],
+        "actual_mock_http_calls": 7,
+        "actual_auxiliary_http_calls": 2,
+        "request_output_caps": [
+          2048,
+          2048,
+          3072,
+          2048,
+          4096,
+          2048,
+          4096
+        ],
+        "reasoning_efforts": [
+          "medium",
+          "medium",
+          "medium",
+          "medium",
+          "high",
+          "medium",
+          "medium"
+        ],
+        "record_prompt_sha256": "21f6e134d14457334372a94b53d88e3577d4727a17f7f2560a779db66ade0c3d",
+        "real_api_calls": 0
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_high_intensity_experiments_20261022\\checks\\validation.json",
+      "sha256": "22585f526f85d59c082ca27548a64a46fb8e4e7834d2bff26cb5da3f4793ae22"
+    },
+    {
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_high_intensity_experiments_20261022\\clinical_review\\review.json",
+      "sha256": "9b716a2acc4e1d3d0d7a1e32a877525697900ad63f22ae6d334f9f9b6ca1222c"
+    },
+    {
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_high_intensity_experiments_20261022\\context_review\\review.json",
+      "sha256": "c6486fd615bda0f52e2961bc748bae8aaae4fc5116db33b1b51774b07ad7b1ae"
+    },
+    {
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_high_intensity_experiments_20261022\\deliverables\\manifest.json",
+      "sha256": "263cfd6bce70912d2e2004944907dbc7dca94676f7190b21d2e309032c7ccdd4"
+    }
+  ],
+  "preserved_worktrees": {
+    "nova-medical-agent": "3b348d1d86621c880c2aca6fb1d9d3f89a3adb07",
+    "nova-medical-agent-batch": "50409240107b152705e3e278df8466a3e360ea28",
+    "nova-medical-agent-harness": "93abcdcdef146a0ade5a55c0ae5b4b70a7a0bb2c"
+  },
+  "real_api_calls": 0,
+  "new_clinical_sessions": 0,
+  "website_evaluations": 0,
+  "final_candidate_selected": false
+}
