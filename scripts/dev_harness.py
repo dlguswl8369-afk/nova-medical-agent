@@ -28,6 +28,7 @@ GROUPS = {
                'test_action_repair.RepairTests.test_repairs_do_not_enter_observations_or_final_context'],
     'evaluator_separation': ['test_extension.SeparationTests'],
     'harness': ['test_dev_harness'],
+    'clinical_review': ['test_clinical_review'],
 }
 
 
@@ -205,12 +206,16 @@ def worker(repo, out, groups):
 
 def main():
     p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument('command', choices=['check', 'case-check', '_worker'])
+    p.add_argument('command', choices=['check', 'case-check', 'review', '_worker'])
     p.add_argument('--repo', type=Path, default=ROOT)
     p.add_argument('--baseline', choices=sorted(BASELINES), default='v3.5')
     p.add_argument('--candidate', action='store_true')
     p.add_argument('--case', type=Path, default=ROOT / 'harness/cases/example.json')
     p.add_argument('--output', type=Path)
+    p.add_argument('--catalog', type=Path, default=ROOT / 'harness/cases/clinical_review.json')
+    p.add_argument('--workspace', type=Path, default=ROOT.parent, help='Existing source root; no downloads or copying')
+    p.add_argument('--show-evidence', action='store_true', help='Reviewer-only original excerpts on stdout, never saved')
+    p.add_argument('--decisions', type=Path, help='Optional attributed human review decisions, JSON list')
     p.add_argument('--group', choices=sorted(GROUPS), action='append', help='Affected groups only; default is all focused checks')
     a = p.parse_args()
     if sys.version_info[:2] != (3, 12):
@@ -225,6 +230,21 @@ def main():
     if any(out.is_relative_to(repo / name) for name in ('app', '.git', 'tests', 'scripts', 'harness')):
         p.error('Output must not overlap source or configuration directories')
     out.mkdir(parents=True, exist_ok=False)
+    if a.command == 'review':
+        sys.path.insert(0, str(ROOT / 'scripts'))
+        from clinical_review import evaluate
+        sys.addaudithook(lambda event, args: guard_event(event, args, out))
+        catalog = json.loads(a.catalog.read_text(encoding='utf-8'))
+        decisions = json.loads(a.decisions.read_text(encoding='utf-8')) if a.decisions else None
+        report = evaluate(catalog, a.workspace, ROOT, a.show_evidence, decisions)
+        if a.show_evidence:
+            print(json.dumps(report['cases'], ensure_ascii=False, indent=2))
+            for row in report['cases']:
+                for evidence in row['evidence']:
+                    evidence.pop('original_value', None)
+        (out / 'review.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+        print(json.dumps({'status': report['status'], 'cases': len(report['cases']), 'report': str(out / 'review.json')}))
+        return int(report['status'] == 'FAIL')
     changes, known, before = changed_app(repo, a.baseline)
     scope = scope_status(changes, known, a.candidate)
     protected = []

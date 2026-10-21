@@ -10,6 +10,10 @@ harness/baselines.json             수정하지 않는 Git 커밋 선택표
 harness/cases/example.json         합성 평가 사례; 실제 진료 입력으로 실행하지 않음
 scripts/dev_harness.py             baseline/보호 코드 검사 → 격리된 Python 검사 프로세스 → 근거 보고
 tests/test_dev_harness.py          신규 하네스의 공백만 검사
+scripts/clinical_review.py         로컬 근거 연결·실제 행동/기록 대조, 임상 자동 점수 없음
+harness/cases/clinical_review.json 검토 카탈로그, 원본 해시·포인터와 사람 검토 조건
+harness/cases/clinical_synthetic.json 부족한 조건을 보충하는 수작성 합성 사례
+tests/test_clinical_review.py      근거 누락·오연결·유출·허위 PASS 방지
 docs/EVALUATION.md                 사례·평가 근거·상태의 의미
 docs/EXPERIMENTS.md                버전별 관측과 한계
 reports/harness_runs/<새 ID>/      매 실행 출력, Git 제외, 기존 파일 덮어쓰기 없음
@@ -36,7 +40,7 @@ python -X utf8 -B -I scripts/dev_harness.py check --repo ../nova-medical-agent -
 
 `--candidate`는 loop.py/STEP와 새 nova_agent Python 모듈의 차이를 REVIEW로 허용하는 **검사 범위 선택**이며 개발·유료 실행 승인이 아니다. SDK·RAG·기존 보호 모듈 변경은 거부한다. 편집 허용 파일 안의 MODEL/Config/prepare/Doctor 요청·행동 전송·시간 계산 및 RECORD도 AST로 기준과 대조한다. 임상 제어 흐름 변경의 적정성이나 새 모듈의 우회 동작까지 증명하지는 못한다.
 
-전체 관련 묶음은 60개다. 수정 후 해당 부분만 필요하면 `--group harness`, `--group action_observation_delivery`, `--group final_record_budget`, `--group accounting`, `--group repair`, `--group evaluator_separation` 중 선택한다. 여러 group을 지정할 수 있다. 기존 전체 테스트는 자동 반복하지 않는다. 대상 repo의 기존 테스트와 app을 불러오며 보고서에 실제 import 경로를 기록한다.
+초기 관련 묶음은 60개였으며 2단계에서 임상 검토 도구 테스트 12개를 추가했다. 수정 후 해당 부분만 필요하면 `--group harness`, `--group clinical_review`, `--group action_observation_delivery`, `--group final_record_budget`, `--group accounting`, `--group repair`, `--group evaluator_separation` 중 선택한다. 여러 group을 지정할 수 있다. 기존 전체 테스트는 자동 반복하지 않는다. 대상 repo의 기존 테스트와 app을 불러오며 보고서에 실제 import 경로를 기록한다. 근거 대조 명령 `review`와 사례/판정 형식은 [EVALUATION.md](EVALUATION.md)를 따른다. `review`에도 네트워크·프로세스·출력 외 쓰기 audit guard를 적용하며 app을 import하지 않는다.
 
 ## 기술적으로 차단하는 것과 경계
 

@@ -1,0 +1,141 @@
+{
+  "history_gap": {
+    "provenance": {
+      "kind": "synthetic",
+      "version": "none",
+      "purpose": "review tooling; not model output"
+    },
+    "doctor_input": {
+      "opening": "배가 아파서 왔어요.",
+      "vital_signs": "",
+      "observations": []
+    },
+    "trace_complete": true,
+    "trace": [
+      {
+        "id": "T1",
+        "action": "SAY",
+        "intent": "ASK",
+        "content": "알레르기가 있나요?",
+        "response": "없어요.",
+        "acknowledged": true
+      },
+      {
+        "id": "T2",
+        "action": "DONE",
+        "intent": null,
+        "content": "",
+        "response": "",
+        "acknowledged": false
+      }
+    ],
+    "final_record": {
+      "S": {
+        "hpi": "복통"
+      },
+      "P": {
+        "follow_up": "경과를 관찰한다."
+      }
+    }
+  },
+  "repeated_answer": {
+    "provenance": {
+      "kind": "synthetic",
+      "version": "none",
+      "purpose": "review tooling; not model output"
+    },
+    "doctor_input": {
+      "opening": "기침이 나요.",
+      "vital_signs": "",
+      "observations": []
+    },
+    "trace_complete": true,
+    "trace": [
+      {
+        "id": "T1",
+        "action": "SAY",
+        "intent": "ASK",
+        "content": "언제부터 기침이 났나요?",
+        "response": "사흘 전부터요.",
+        "acknowledged": true
+      },
+      {
+        "id": "T2",
+        "action": "SAY",
+        "intent": "ASK",
+        "content": "언제부터 기침이 났나요?",
+        "response": "사흘 전이라고 말씀드렸어요.",
+        "acknowledged": true
+      }
+    ],
+    "final_record": {}
+  },
+  "direct_question": {
+    "provenance": {
+      "kind": "synthetic",
+      "version": "none",
+      "purpose": "review tooling; not model output"
+    },
+    "doctor_input": {
+      "opening": "이 약을 먹고 운전해도 되나요?",
+      "vital_signs": "",
+      "observations": []
+    },
+    "trace_complete": true,
+    "trace": [
+      {
+        "id": "T1",
+        "action": "SAY",
+        "intent": "ASK",
+        "content": "알레르기가 있나요?",
+        "response": "없어요. 운전해도 되나요?",
+        "acknowledged": true
+      },
+      {
+        "id": "T2",
+        "action": "DONE",
+        "intent": null,
+        "content": "",
+        "response": "",
+        "acknowledged": false
+      }
+    ],
+    "final_record": {
+      "P": {
+        "education": "복약 관련 상담을 계획한다."
+      }
+    }
+  },
+  "risk_delay": {
+    "provenance": {
+      "kind": "synthetic",
+      "version": "none",
+      "purpose": "review tooling; not model output"
+    },
+    "doctor_input": {
+      "opening": "가슴이 아프고 지금 숨쉬기 힘들어요.",
+      "vital_signs": "",
+      "observations": []
+    },
+    "trace_complete": true,
+    "trace": [
+      {
+        "id": "T1",
+        "action": "SAY",
+        "intent": "ASK",
+        "content": "평소 식사 시간은 언제인가요?",
+        "response": "점심은 한 시에요.",
+        "acknowledged": true
+      },
+      {
+        "id": "T2",
+        "action": "SAY",
+        "intent": "ASK",
+        "content": "아침은 몇 시에 드시나요?",
+        "response": "여덟 시요.",
+        "acknowledged": true
+      }
+    ],
+    "final_record": {}
+  }
+}

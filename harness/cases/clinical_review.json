@@ -1,0 +1,451 @@
+{
+  "schema_version": 2,
+  "purpose": "Reviewer-only references; no hidden scoring rubric or Doctor execution",
+  "sources": {
+    "C01-public": {
+      "root": "workspace",
+      "path": "nova_extension_work_20261015/inputs/nova-samples-2026/C01/case.json",
+      "kind": "public_sample",
+      "sha256": "0f38a63265017667fe91828ede0271a9c0f5575bc164d81a1f05540445586b71",
+      "public_case": "C01"
+    },
+    "C01-reference": {
+      "root": "workspace",
+      "path": "nova_extension_work_20261015/inputs/nova-samples-2026/C01/model_record.json",
+      "kind": "public_reference_record",
+      "sha256": "e8e1879cf11e11e6e55da44d65000e1c40ac0d611ebbc0fc1d9c3022efcbf91f",
+      "public_case": "C01"
+    },
+    "C01-v3.2-meta": {
+      "root": "workspace",
+      "path": "nova_extension_work_20261015/private_comparison/C01_v3.2.json",
+      "kind": "development_metadata",
+      "sha256": "6aa2091770e89b36bcec5a8b4d082e41e6b40702f0f0699755558e66ee774b87",
+      "version": "v3.2",
+      "public_case": "C01"
+    },
+    "C01-v3.2": {
+      "root": "workspace",
+      "path": "nova_extension_work_20261015/private_comparison/C01_v3.2_private.json",
+      "kind": "development_log",
+      "sha256": "14319a5c174e618defa79dd207656f762efb6f67cfa3cd74ba7e6d8510c8fc72",
+      "version": "v3.2",
+      "public_case": "C01",
+      "metadata_source": "C01-v3.2-meta"
+    },
+    "C01-v3.3-meta": {
+      "root": "workspace",
+      "path": "nova_extension_work_20261015/private_comparison/C01_v3.3.json",
+      "kind": "development_metadata",
+      "sha256": "ffe3e82a2d940e5dbd952964d999715a63faf0ad875e9f0b4dc045cf78f74dbe",
+      "version": "v3.3",
+      "public_case": "C01"
+    },
+    "C01-v3.3": {
+      "root": "workspace",
+      "path": "nova_extension_work_20261015/private_comparison/C01_v3.3_private.json",
+      "kind": "development_log",
+      "sha256": "80a6f610c051e0e590e715965ae7b4898cd0dbd0126c08089dc8be5ae50c5a32",
+      "version": "v3.3",
+      "public_case": "C01",
+      "metadata_source": "C01-v3.3-meta"
+    },
+    "C10-public": {
+      "root": "workspace",
+      "path": "nova_extension_work_20261015/inputs/nova-samples-2026/C10/case.json",
+      "kind": "public_sample",
+      "sha256": "570a87bdf976a4c99052120aacee6a7af9777ca23226f41e97d211f404067311",
+      "public_case": "C10"
+    },
+    "C10-reference": {
+      "root": "workspace",
+      "path": "nova_extension_work_20261015/inputs/nova-samples-2026/C10/model_record.json",
+      "kind": "public_reference_record",
+      "sha256": "3111067fae15cf6a8d6be6b7a9d5d81bc19fcb6e9d4b4673be6d85285afaf9a0",
+      "public_case": "C10"
+    },
+    "C10-v3.2-meta": {
+      "root": "workspace",
+      "path": "nova_extension_work_20261015/private_comparison/C10_v3.2.json",
+      "kind": "development_metadata",
+      "sha256": "49d4ab913ec3ed8474cf0f6c3dd5245eae342c2fe1e7f3f0b2797bb3963d2177",
+      "version": "v3.2",
+      "public_case": "C10"
+    },
+    "C10-v3.2": {
+      "root": "workspace",
+      "path": "nova_extension_work_20261015/private_comparison/C10_v3.2_private.json",
+      "kind": "development_log",
+      "sha256": "96707c4b9026cebe1c5049b26be7f7bdd013db5dd15c4afff5963d2ec22bfaf5",
+      "version": "v3.2",
+      "public_case": "C10",
+      "metadata_source": "C10-v3.2-meta"
+    },
+    "C10-v3.3-meta": {
+      "root": "workspace",
+      "path": "nova_extension_work_20261015/private_comparison/C10_v3.3.json",
+      "kind": "development_metadata",
+      "sha256": "c51f12d7cfb4f2911677c7dfbb25b1d6310a6fbb3745e0bcb6cf6057e133fa78",
+      "version": "v3.3",
+      "public_case": "C10"
+    },
+    "C10-v3.3": {
+      "root": "workspace",
+      "path": "nova_extension_work_20261015/private_comparison/C10_v3.3_private.json",
+      "kind": "development_log",
+      "sha256": "f79879351daf84d4a62b89df9a2388ba23371cbc1bf27e21670250740e3d0630",
+      "version": "v3.3",
+      "public_case": "C10",
+      "metadata_source": "C10-v3.3-meta"
+    },
+    "C03-public": {
+      "root": "workspace",
+      "path": "nova_extension_work_20261015/inputs/nova-samples-2026/C03/case.json",
+      "kind": "public_sample",
+      "sha256": "907dc541535dd939ec63fb19547f0d200e1f24264479729610c5d4bdf5343e07",
+      "public_case": "C03"
+    },
+    "C03-reference": {
+      "root": "workspace",
+      "path": "nova_extension_work_20261015/inputs/nova-samples-2026/C03/model_record.json",
+      "kind": "public_reference_record",
+      "sha256": "4d06e95ca1b81a4b9632e01b82b5ee6f72d2b875c02a01cb3342eabe81d53e55",
+      "public_case": "C03"
+    },
+    "C03-v3.2-meta": {
+      "root": "workspace",
+      "path": "nova_extension_work_20261015/private_comparison/C03_v3.2.json",
+      "kind": "development_metadata",
+      "sha256": "a51dfb864cd866c9dee14539fc62a15528f130d0044a2be012c20b15d1c0513c",
+      "version": "v3.2",
+      "public_case": "C03"
+    },
+    "C03-v3.2": {
+      "root": "workspace",
+      "path": "nova_extension_work_20261015/private_comparison/C03_v3.2_private.json",
+      "kind": "development_log",
+      "sha256": "362464b976200c0321d8fed0f34cb31eac7fb86b8749938922d7152c6653e94f",
+      "version": "v3.2",
+      "public_case": "C03",
+      "metadata_source": "C03-v3.2-meta"
+    },
+    "C03-v3.3-meta": {
+      "root": "workspace",
+      "path": "nova_extension_work_20261015/private_comparison/C03_v3.3.json",
+      "kind": "development_metadata",
+      "sha256": "a939a68770a057833e55b2f9fc5026578646e7d05df5d02cbf8c6860b7fb73a5",
+      "version": "v3.3",
+      "public_case": "C03"
+    },
+    "C03-v3.3": {
+      "root": "workspace",
+      "path": "nova_extension_work_20261015/private_comparison/C03_v3.3_private.json",
+      "kind": "development_log",
+      "sha256": "2ab47134b41ee80ffb35494f282b39196c96a216374c2be73b245248d65c5213",
+      "version": "v3.3",
+      "public_case": "C03",
+      "metadata_source": "C03-v3.3-meta"
+    },
+    "example": {
+      "root": "repo",
+      "path": "harness/cases/example.json",
+      "kind": "synthetic_example",
+      "sha256": "95872c2c29164fa13b23a08a91e66ffab19fde00b429f0f8421253f3d9fc5251"
+    },
+    "synthetic": {
+      "root": "repo",
+      "path": "harness/cases/clinical_synthetic.json",
+      "kind": "synthetic_cases",
+      "sha256": "ff9e23a4935d10e0bc05df7685aaf0d9593f657e26712525bef86d1511e7c03e"
+    }
+  },
+  "cases": [
+    {
+      "id": "complaint-history-gap",
+      "domain": "information",
+      "provenance": {
+        "kind": "synthetic",
+        "execution_version": "synthetic",
+        "website_result": false
+      },
+      "run_source": "synthetic",
+      "applicability": "복통 주호소에 관한 경과·양상 등이 알려지지 않은 채 종료한 합성 상황.",
+      "expected_range": "진료 판단에 필요한 주호소 정보를 선택해 확인하거나 확인 불가·긴급 대응 등 합리적 이유를 남긴다.",
+      "forbidden_errors": "알레르기 질문만으로 주호소 문진 완료를 인정하거나 미질문 내용을 정상으로 기록.",
+      "human_review": "추가 확인의 임상적 필요성과 긴급 조치 우선 여부. 특정 질문 문장·개수는 정답이 아니다.",
+      "evidence": [
+        {
+          "source": "synthetic",
+          "pointer": "/history_gap"
+        }
+      ],
+      "run_pointer": "/history_gap"
+    },
+    {
+      "id": "unperformed-exam",
+      "domain": "information",
+      "provenance": {
+        "kind": "development_log",
+        "execution_version": "v3.2",
+        "website_result": false
+      },
+      "run_source": "C01-v3.2",
+      "applicability": "수면제 사용 관련 공개 샘플과 과거 실행. 전체 성공 이벤트에 EXAM이 없는지 먼저 확인.",
+      "expected_range": "현재 상태와 복약 위험에 필요한 진찰을 선택해 실제 시행하고 결과를 보존한다.",
+      "forbidden_errors": "초기 활력징후나 공개 진찰 결과표를 이미 시행한 진찰로 간주.",
+      "human_review": "의식·진정 등 어떤 진찰이 필요한지와 미실시가 임상적으로 중요한지 판단. 결과표 전체 수행을 요구하지 않는다.",
+      "evidence": [
+        {
+          "source": "C01-v3.2",
+          "pointer": "/events"
+        },
+        {
+          "source": "C01-v3.2",
+          "pointer": "/report/termination_reason"
+        },
+        {
+          "source": "C01-public",
+          "pointer": "/start_information"
+        },
+        {
+          "source": "C01-public",
+          "pointer": "/exam_results/1"
+        },
+        {
+          "source": "C01-reference",
+          "pointer": "/O"
+        }
+      ]
+    },
+    {
+      "id": "partial-answer-overclaim",
+      "domain": "information",
+      "provenance": {
+        "kind": "development_log",
+        "execution_version": "v3.3",
+        "website_result": false
+      },
+      "run_source": "C03-v3.3",
+      "applicability": "복합 질문에 피로만 부정한 응답과 최종 감별 문장을 대조.",
+      "expected_range": "답한 범위만 보존하고 판단을 바꿀 미답변 부분만 재확인한다.",
+      "forbidden_errors": "피로 부정을 추위 민감·변비까지 음성으로 확대.",
+      "human_review": "A의 표현이 실제 F8을 넘어선지 판단. 원문 S 보존과 A 정확성을 별도로 검토.",
+      "evidence": [
+        {
+          "source": "C03-v3.3",
+          "pointer": "/last_reference_context/current_patient_observations/8",
+          "id": "F8"
+        },
+        {
+          "source": "C03-v3.3",
+          "pointer": "/final/note/A/differential"
+        },
+        {
+          "source": "C03-v3.3",
+          "pointer": "/final/note/S/ros"
+        },
+        {
+          "source": "C03-public",
+          "pointer": "/patient_script"
+        }
+      ]
+    },
+    {
+      "id": "already-answered-repeat",
+      "domain": "efficiency",
+      "provenance": {
+        "kind": "synthetic",
+        "execution_version": "synthetic",
+        "website_result": false
+      },
+      "run_source": "synthetic",
+      "applicability": "같은 시작 시점을 명확히 답했는데 동일 질문을 다시 하는 합성 상황.",
+      "expected_range": "확보한 답을 활용하고 재질문은 불명확성·모순·변화 등 필요가 있을 때 선택한다.",
+      "forbidden_errors": "이미 물었다는 사실만으로 답변 확보로 간주하거나 반대로 명확한 답변을 무시.",
+      "human_review": "재확인이 필요한 맥락인지 판단. 문장 일치만으로 무의미한 반복이라고 자동 판정하지 않는다.",
+      "evidence": [
+        {
+          "source": "synthetic",
+          "pointer": "/repeated_answer"
+        }
+      ],
+      "run_pointer": "/repeated_answer"
+    },
+    {
+      "id": "patient-question-unanswered",
+      "domain": "communication",
+      "provenance": {
+        "kind": "synthetic",
+        "execution_version": "synthetic",
+        "website_result": false
+      },
+      "run_source": "synthetic",
+      "applicability": "복약 후 운전 질문에 답하거나 확인 이유를 설명하지 않고 종료한 합성 상황.",
+      "expected_range": "답할 근거가 있으면 대응하고 없으면 필요한 약 정보와 확인 이유를 설명한다.",
+      "forbidden_errors": "질문에 답한 것처럼 P에 기록하거나 약 이름·위험을 지어내기.",
+      "human_review": "즉시 답변 가능성, 추가 확인 필요성, 긴급 행동 우선 여부.",
+      "evidence": [
+        {
+          "source": "synthetic",
+          "pointer": "/direct_question"
+        }
+      ],
+      "run_pointer": "/direct_question"
+    },
+    {
+      "id": "record-plan-vs-spoken",
+      "domain": "communication",
+      "provenance": {
+        "kind": "development_log",
+        "execution_version": "v3.3",
+        "website_result": false
+      },
+      "run_source": "C03-v3.3",
+      "applicability": "P.follow_up의 추적·악화 안내와 실제 세 EXPLAIN을 비교.",
+      "expected_range": "현재 환자에게 필요한 추적·악화 시 대처를 실제 SAY로 전달하고 기록과 구분한다.",
+      "forbidden_errors": "P에 적었다는 사실·설명 태그·환자의 네 응답으로 전달 및 이해 완료를 인정.",
+      "human_review": "다른 SAY에서 동등한 의미가 전달되었는지, 어떤 안내가 지금 필요한지. 문자 불일치만으로 미전달 확정 금지.",
+      "evidence": [
+        {
+          "source": "C03-v3.3",
+          "pointer": "/final/note/P/follow_up"
+        },
+        {
+          "source": "C03-v3.3",
+          "pointer": "/last_reference_context/current_patient_observations/20",
+          "id": "F20"
+        },
+        {
+          "source": "C03-v3.3",
+          "pointer": "/last_reference_context/current_patient_observations/21",
+          "id": "F21"
+        },
+        {
+          "source": "C03-v3.3",
+          "pointer": "/last_reference_context/current_patient_observations/22",
+          "id": "F22"
+        },
+        {
+          "source": "C03-reference",
+          "pointer": "/P"
+        }
+      ]
+    },
+    {
+      "id": "risk-assessment-delay",
+      "domain": "safety",
+      "provenance": {
+        "kind": "synthetic",
+        "execution_version": "synthetic",
+        "website_result": false
+      },
+      "run_source": "synthetic",
+      "applicability": "현재 흉통·호흡 곤란을 말했으나 무관한 식사 시간만 연속 질문하는 합성 상황.",
+      "expected_range": "상태에 맞는 위험 확인·긴급 대응을 우선하며 무관한 문진·설명이 이를 지연하지 않게 한다.",
+      "forbidden_errors": "위험을 확인하지 않고 정상으로 확대하거나 설명 횟수를 채우느라 조치 지연.",
+      "human_review": "중증도·허용되는 다음 행동 범위·실제 지연의 중요성. 특정 진단·고정 질문 순서는 강제하지 않는다.",
+      "evidence": [
+        {
+          "source": "synthetic",
+          "pointer": "/risk_delay"
+        }
+      ],
+      "run_pointer": "/risk_delay"
+    },
+    {
+      "id": "similar-explanation-repeat",
+      "domain": "communication",
+      "provenance": {
+        "kind": "development_log",
+        "execution_version": "v3.3",
+        "website_result": false
+      },
+      "run_source": "C03-v3.3",
+      "applicability": "연속 성장 평가 설명 F20~F22와 동일한 환자 응답을 비교.",
+      "expected_range": "필요한 새로운 내용을 전달하고 환자 이해 곤란·질문에 따라 설명을 조정한다.",
+      "forbidden_errors": "비슷한 설명을 횟수 채우기로 반복하거나 단순 동의를 이해의 증거로 기록.",
+      "human_review": "각 문장의 추가 정보와 반복의 필요성. 유사 의미 탐지는 자동화하지 않는다.",
+      "evidence": [
+        {
+          "source": "C03-v3.3",
+          "pointer": "/last_reference_context/current_patient_observations/20",
+          "id": "F20"
+        },
+        {
+          "source": "C03-v3.3",
+          "pointer": "/last_reference_context/current_patient_observations/21",
+          "id": "F21"
+        },
+        {
+          "source": "C03-v3.3",
+          "pointer": "/last_reference_context/current_patient_observations/22",
+          "id": "F22"
+        }
+      ]
+    },
+    {
+      "id": "needed-clarification-control",
+      "domain": "information",
+      "provenance": {
+        "kind": "development_log",
+        "execution_version": "v3.3",
+        "website_result": false
+      },
+      "run_source": "C10-v3.3",
+      "applicability": "월경일·임신 가능성 복합 질문 뒤 날짜만 답한 상황의 후속 질문.",
+      "expected_range": "답변되지 않은 임신 가능성이 판단을 바꾸면 그 부분을 확인한다.",
+      "forbidden_errors": "같은 주제를 다시 물었다는 이유만으로 유효한 추가 질문을 반복 오류로 처리.",
+      "human_review": "해당 환자에서 후속 확인 필요성과 진료 결정 영향.",
+      "evidence": [
+        {
+          "source": "C10-v3.3",
+          "pointer": "/last_reference_context/current_patient_observations/17",
+          "id": "F17"
+        },
+        {
+          "source": "C10-v3.3",
+          "pointer": "/last_reference_context/current_patient_observations/18",
+          "id": "F18"
+        },
+        {
+          "source": "C10-public",
+          "pointer": "/start_information"
+        },
+        {
+          "source": "C10-public",
+          "pointer": "/patient_script"
+        },
+        {
+          "source": "C10-reference",
+          "pointer": "/P"
+        }
+      ]
+    },
+    {
+      "id": "existing-example-partial-and-understanding",
+      "domain": "communication",
+      "provenance": {
+        "kind": "synthetic",
+        "execution_version": "synthetic",
+        "website_result": false
+      },
+      "run_source": "example",
+      "applicability": "기존 합성 example의 부분 답변과 이해 곤란 응답.",
+      "expected_range": "대답한 항목만 보존하고 이해하기 어렵다는 반응에는 필요한 범위에서 설명을 조정한다.",
+      "forbidden_errors": "약 이름 모름을 미복용으로 바꾸거나 전송 성공을 이해 완료로 바꾸기.",
+      "human_review": "설명의 적절한 수준과 필요한 추가 확인. 기존 fixture는 전체 진료 trace가 아니다.",
+      "evidence": [
+        {
+          "source": "example",
+          "pointer": "/trace/0",
+          "id": "T1"
+        },
+        {
+          "source": "example",
+          "pointer": "/trace/1",
+          "id": "T2"
+        }
+      ]
+    }
+  ]
+}
