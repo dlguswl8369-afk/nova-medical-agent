@@ -19,6 +19,7 @@ from .budget import Budget
 from .diagnostics import parse_object, parse_action, rejection_event
 from .action_repair import repair_request
 from .record_budget import RecordEnvelope, RECORD_REPAIR, fit_record_envelope, input_charge, messages_for
+from .coverage import action_facts, coverage_context, next_focus
 
 MODEL = 'openai/gpt-6-luna'
 TRANSIENT = {'PROVIDER_UNAVAILABLE', 'PROVIDER_RESPONSE_INVALID', 'PATIENT_RESPONSE_INVALID', 'EXAMINER_RESPONSE_INVALID', 'API_UNAVAILABLE', 'REQUEST_PENDING', 'LOCAL_GATEWAY_UNAVAILABLE'}
@@ -85,6 +86,7 @@ class Run:
     def __init__(self, client, state, session):
         self.client, self.state, self.config, self.session = client, state, state.config, session
         self.facts, self.explanations = [], []
+        self.next_focus = None  # One action's optional Doctor intent, not a patient fact.
         self.reference_cache = None  # Last query only; session memory, never disk.
         self.report = {'model': MODEL, 'doctor_http_attempts': 0, 'doctor_unique_requests': 0, 'doctor_successes': 0,
             'input_budget_reserved': 0, 'output_budget_reserved': 0, 'reported_prompt_tokens': 0, 'reported_completion_tokens': 0,
@@ -93,6 +95,7 @@ class Run:
             'reference_packets': [], 'query_selection': [], 'action_counts': {}, 'model_retries': 0, 'action_retries': 0,
             'submitted': False, 'degraded': False, 'diagnosis_accuracy_evaluated': False, 'clinical_record_quality_evaluated': False}
         state.report = self.report
+        self.report.update(coverage_contexts=[], accepted_focus_notes=0)
         self.budget = Budget(self.config.max_input_budget, self.config.max_output_budget, self.config.max_doctor_requests)
         self.report.update(rejection_events=[], action_sequence=[], final_http_attempts=0,
             termination_reason=None, termination_kind=None, record_outcome=None,
@@ -213,7 +216,7 @@ class Run:
                     request_id = str(uuid.uuid4())
                 time.sleep(min(self.config.retry_delay, max(0, self.left() - 2)))
 
-    def context(self, turns_left):
+    def context(self, turns_left, for_record=False):
         qa, ra = {}, {}
         query = query_from_facts(self.facts, audit=qa)
         cache_hit = bool(self.reference_cache and self.reference_cache[0] == query)
@@ -241,6 +244,20 @@ class Run:
             'recent_action_error_codes_not_patient_facts': self.report['errors'][-3:]}
         user = json.dumps(value, ensure_ascii=False)
         self.record_user = user
+        if not for_record:
+            # ACTION needs the latest reaction/exam even when older history fills
+            # the window. Do not change retrieval or the reserved RECORD context.
+            baseline_ids = [f['id'] for f in current]
+            current = action_facts(self.facts, current, self.config.fact_chars)
+            value['current_patient_observations'] = current
+            value['observations_omitted'] = len(self.facts) - len(current)
+            value['clinical_coverage'] = coverage_context(current, self.facts, self.next_focus)
+            user = json.dumps(value, ensure_ascii=False)
+            self.report['coverage_contexts'].append({
+                'visible_ids': [f['id'] for f in current],
+                'baseline_visible_ids': baseline_ids,
+                'omitted_count': value['observations_omitted'],
+                'action_context_byte_delta': len(user.encode('utf-8')) - len(self.record_user.encode('utf-8'))})
         self.report['max_prompt_chars'] = max(self.report['max_prompt_chars'], len(user))
         return user, current
 
@@ -255,7 +272,9 @@ class Run:
                 self.stop('TURN_LIMIT' if remaining <= 0 else 'TIME_MARGIN' if self.left() <= self.config.time_margin
                     else 'SERVER_REJECTION_LIMIT', 'EXPECTED_LIMIT' if rejected < 3 else 'EXECUTION_ERROR')
                 break
-            user, _ = self.context(remaining)
+            user, visible = self.context(remaining)
+            # Consumed once, including retries of this action. No pending-task backlog.
+            self.next_focus = None
             base_user = user
             step = None
             for attempt in range(self.config.attempts):
@@ -313,6 +332,12 @@ class Run:
                 observation['consult_action_number'] = len(performed)
                 observation['intent'] = intent if action == 'SAY' else 'EXAM'
                 self.facts.append(observation)
+                focus = next_focus(obj)
+                if focus:
+                    self.next_focus = {'text': focus,
+                        'context_last_visible_id': visible[-1]['id'] if visible else None,
+                        'new_response_id': observation['id']}
+                    self.report['accepted_focus_notes'] += 1
                 rejected = 0
             except NovaError as exc:
                 self.error(exc.code)
@@ -328,7 +353,7 @@ class Run:
                 break
         if self.report['termination_reason'] is None:
             self.stop('LOCAL_TURN_LIMIT', 'EXPECTED_LIMIT')
-        user, current = self.context(remaining)
+        user, current = self.context(remaining, for_record=True)
         note, diagnosis = None, None
         ready_for_record = True
         try:

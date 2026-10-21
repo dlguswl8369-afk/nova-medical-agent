@@ -1,0 +1,669 @@
+{
+  "status": "REVIEW",
+  "method": "Read-only projection of pinned past/synthetic observations through candidate Run.context; not a new consultation or v3.8 model response",
+  "source_hash_checks": {
+    "C01-public": {
+      "path": "nova_extension_work_20261015/inputs/nova-samples-2026/C01/case.json",
+      "kind": "public_sample",
+      "version": null,
+      "sha256": "0f38a63265017667fe91828ede0271a9c0f5575bc164d81a1f05540445586b71",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "C01-reference": {
+      "path": "nova_extension_work_20261015/inputs/nova-samples-2026/C01/model_record.json",
+      "kind": "public_reference_record",
+      "version": null,
+      "sha256": "e8e1879cf11e11e6e55da44d65000e1c40ac0d611ebbc0fc1d9c3022efcbf91f",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "C01-v3.2-meta": {
+      "path": "nova_extension_work_20261015/private_comparison/C01_v3.2.json",
+      "kind": "development_metadata",
+      "version": "v3.2",
+      "sha256": "6aa2091770e89b36bcec5a8b4d082e41e6b40702f0f0699755558e66ee774b87",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "C01-v3.2": {
+      "path": "nova_extension_work_20261015/private_comparison/C01_v3.2_private.json",
+      "kind": "development_log",
+      "version": "v3.2",
+      "sha256": "14319a5c174e618defa79dd207656f762efb6f67cfa3cd74ba7e6d8510c8fc72",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "C01-v3.3-meta": {
+      "path": "nova_extension_work_20261015/private_comparison/C01_v3.3.json",
+      "kind": "development_metadata",
+      "version": "v3.3",
+      "sha256": "ffe3e82a2d940e5dbd952964d999715a63faf0ad875e9f0b4dc045cf78f74dbe",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "C01-v3.3": {
+      "path": "nova_extension_work_20261015/private_comparison/C01_v3.3_private.json",
+      "kind": "development_log",
+      "version": "v3.3",
+      "sha256": "80a6f610c051e0e590e715965ae7b4898cd0dbd0126c08089dc8be5ae50c5a32",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "C10-public": {
+      "path": "nova_extension_work_20261015/inputs/nova-samples-2026/C10/case.json",
+      "kind": "public_sample",
+      "version": null,
+      "sha256": "570a87bdf976a4c99052120aacee6a7af9777ca23226f41e97d211f404067311",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "C10-reference": {
+      "path": "nova_extension_work_20261015/inputs/nova-samples-2026/C10/model_record.json",
+      "kind": "public_reference_record",
+      "version": null,
+      "sha256": "3111067fae15cf6a8d6be6b7a9d5d81bc19fcb6e9d4b4673be6d85285afaf9a0",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "C10-v3.2-meta": {
+      "path": "nova_extension_work_20261015/private_comparison/C10_v3.2.json",
+      "kind": "development_metadata",
+      "version": "v3.2",
+      "sha256": "49d4ab913ec3ed8474cf0f6c3dd5245eae342c2fe1e7f3f0b2797bb3963d2177",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "C10-v3.2": {
+      "path": "nova_extension_work_20261015/private_comparison/C10_v3.2_private.json",
+      "kind": "development_log",
+      "version": "v3.2",
+      "sha256": "96707c4b9026cebe1c5049b26be7f7bdd013db5dd15c4afff5963d2ec22bfaf5",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "C10-v3.3-meta": {
+      "path": "nova_extension_work_20261015/private_comparison/C10_v3.3.json",
+      "kind": "development_metadata",
+      "version": "v3.3",
+      "sha256": "c51f12d7cfb4f2911677c7dfbb25b1d6310a6fbb3745e0bcb6cf6057e133fa78",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "C10-v3.3": {
+      "path": "nova_extension_work_20261015/private_comparison/C10_v3.3_private.json",
+      "kind": "development_log",
+      "version": "v3.3",
+      "sha256": "f79879351daf84d4a62b89df9a2388ba23371cbc1bf27e21670250740e3d0630",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "C03-public": {
+      "path": "nova_extension_work_20261015/inputs/nova-samples-2026/C03/case.json",
+      "kind": "public_sample",
+      "version": null,
+      "sha256": "907dc541535dd939ec63fb19547f0d200e1f24264479729610c5d4bdf5343e07",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "C03-reference": {
+      "path": "nova_extension_work_20261015/inputs/nova-samples-2026/C03/model_record.json",
+      "kind": "public_reference_record",
+      "version": null,
+      "sha256": "4d06e95ca1b81a4b9632e01b82b5ee6f72d2b875c02a01cb3342eabe81d53e55",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "C03-v3.2-meta": {
+      "path": "nova_extension_work_20261015/private_comparison/C03_v3.2.json",
+      "kind": "development_metadata",
+      "version": "v3.2",
+      "sha256": "a51dfb864cd866c9dee14539fc62a15528f130d0044a2be012c20b15d1c0513c",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "C03-v3.2": {
+      "path": "nova_extension_work_20261015/private_comparison/C03_v3.2_private.json",
+      "kind": "development_log",
+      "version": "v3.2",
+      "sha256": "362464b976200c0321d8fed0f34cb31eac7fb86b8749938922d7152c6653e94f",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "C03-v3.3-meta": {
+      "path": "nova_extension_work_20261015/private_comparison/C03_v3.3.json",
+      "kind": "development_metadata",
+      "version": "v3.3",
+      "sha256": "a939a68770a057833e55b2f9fc5026578646e7d05df5d02cbf8c6860b7fb73a5",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "C03-v3.3": {
+      "path": "nova_extension_work_20261015/private_comparison/C03_v3.3_private.json",
+      "kind": "development_log",
+      "version": "v3.3",
+      "sha256": "2ab47134b41ee80ffb35494f282b39196c96a216374c2be73b245248d65c5213",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "example": {
+      "path": "harness/cases/example.json",
+      "kind": "synthetic_example",
+      "version": null,
+      "sha256": "95872c2c29164fa13b23a08a91e66ffab19fde00b429f0f8421253f3d9fc5251",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    },
+    "synthetic": {
+      "path": "harness/cases/clinical_synthetic.json",
+      "kind": "synthetic_cases",
+      "version": null,
+      "sha256": "ff9e23a4935d10e0bc05df7685aaf0d9593f657e26712525bef86d1511e7c03e",
+      "status": "PASS",
+      "reason": "Pinned source bytes verified; not clinical validation"
+    }
+  },
+  "cases": [
+    {
+      "case_id": "complaint-history-gap",
+      "source": {
+        "kind": "synthetic",
+        "execution_version": "synthetic",
+        "website_result": false
+      },
+      "automatic_mechanics": "PASS",
+      "source_observation_ids": [
+        "F0",
+        "F1",
+        "F2"
+      ],
+      "action_visible_ids": [
+        "F0",
+        "F1",
+        "F2"
+      ],
+      "exam_ids": [],
+      "delivered_explanation_ids": [],
+      "empty_reply_ids": [],
+      "record_context_v35_preserved": true,
+      "action_context_byte_delta": 284,
+      "clinical_appropriateness": "REVIEW",
+      "v38_next_action_quality": "NOT_EVALUATED",
+      "review": "추가 확인의 임상적 필요성과 긴급 조치 우선 여부. 특정 질문 문장·개수는 정답이 아니다."
+    },
+    {
+      "case_id": "unperformed-exam",
+      "source": {
+        "kind": "development_log",
+        "execution_version": "v3.2",
+        "website_result": false
+      },
+      "automatic_mechanics": "PASS",
+      "source_observation_ids": [
+        "F0",
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9",
+        "F10",
+        "F11",
+        "F12",
+        "F13",
+        "F14",
+        "F15",
+        "F16",
+        "F17",
+        "F18",
+        "F19"
+      ],
+      "action_visible_ids": [
+        "F0",
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9",
+        "F10",
+        "F11",
+        "F12",
+        "F13",
+        "F14",
+        "F15",
+        "F16",
+        "F17",
+        "F18",
+        "F19"
+      ],
+      "exam_ids": [],
+      "delivered_explanation_ids": [],
+      "empty_reply_ids": [],
+      "record_context_v35_preserved": true,
+      "action_context_byte_delta": 397,
+      "clinical_appropriateness": "REVIEW",
+      "v38_next_action_quality": "NOT_EVALUATED",
+      "review": "의식·진정 등 어떤 진찰이 필요한지와 미실시가 임상적으로 중요한지 판단. 결과표 전체 수행을 요구하지 않는다."
+    },
+    {
+      "case_id": "partial-answer-overclaim",
+      "source": {
+        "kind": "development_log",
+        "execution_version": "v3.3",
+        "website_result": false
+      },
+      "automatic_mechanics": "PASS",
+      "source_observation_ids": [
+        "F0",
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9",
+        "F10",
+        "F11",
+        "F12",
+        "F13",
+        "F14",
+        "F15",
+        "F16",
+        "F17",
+        "F18",
+        "F19",
+        "F20",
+        "F21",
+        "F22"
+      ],
+      "action_visible_ids": [
+        "F0",
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9",
+        "F10",
+        "F11",
+        "F12",
+        "F13",
+        "F14",
+        "F15",
+        "F16",
+        "F17",
+        "F18",
+        "F19",
+        "F20",
+        "F21",
+        "F22"
+      ],
+      "exam_ids": [
+        "F7",
+        "F12",
+        "F13",
+        "F19"
+      ],
+      "delivered_explanation_ids": [
+        "F20",
+        "F21",
+        "F22"
+      ],
+      "empty_reply_ids": [],
+      "record_context_v35_preserved": true,
+      "action_context_byte_delta": 414,
+      "clinical_appropriateness": "REVIEW",
+      "v38_next_action_quality": "NOT_EVALUATED",
+      "review": "A의 표현이 실제 F8을 넘어선지 판단. 원문 S 보존과 A 정확성을 별도로 검토."
+    },
+    {
+      "case_id": "already-answered-repeat",
+      "source": {
+        "kind": "synthetic",
+        "execution_version": "synthetic",
+        "website_result": false
+      },
+      "automatic_mechanics": "PASS",
+      "source_observation_ids": [
+        "F0",
+        "F1",
+        "F2",
+        "F3"
+      ],
+      "action_visible_ids": [
+        "F0",
+        "F1",
+        "F2",
+        "F3"
+      ],
+      "exam_ids": [],
+      "delivered_explanation_ids": [],
+      "empty_reply_ids": [],
+      "record_context_v35_preserved": true,
+      "action_context_byte_delta": 290,
+      "clinical_appropriateness": "REVIEW",
+      "v38_next_action_quality": "NOT_EVALUATED",
+      "review": "재확인이 필요한 맥락인지 판단. 문장 일치만으로 무의미한 반복이라고 자동 판정하지 않는다."
+    },
+    {
+      "case_id": "patient-question-unanswered",
+      "source": {
+        "kind": "synthetic",
+        "execution_version": "synthetic",
+        "website_result": false
+      },
+      "automatic_mechanics": "PASS",
+      "source_observation_ids": [
+        "F0",
+        "F1",
+        "F2"
+      ],
+      "action_visible_ids": [
+        "F0",
+        "F1",
+        "F2"
+      ],
+      "exam_ids": [],
+      "delivered_explanation_ids": [],
+      "empty_reply_ids": [],
+      "record_context_v35_preserved": true,
+      "action_context_byte_delta": 284,
+      "clinical_appropriateness": "REVIEW",
+      "v38_next_action_quality": "NOT_EVALUATED",
+      "review": "즉시 답변 가능성, 추가 확인 필요성, 긴급 행동 우선 여부."
+    },
+    {
+      "case_id": "record-plan-vs-spoken",
+      "source": {
+        "kind": "development_log",
+        "execution_version": "v3.3",
+        "website_result": false
+      },
+      "automatic_mechanics": "PASS",
+      "source_observation_ids": [
+        "F0",
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9",
+        "F10",
+        "F11",
+        "F12",
+        "F13",
+        "F14",
+        "F15",
+        "F16",
+        "F17",
+        "F18",
+        "F19",
+        "F20",
+        "F21",
+        "F22"
+      ],
+      "action_visible_ids": [
+        "F0",
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9",
+        "F10",
+        "F11",
+        "F12",
+        "F13",
+        "F14",
+        "F15",
+        "F16",
+        "F17",
+        "F18",
+        "F19",
+        "F20",
+        "F21",
+        "F22"
+      ],
+      "exam_ids": [
+        "F7",
+        "F12",
+        "F13",
+        "F19"
+      ],
+      "delivered_explanation_ids": [
+        "F20",
+        "F21",
+        "F22"
+      ],
+      "empty_reply_ids": [],
+      "record_context_v35_preserved": true,
+      "action_context_byte_delta": 414,
+      "clinical_appropriateness": "REVIEW",
+      "v38_next_action_quality": "NOT_EVALUATED",
+      "review": "다른 SAY에서 동등한 의미가 전달되었는지, 어떤 안내가 지금 필요한지. 문자 불일치만으로 미전달 확정 금지."
+    },
+    {
+      "case_id": "risk-assessment-delay",
+      "source": {
+        "kind": "synthetic",
+        "execution_version": "synthetic",
+        "website_result": false
+      },
+      "automatic_mechanics": "PASS",
+      "source_observation_ids": [
+        "F0",
+        "F1",
+        "F2",
+        "F3"
+      ],
+      "action_visible_ids": [
+        "F0",
+        "F1",
+        "F2",
+        "F3"
+      ],
+      "exam_ids": [],
+      "delivered_explanation_ids": [],
+      "empty_reply_ids": [],
+      "record_context_v35_preserved": true,
+      "action_context_byte_delta": 290,
+      "clinical_appropriateness": "REVIEW",
+      "v38_next_action_quality": "NOT_EVALUATED",
+      "review": "중증도·허용되는 다음 행동 범위·실제 지연의 중요성. 특정 진단·고정 질문 순서는 강제하지 않는다."
+    },
+    {
+      "case_id": "similar-explanation-repeat",
+      "source": {
+        "kind": "development_log",
+        "execution_version": "v3.3",
+        "website_result": false
+      },
+      "automatic_mechanics": "PASS",
+      "source_observation_ids": [
+        "F0",
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9",
+        "F10",
+        "F11",
+        "F12",
+        "F13",
+        "F14",
+        "F15",
+        "F16",
+        "F17",
+        "F18",
+        "F19",
+        "F20",
+        "F21",
+        "F22"
+      ],
+      "action_visible_ids": [
+        "F0",
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9",
+        "F10",
+        "F11",
+        "F12",
+        "F13",
+        "F14",
+        "F15",
+        "F16",
+        "F17",
+        "F18",
+        "F19",
+        "F20",
+        "F21",
+        "F22"
+      ],
+      "exam_ids": [
+        "F7",
+        "F12",
+        "F13",
+        "F19"
+      ],
+      "delivered_explanation_ids": [
+        "F20",
+        "F21",
+        "F22"
+      ],
+      "empty_reply_ids": [],
+      "record_context_v35_preserved": true,
+      "action_context_byte_delta": 414,
+      "clinical_appropriateness": "REVIEW",
+      "v38_next_action_quality": "NOT_EVALUATED",
+      "review": "각 문장의 추가 정보와 반복의 필요성. 유사 의미 탐지는 자동화하지 않는다."
+    },
+    {
+      "case_id": "needed-clarification-control",
+      "source": {
+        "kind": "development_log",
+        "execution_version": "v3.3",
+        "website_result": false
+      },
+      "automatic_mechanics": "PASS",
+      "source_observation_ids": [
+        "F0",
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9",
+        "F10",
+        "F11",
+        "F12",
+        "F13",
+        "F14",
+        "F15",
+        "F16",
+        "F17",
+        "F18",
+        "F19"
+      ],
+      "action_visible_ids": [
+        "F0",
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7",
+        "F8",
+        "F9",
+        "F10",
+        "F11",
+        "F12",
+        "F13",
+        "F14",
+        "F15",
+        "F16",
+        "F17",
+        "F18",
+        "F19"
+      ],
+      "exam_ids": [
+        "F10",
+        "F14",
+        "F16"
+      ],
+      "delivered_explanation_ids": [
+        "F19"
+      ],
+      "empty_reply_ids": [],
+      "record_context_v35_preserved": true,
+      "action_context_byte_delta": 393,
+      "clinical_appropriateness": "REVIEW",
+      "v38_next_action_quality": "NOT_EVALUATED",
+      "review": "해당 환자에서 후속 확인 필요성과 진료 결정 영향."
+    },
+    {
+      "case_id": "existing-example-partial-and-understanding",
+      "source": {
+        "kind": "synthetic",
+        "execution_version": "synthetic",
+        "website_result": false
+      },
+      "automatic_mechanics": "PASS",
+      "source_observation_ids": [
+        "F0",
+        "F1",
+        "F2",
+        "F3"
+      ],
+      "action_visible_ids": [
+        "F0",
+        "F1",
+        "F2",
+        "F3"
+      ],
+      "exam_ids": [],
+      "delivered_explanation_ids": [
+        "F3"
+      ],
+      "empty_reply_ids": [],
+      "record_context_v35_preserved": true,
+      "action_context_byte_delta": 288,
+      "clinical_appropriateness": "REVIEW",
+      "v38_next_action_quality": "NOT_EVALUATED",
+      "review": "설명의 적절한 수준과 필요한 추가 확인. 기존 fixture는 전체 진료 trace가 아니다."
+    }
+  ],
+  "real_api_calls": 0,
+  "clinical_scores": "NOT_EVALUATED"
+}

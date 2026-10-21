@@ -1,0 +1,417 @@
+{
+  "status": "REVIEW",
+  "baseline": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+  "branch": "codex/nova-v3-8-clinical-coverage",
+  "harness_commit": "93abcdcdef146a0ade5a55c0ae5b4b70a7a0bb2c",
+  "inherited_work": [
+    {
+      "path": "app/nova_agent/loop.py",
+      "sha256": "811fca322fa0b3341994dce9a0da2d282a915e9e095d866b695dcafa97de4505",
+      "inherited_snapshot_verified": true,
+      "final_sha256": "7609a1e57c2be20c1c0848e6e21ca21746d7f344e002ccb41c9f21bf0eb2592f"
+    },
+    {
+      "path": "app/nova_agent/prompts.py",
+      "sha256": "7f0842b8b8d615e14763950a1e4e412a7bdd89231a0176d8f5aa05ca248f09b5",
+      "inherited_snapshot_verified": true,
+      "final_sha256": "24e5aef3d65ff0e3ee39b2f2e894a60081abacc770ccfed762b7941f52fb81d4"
+    },
+    {
+      "path": "app/nova_agent/coverage.py",
+      "sha256": "4963a8a7f18b939d3015562aeb874b8cf5963b75bbee75cf487f616f51eacbb3",
+      "inherited_snapshot_verified": true,
+      "final_sha256": "fa4f1b9f5e2f770bc7710e827e666817c1e6495d39fcac79001d0a7311af7051"
+    }
+  ],
+  "harness_candidate_check": {
+    "baseline": "v3.5",
+    "baseline_commit": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+    "head": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+    "mode": "candidate",
+    "scope": {
+      "status": "REVIEW",
+      "evidence": [
+        "app/nova_agent/coverage.py",
+        "app/nova_agent/loop.py",
+        "app/nova_agent/prompts.py"
+      ],
+      "method": "Git blob hashes including untracked app files"
+    },
+    "protected_sections": {
+      "status": "PASS",
+      "evidence": [],
+      "method": "AST comparison of MODEL/Config/prepare/Doctor/action/deadline and RECORD"
+    },
+    "clinical_quality": {
+      "status": "NOT_EVALUATED",
+      "evidence": "No clinical model or website evaluation"
+    },
+    "manual_review": {
+      "status": "REVIEW",
+      "evidence": "Clinical adequacy, permissions and external evaluation remain human decisions"
+    },
+    "regressions": {
+      "status": "PASS",
+      "tests": 61,
+      "counts": {
+        "action_observation_delivery": 36,
+        "final_record_budget": 14,
+        "accounting": 4,
+        "repair": 2,
+        "evaluator_separation": 5
+      },
+      "checks": [
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.CacheTests.test_cache_packet_not_aliased_to_returned_context"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.CacheTests.test_doctor_explanation_not_retrieved_as_patient_fact"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.CacheTests.test_only_immediately_previous_query_cached"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.CacheTests.test_same_query_reused_new_patient_information_retrieved"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.CoverageTests.test_empty_unknown_and_partial_replies_remain_raw_not_clinical_labels"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.CoverageTests.test_failed_delivery_creates_neither_focus_nor_delivered_id"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.CoverageTests.test_optional_focus_lasts_one_action_and_never_enters_record_or_search"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.CoverageTests.test_optional_invalid_note_never_invalidates_action_or_done"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.CoverageTests.test_oversized_pair_not_cut_or_marked_answered"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.CoverageTests.test_recent_reply_and_exam_retained_with_same_cap_and_record_unchanged"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.RecordTests.test_assessment_still_requires_actual_observation_ids"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.RecordTests.test_disease_names_and_uncertain_hypotheses_allowed"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.RecordTests.test_new_information_after_explanation_preserved_in_record"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.RecordTests.test_observed_negative_and_normal_findings_allowed_in_assessment"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.RecordTests.test_omitted_reply_and_performed_exam_are_retained"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.RecordTests.test_partial_and_unknown_answers_preserved_without_synthesized_negatives"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.RecordTests.test_plan_does_not_count_as_delivered_education"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.RecordTests.test_vitals_deduplicated_and_selected_reply_not_duplicated"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.SimpleFlowTests.test_confusion_and_empty_reply_preserved_without_forced_continuation"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.SimpleFlowTests.test_done_and_fallback_are_reported_separately"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.SimpleFlowTests.test_done_does_not_require_explanations_or_exemptions"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.SimpleFlowTests.test_exhausted_say_retries_do_not_create_observations"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.SimpleFlowTests.test_explanations_have_no_fixed_tag_count_or_repeat_limit"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.SimpleFlowTests.test_final_record_reserve_without_communication_buffer"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.SimpleFlowTests.test_mixed_reply_no_longer_requires_status_or_rejects_confirmed_quote"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.SimpleFlowTests.test_nfc_and_repeat_guards_remain"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.SimpleFlowTests.test_optional_goal_status_and_importance_cannot_block_actions"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.SimpleFlowTests.test_prior_specialty_false_positives_are_sent"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.SimpleFlowTests.test_production_prepare_and_entrypoint_use_simple_flow"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.SimpleFlowTests.test_question_exam_explanation_done_need_no_metadata"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.SimpleFlowTests.test_reasking_is_not_blocked_by_goal_name_or_attempt_count"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.SimpleFlowTests.test_refused_or_malformed_say_is_not_delivered"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.SimpleFlowTests.test_repeated_length_error_tightens_target_without_review_schema"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.SimpleFlowTests.test_reports_do_not_export_patient_or_model_text"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.SimpleFlowTests.test_successful_retry_records_one_explanation_after_acknowledgment"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_simple_v35.SimpleFlowTests.test_three_tags_do_not_prove_safety_or_understanding"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_record_budget.ConsultationTests.test_actual_calls_reject_context_mutation_not_just_oversize"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_record_budget.ConsultationTests.test_final_new_id_provider_regeneration_is_separately_reserved"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_record_budget.ConsultationTests.test_growing_observations_update_exact_current_context"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_record_budget.ConsultationTests.test_missing_final_usage_and_same_id_retry_keep_remaining_headroom"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_record_budget.ConsultationTests.test_multiple_turns_normal_usage_improves_over_fixed_300000"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_record_budget.ConsultationTests.test_uncertain_requests_accumulate_and_leave_three_final_generations"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_record_budget.EnvelopeTests.test_each_retry_charge_uses_actual_serialization"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_record_budget.EnvelopeTests.test_insufficient_output_or_calls_does_not_discard_context_to_hide_it"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_record_budget.EnvelopeTests.test_mutated_clinical_context_rejected_even_if_shorter"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_record_budget.EnvelopeTests.test_new_context_fits_by_removing_whole_lowest_ranked_reference"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_record_budget.EnvelopeTests.test_repair_count_cannot_outrun_transmission_ordinal"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_record_budget.EnvelopeTests.test_reported_170k_plus_40k_boundary_is_admitted"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_record_budget.EnvelopeTests.test_single_prompt_limit_applies_to_all_repair_generations"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_record_budget.EnvelopeTests.test_unfundable_observations_fail_closed_without_slicing"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_budget_v3.BudgetTests.test_uncertain_request_keeps_reservation"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_budget_v3.BudgetTests.test_same_id_retry_no_double_reservation"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_budget_v3.BudgetTests.test_calls_count_same_id_retries_conservatively"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_budget_v3.LoopV3Tests.test_budget_stop_is_expected_and_final_call_preserved"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_action_repair.RepairTests.test_nfc_boundary_and_exact_transmitted_string"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_action_repair.RepairTests.test_repairs_do_not_enter_observations_or_final_context"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_extension.SeparationTests.test_aci_has_no_diagnosis_score_or_note_leak"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_extension.SeparationTests.test_agentclinic_secrets_only_evaluator"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_extension.SeparationTests.test_ddx_one_question_only_and_split_preserved"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_extension.SeparationTests.test_local_model_alias_only_in_dev_adapter"
+        },
+        {
+          "status": "PASS",
+          "evidence": "test_extension.SeparationTests.test_record_alone_does_not_imply_action"
+        }
+      ],
+      "app_source": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova-medical-agent\\app\\nova_agent\\loop.py",
+      "clinical_quality": "NOT_EVALUATED",
+      "real_api_calls": 0
+    },
+    "app_preservation": {
+      "status": "PASS",
+      "evidence": "All app byte hashes unchanged during run"
+    },
+    "status": "REVIEW"
+  },
+  "case_review_statuses": [
+    {
+      "case_id": "complaint-history-gap",
+      "status": "REVIEW",
+      "provenance": {
+        "kind": "synthetic",
+        "execution_version": "synthetic",
+        "website_result": false
+      }
+    },
+    {
+      "case_id": "unperformed-exam",
+      "status": "REVIEW",
+      "provenance": {
+        "kind": "development_log",
+        "execution_version": "v3.2",
+        "website_result": false
+      }
+    },
+    {
+      "case_id": "partial-answer-overclaim",
+      "status": "REVIEW",
+      "provenance": {
+        "kind": "development_log",
+        "execution_version": "v3.3",
+        "website_result": false
+      }
+    },
+    {
+      "case_id": "already-answered-repeat",
+      "status": "REVIEW",
+      "provenance": {
+        "kind": "synthetic",
+        "execution_version": "synthetic",
+        "website_result": false
+      }
+    },
+    {
+      "case_id": "patient-question-unanswered",
+      "status": "REVIEW",
+      "provenance": {
+        "kind": "synthetic",
+        "execution_version": "synthetic",
+        "website_result": false
+      }
+    },
+    {
+      "case_id": "record-plan-vs-spoken",
+      "status": "REVIEW",
+      "provenance": {
+        "kind": "development_log",
+        "execution_version": "v3.3",
+        "website_result": false
+      }
+    },
+    {
+      "case_id": "risk-assessment-delay",
+      "status": "REVIEW",
+      "provenance": {
+        "kind": "synthetic",
+        "execution_version": "synthetic",
+        "website_result": false
+      }
+    },
+    {
+      "case_id": "similar-explanation-repeat",
+      "status": "REVIEW",
+      "provenance": {
+        "kind": "development_log",
+        "execution_version": "v3.3",
+        "website_result": false
+      }
+    },
+    {
+      "case_id": "needed-clarification-control",
+      "status": "REVIEW",
+      "provenance": {
+        "kind": "development_log",
+        "execution_version": "v3.3",
+        "website_result": false
+      }
+    },
+    {
+      "case_id": "existing-example-partial-and-understanding",
+      "status": "REVIEW",
+      "provenance": {
+        "kind": "synthetic",
+        "execution_version": "synthetic",
+        "website_result": false
+      }
+    }
+  ],
+  "step_extra_utf8_bytes": 1447,
+  "additional_model_calls": 0,
+  "clinical_quality": "NOT_EVALUATED",
+  "new_clinical_sessions": 0,
+  "website_evaluation": "NOT_EVALUATED",
+  "linux_validation": "NOT_EVALUATED"
+}

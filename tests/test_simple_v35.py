@@ -10,6 +10,7 @@ import nova_sdk
 from nova_agent import loop
 from nova_agent.action_repair import MARKER
 from nova_agent.context import fact, query_from_facts
+from nova_agent.coverage import action_facts, coverage_context, next_focus
 from nova_agent.diagnostics import parse_action, Rejection
 from nova_agent.prompts import STEP
 from nova_agent.record import render_record, fallback_record
@@ -222,6 +223,95 @@ class SimpleFlowTests(unittest.TestCase):
         c = Replies([say('비공개합성표식 질문'), {'action': 'DONE'}, plan()], ['비공개합성표식 답변'])
         r = self.run_case(c)
         self.assertNotIn('비공개합성표식', json.dumps(r, ensure_ascii=False))
+
+
+class CoverageTests(unittest.TestCase):
+    """v3.8 delta: actual contexts and optional intent, not clinical choices."""
+
+    def test_recent_reply_and_exam_retained_with_same_cap_and_record_unchanged(self):
+        c = MockClient()
+        r = loop.Run(c, loop.State(NoResults(), loop.Config(fact_chars=1000)), c.session())
+        r.facts = [fact('F0', 'opening', '합성 주호소'), fact('F1', 'vitals', '제공 활력')]
+        for n in range(2, 8):
+            r.facts.append(dict(fact(f'F{n}', 'patient_reply', '오래된 답변' * 18, '복용약은 무엇인가요?'), intent='ASK'))
+        r.facts += [dict(fact('F8', 'exam', '실제 관찰 결과', '복부 압통 확인'), intent='EXAM'),
+                    dict(fact('F9', 'patient_reply', '약은 먹어요. 이름은 몰라요. 운전해도 되나요?', '복용약을 확인해요'), intent='ASK')]
+        baseline = loop.visible_facts(r.facts, 1000)
+        user, selected = r.context(12)
+        action = json.loads(user)
+        self.assertNotIn('F9', [f['id'] for f in baseline])
+        self.assertTrue({'F8', 'F9'}.issubset({f['id'] for f in selected}))
+        self.assertLessEqual(len(json.dumps(selected, ensure_ascii=False)), 1000)
+        self.assertTrue(all(f == next(x for x in r.facts if x['id'] == f['id']) for f in selected))
+        record = json.loads(r.record_user)
+        self.assertEqual(record['current_patient_observations'], baseline)
+        self.assertNotIn('clinical_coverage', record)
+        self.assertEqual(action['clinical_coverage']['latest_patient_statement_id'], 'F9')
+        final, _ = r.context(12, for_record=True)
+        self.assertEqual(json.loads(final), record)
+
+    def test_oversized_pair_not_cut_or_marked_answered(self):
+        facts = [fact('F0', 'opening', '증상'), fact('F1', 'vitals', '활력'),
+                 dict(fact('F2', 'patient_reply', '긴 응답' * 300, '질문'), intent='ASK')]
+        selected = action_facts(facts, loop.visible_facts(facts, 1000), 1000)
+        coverage = coverage_context(selected, facts, None)
+        self.assertEqual(coverage['omitted_observation_ids'], ['F2'])
+        self.assertIsNone(coverage['latest_patient_statement_id'])
+        self.assertEqual(coverage['asked_reply_ids'], [])
+        self.assertEqual(coverage['executed_test_ids'], [])
+
+    def test_optional_focus_lasts_one_action_and_never_enters_record_or_search(self):
+        marker = '합성메모전용표식'
+        c = Replies([say('약을 복용하나요?', next_focus=marker),
+                     say('약 이름을 확인한 뒤 안내할게요', 'EXPLAIN'),
+                     {'action': 'EXAM', 'content': '복부 압통 확인', 'next_focus': marker},
+                     {'action': 'DONE'}, plan()], ['약은 먹어요. 이름은 몰라요.', '무슨 뜻인가요?'])
+        state = loop.State(NoResults(), loop.Config(retry_delay=0))
+        with patch.object(loop, 'query_from_facts', wraps=loop.query_from_facts) as search_query:
+            loop.consult(c, state)
+            self.assertTrue(all(marker not in repr(call.args[0]) for call in search_query.call_args_list))
+        contexts = [json.loads(p[1]['content']) for p in c.prompts]
+        carry = contexts[1]['clinical_coverage']['previous_doctor_intent_not_observation']
+        self.assertEqual(carry['text'], marker)
+        self.assertEqual(carry['new_response_id'], 'F2')
+        self.assertEqual(contexts[1]['current_patient_observations'][-1]['text'], '약은 먹어요. 이름은 몰라요.')
+        self.assertNotIn('previous_doctor_intent_not_observation', contexts[2]['clinical_coverage'])
+        self.assertEqual(contexts[2]['clinical_coverage']['delivered_explanation_reply_ids'], ['F3'])
+        self.assertNotIn('clinical_coverage', contexts[-1])
+        self.assertNotIn(marker, json.dumps(c.submissions, ensure_ascii=False))
+        self.assertNotIn(marker, json.dumps(state.report, ensure_ascii=False))
+        self.assertEqual(c.chat_number, 5)  # 4 action decisions + existing RECORD only
+        self.assertEqual(state.report['termination_reason'], 'DOCTOR_DONE')
+        self.assertFalse(state.report['patient_understanding_assessed'])
+        self.assertIn('무슨 뜻인가요?', c.submissions[0]['note']['S']['hpi'])
+
+    def test_failed_delivery_creates_neither_focus_nor_delivered_id(self):
+        c = MockClient([say('검사 필요성을 설명드릴게요', 'EXPLAIN', next_focus='후속 설명'), plan()])
+        r = loop.Run(c, loop.State(NoResults(), loop.Config(retry_delay=0)), c.session())
+        with patch.object(c, 'say', return_value={'content': '거절', 'refused': True}):
+            r.execute()
+        self.assertIsNone(r.next_focus)
+        self.assertEqual(r.report['accepted_focus_notes'], 0)
+        self.assertEqual(coverage_context(r.facts, r.facts, None)['delivered_explanation_reply_ids'], [])
+        self.assertEqual(len(r.facts), 2)
+
+    def test_optional_invalid_note_never_invalidates_action_or_done(self):
+        for value in (None, 3, {}, [], '', '   ', '가' * 241):
+            obj = say(next_focus=value)
+            self.assertIsNone(next_focus(obj))
+            self.assertEqual(parse_action(obj, set())[0], 'SAY')
+            self.assertEqual(parse_action({'action': 'DONE', 'next_focus': value}, set())[0], 'DONE')
+        self.assertEqual(next_focus({'next_focus': '  메모  '}), '메모')
+
+    def test_empty_unknown_and_partial_replies_remain_raw_not_clinical_labels(self):
+        for text in ('', '   ', '모르겠어요', '약은 먹어요. 이름은 몰라요.'):
+            facts = [fact('F0', 'opening', '증상'), dict(fact('F1', 'patient_reply', text, '약 이름과 알레르기가 있나요?'), intent='ASK')]
+            coverage = coverage_context(facts, facts, None)
+            self.assertEqual(coverage['asked_reply_ids'], ['F1'])
+            self.assertEqual(coverage['empty_reply_ids'], ['F1'] if not text.strip() else [])
+            self.assertEqual(facts[-1]['text'], text)
+            self.assertNotIn('confirmed', coverage)
+            self.assertNotIn('missing_messages', coverage)
 
 
 class CacheTests(unittest.TestCase):
