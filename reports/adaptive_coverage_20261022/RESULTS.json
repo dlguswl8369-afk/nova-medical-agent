@@ -1,0 +1,184 @@
+{
+  "baseline_commit": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+  "harness_commit": "93abcdcdef146a0ade5a55c0ae5b4b70a7a0bb2c",
+  "branch": "codex/nova-adaptive-coverage-experiments",
+  "automatic_contracts": "PASS",
+  "clinical_quality": "NOT_EVALUATED",
+  "clinical_review": "REVIEW",
+  "regressions": {
+    "status": "PASS",
+    "distinct_tests": 76,
+    "counts": {
+      "action_observation_delivery": 30,
+      "final_record_budget": 14,
+      "accounting": 4,
+      "repair": 2,
+      "evaluator_separation": 5,
+      "workflow": 21
+    },
+    "initial_pass": 75,
+    "initial_fail": 1,
+    "affected_rerun_pass": 1,
+    "reason": "One test used common prompt words as a session marker; replaced by a unique fixture marker. Runtime bytes unchanged. Only that failed test rerun."
+  },
+  "context_projections": {
+    "cases": 10,
+    "projections": 30,
+    "source_files_verified": 20,
+    "real_api_calls": 0,
+    "new_sessions": 0,
+    "new_actions": 0,
+    "maximum_omitted_observations": 0
+  },
+  "action_input_byte_deltas_no_plan": {
+    "BASELINE": [
+      0
+    ],
+    "H5": [
+      822
+    ],
+    "H6": [
+      1098
+    ]
+  },
+  "protected_policy": {
+    "baseline_action": "2048/medium",
+    "record": "4096/medium",
+    "auxiliary_http_attempts_per_invocation": 1,
+    "planner_and_refresh": "3072/medium",
+    "audit": "3072/medium; no high calls",
+    "reservation_and_settlement": "identical v3.5 statements",
+    "final_record_envelope": "identical v3.5 statements"
+  },
+  "candidates": [
+    {
+      "candidate": "H5_adaptive_clinical_workflow",
+      "strategy": "H5",
+      "baseline_commit": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_adaptive_coverage_20261022\\deliverables\\nova_doctor_bm25_candidate_H5_adaptive_clinical_workflow_20261022.zip",
+      "bytes": 44994081,
+      "sha256": "27f5cd73ee57d7c4525782eafe90c69a18ec7941ffb934fa2dd6eecfdc957366",
+      "below_45mb_target": true,
+      "changed_app_files": [
+        "app/nova_agent/experiment_config.py",
+        "app/nova_agent/loop.py",
+        "app/nova_agent/workflow_strategy.py"
+      ],
+      "max_auxiliary_http_calls": 2,
+      "clinical_quality": "NOT_EVALUATED",
+      "offline_smoke": {
+        "status": "PASS",
+        "mock_phase_sequence": [
+          "ACTION",
+          "ACTION",
+          "PLAN",
+          "ACTION",
+          "REFRESH",
+          "ACTION",
+          "RECORD"
+        ],
+        "actual_mock_http_calls": 7,
+        "actual_auxiliary_http_calls": 2,
+        "request_output_caps": [
+          2048,
+          2048,
+          3072,
+          2048,
+          3072,
+          2048,
+          4096
+        ],
+        "reasoning_efforts": [
+          "medium",
+          "medium",
+          "medium",
+          "medium",
+          "medium",
+          "medium",
+          "medium"
+        ],
+        "record_prompt_sha256": "21f6e134d14457334372a94b53d88e3577d4727a17f7f2560a779db66ade0c3d",
+        "real_api_calls": 0
+      }
+    },
+    {
+      "candidate": "H6_coverage_first",
+      "strategy": "H6",
+      "baseline_commit": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_adaptive_coverage_20261022\\deliverables\\nova_doctor_bm25_candidate_H6_coverage_first_20261022.zip",
+      "bytes": 44994082,
+      "sha256": "05e8e07f7d306a8d59d4649f36037f78e1c3a7f070d621ff083cad4bc91cb093",
+      "below_45mb_target": true,
+      "changed_app_files": [
+        "app/nova_agent/experiment_config.py",
+        "app/nova_agent/loop.py",
+        "app/nova_agent/workflow_strategy.py"
+      ],
+      "max_auxiliary_http_calls": 1,
+      "clinical_quality": "NOT_EVALUATED",
+      "offline_smoke": {
+        "status": "PASS",
+        "mock_phase_sequence": [
+          "ACTION",
+          "ACTION",
+          "ACTION",
+          "AUDIT",
+          "ACTION",
+          "RECORD"
+        ],
+        "actual_mock_http_calls": 6,
+        "actual_auxiliary_http_calls": 1,
+        "request_output_caps": [
+          2048,
+          2048,
+          2048,
+          3072,
+          2048,
+          4096
+        ],
+        "reasoning_efforts": [
+          "medium",
+          "medium",
+          "medium",
+          "medium",
+          "medium",
+          "medium"
+        ],
+        "record_prompt_sha256": "21f6e134d14457334372a94b53d88e3577d4727a17f7f2560a779db66ade0c3d",
+        "real_api_calls": 0
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_adaptive_coverage_20261022\\checks\\validation.json",
+      "sha256": "036e8bb9b300c030643e71d67b6c431a3b73e20b75d7fd9dcddf478fa10f56a8"
+    },
+    {
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_adaptive_coverage_20261022\\checks-retry\\validation.json",
+      "sha256": "d7c6f9bd1038697b6235dfd40e1d69451817afd01b5760250398ed1b2b3e174c"
+    },
+    {
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_adaptive_coverage_20261022\\validation-combined.json",
+      "sha256": "3647b7f1a861c1752c60218f49be797b244648565236de31bbec0bde549df19b"
+    },
+    {
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_adaptive_coverage_20261022\\context_review\\review.json",
+      "sha256": "d486bb716839513cffe53e435ba3c13f04580cc33ea731be785d0ea53e5aa1dc"
+    },
+    {
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_adaptive_coverage_20261022\\deliverables\\manifest.json",
+      "sha256": "b218ad56a73eca92b08dd26f55ddc19316fbe74ad791e944770e015825b17f4f"
+    }
+  ],
+  "preserved_worktrees": {
+    "nova-medical-agent": "3b348d1d86621c880c2aca6fb1d9d3f89a3adb07",
+    "nova-medical-agent-batch": "50409240107b152705e3e278df8466a3e360ea28",
+    "nova-medical-agent-high-intensity": "91b48ddd621972b71fedbb433dccb2b169bb1d3c",
+    "nova-medical-agent-harness": "93abcdcdef146a0ade5a55c0ae5b4b70a7a0bb2c"
+  },
+  "real_api_calls": 0,
+  "new_clinical_sessions": 0,
+  "website_evaluations": 0,
+  "final_candidate_selected": false
+}

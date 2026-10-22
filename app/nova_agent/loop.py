@@ -19,6 +19,8 @@ from .budget import Budget
 from .diagnostics import parse_object, parse_action, rejection_event
 from .action_repair import repair_request
 from .record_budget import RecordEnvelope, RECORD_REPAIR, fit_record_envelope, input_charge, messages_for
+from .experiment_config import STRATEGY
+from .workflow_strategy import features, call_settings, step_prompt, plan_text, coverage_action, audit_action, PLAN, REFRESH, AUDIT
 
 MODEL = 'openai/gpt-6-luna'
 TRANSIENT = {'PROVIDER_UNAVAILABLE', 'PROVIDER_RESPONSE_INVALID', 'PATIENT_RESPONSE_INVALID', 'EXAMINER_RESPONSE_INVALID', 'API_UNAVAILABLE', 'REQUEST_PENDING', 'LOCAL_GATEWAY_UNAVAILABLE'}
@@ -59,6 +61,7 @@ class State:
     index: BM25Index
     config: Config = field(default_factory=Config)
     report: dict = field(default_factory=dict)
+    strategy: str = STRATEGY
 
 
 def prepare():
@@ -85,6 +88,12 @@ class Run:
     def __init__(self, client, state, session):
         self.client, self.state, self.config, self.session = client, state, state.config, session
         self.facts, self.explanations = [], []
+        self.features = features(state.strategy)
+        self.step_prompt = step_prompt(STEP, state.strategy)
+        self.clinical_plan = None
+        self.plan_attempted, self.refresh_attempted, self.audit_attempted = False, False, False
+        self.plan_fact_count = 0
+        self.failed_exams, self.last_exam_failure = set(), None
         self.reference_cache = None  # Last query only; session memory, never disk.
         self.report = {'model': MODEL, 'doctor_http_attempts': 0, 'doctor_unique_requests': 0, 'doctor_successes': 0,
             'input_budget_reserved': 0, 'output_budget_reserved': 0, 'reported_prompt_tokens': 0, 'reported_completion_tokens': 0,
@@ -93,6 +102,7 @@ class Run:
             'reference_packets': [], 'query_selection': [], 'action_counts': {}, 'model_retries': 0, 'action_retries': 0,
             'submitted': False, 'degraded': False, 'diagnosis_accuracy_evaluated': False, 'clinical_record_quality_evaluated': False}
         state.report = self.report
+        self.report.update(strategy=state.strategy, auxiliary_events=[], coverage_choices=[])
         self.budget = Budget(self.config.max_input_budget, self.config.max_output_budget, self.config.max_doctor_requests)
         self.report.update(rejection_events=[], action_sequence=[], final_http_attempts=0,
             termination_reason=None, termination_kind=None, record_outcome=None,
@@ -127,10 +137,16 @@ class Run:
     def stop(self, reason, kind):
         self.report.update(termination_reason=reason, termination_kind=kind)
 
-    def doctor(self, system, user, final=False):
+    def doctor(self, system, user, final=False, purpose='ACTION'):
+        if purpose not in ('ACTION', 'PLAN', 'REFRESH', 'AUDIT') or (final and purpose != 'ACTION'):
+            raise ValueError('INVALID_DOCTOR_PURPOSE')
         cfg, report = self.config, self.report
+        auxiliary = purpose != 'ACTION'
         messages = messages_for(system, user)
         limit = 4096 if final else 2048
+        effort = 'medium'
+        if auxiliary:
+            limit, effort = call_settings(self.state.strategy, purpose, self.left() - cfg.time_margin)
         # UTF-8 bytes + structural allowance conservatively bound byte-BPE tokens.
         charge = input_charge(system, user)
         if charge > 100000:
@@ -146,8 +162,8 @@ class Run:
         elif self.record_envelope is None:
             self.record_envelope = RecordEnvelope(user, record_attempts)
         request_id = str(uuid.uuid4())
-        fingerprint = hashlib.sha256(json.dumps([messages, limit, MODEL, 'medium'], ensure_ascii=False).encode()).hexdigest()
-        for attempt in range(cfg.attempts):
+        fingerprint = hashlib.sha256(json.dumps([messages, limit, MODEL, effort], ensure_ascii=False).encode()).hexdigest()
+        for attempt in range(1 if auxiliary else cfg.attempts):
             if self.left() <= 10:
                 raise NovaError('LOCAL_DEADLINE')
             if final and report['final_http_attempts'] >= record_attempts:
@@ -161,7 +177,7 @@ class Run:
                     'remaining_retry_input_headroom': headroom[0], 'context_and_suffix_validated': True})
             try:
                 self.budget.reserve(request_id, charge, limit, fingerprint, headroom=headroom,
-                    phase='RECORD' if final else 'ACTION')
+                    phase='RECORD' if final else purpose)
             finally:
                 self.sync_budget()
             report['final_http_attempts'] += int(final)
@@ -170,8 +186,10 @@ class Run:
             # Avoid starting a 240-second request near the session deadline.
             if hasattr(self.client, 'timeout'):
                 self.client.timeout = max(1, min(240, self.left() - 5))
+                if auxiliary:
+                    self.client.timeout = max(1, min(180 if effort == 'high' else 120, self.left() - cfg.time_margin))
             try:
-                response = self.client.chat(messages, max_tokens=limit, reasoning_effort='medium', model=MODEL, request_id=request_id)
+                response = self.client.chat(messages, max_tokens=limit, reasoning_effort=effort, model=MODEL, request_id=request_id)
                 report['doctor_successes'] += 1
                 self.budget.settle(request_id, response.get('usage') if isinstance(response, dict) else None)
                 self.sync_budget()
@@ -180,7 +198,7 @@ class Run:
                 if not isinstance(exc, NovaError):
                     exc = NovaError('API_UNAVAILABLE')
                 self.error(exc.code)
-                if exc.code not in TRANSIENT or attempt + 1 == cfg.attempts:
+                if auxiliary or exc.code not in TRANSIENT or attempt + 1 == cfg.attempts:
                     raise exc from None
                 report['model_retries'] += 1
                 if exc.code in REGENERATE:
@@ -244,6 +262,64 @@ class Run:
         self.report['max_prompt_chars'] = max(self.report['max_prompt_chars'], len(user))
         return user, current
 
+    def action_context(self, baseline_user):
+        if not self.features or not (self.clinical_plan or self.last_exam_failure):
+            return baseline_user
+        value = json.loads(baseline_user)
+        if self.clinical_plan:
+            value['clinical_plan_not_patient_facts'] = self.clinical_plan
+        if self.last_exam_failure:
+            value['last_exam_failure_not_patient_facts'] = self.last_exam_failure
+        return json.dumps(value, ensure_ascii=False)
+
+    def auxiliary(self, purpose, baseline_user, original, blocked, remaining):
+        # Mark before every exit/call: timeout, malformed response or unavailable
+        # budget never turns a once-only review into a retry loop.
+        if purpose == 'PLAN':
+            self.plan_attempted = True
+            self.plan_fact_count = len(self.facts)
+        elif purpose == 'REFRESH':
+            self.refresh_attempted = True
+        else:
+            self.audit_attempted = True
+        event = {'purpose': purpose, 'status': 'SKIPPED', 'http_attempts': 0}
+        self.report['auxiliary_events'].append(event)
+        if remaining < (2 if purpose == 'PLAN' else 1) or self.left() <= self.config.time_margin + 180:
+            event['reason'] = 'TIME_OR_TURN_HEADROOM'
+            return original
+        before = self.report['doctor_http_attempts']
+        try:
+            # Independent audit: baseline factual context only, no planner text,
+            # previous reasoning or unexecuted alternative passed as evidence.
+            prompt = {'PLAN': PLAN, 'REFRESH': REFRESH, 'AUDIT': AUDIT}[purpose]
+            supplied = self.action_context(baseline_user) if purpose == 'REFRESH' else baseline_user
+            obj = parse_object(self.doctor(prompt, supplied, purpose=purpose))
+            if purpose in ('PLAN', 'REFRESH'):
+                text = plan_text(obj.get('plan'))
+                if text is None:
+                    raise ValueError('INVALID_CLINICAL_PLAN')
+                self.clinical_plan = text
+                event['status'] = 'PLAN_AVAILABLE'
+                if 'next_action' not in obj:
+                    return original
+                if not isinstance(obj['next_action'], dict):
+                    raise ValueError('INVALID_PLAN_ACTION')
+                proposed = parse_action(obj['next_action'], blocked)
+            else:
+                proposed = audit_action(obj, blocked)
+            if purpose == 'PLAN' and proposed[0] == 'DONE' and original[0] != 'DONE':
+                event.update(status='PLAN_DONE_IGNORED', action=original[0])
+                return original
+            event.update(status='ACCEPTED_PROPOSAL', action=proposed[0])
+            return proposed
+        except (ValueError, NovaError) as exc:
+            if isinstance(exc, NovaError) and exc.code in CLOSED:
+                raise
+            event.update(status='FALLBACK_TO_ORIGINAL', reason=safe_error(exc.code) if isinstance(exc, NovaError) else 'INVALID_AUXILIARY_OUTPUT')
+            return original
+        finally:
+            event['http_attempts'] = self.report['doctor_http_attempts'] - before
+
     def execute(self):
         session = self.session
         initial = session['initial']
@@ -255,14 +331,22 @@ class Run:
                 self.stop('TURN_LIMIT' if remaining <= 0 else 'TIME_MARGIN' if self.left() <= self.config.time_margin
                     else 'SERVER_REJECTION_LIMIT', 'EXPECTED_LIMIT' if rejected < 3 else 'EXECUTION_ERROR')
                 break
-            user, _ = self.context(remaining)
+            factual_user, _ = self.context(remaining)
+            user = self.action_context(factual_user)
             base_user = user
+            blocked = performed | (self.failed_exams if self.features else set())
             step = None
+            chosen = {}
             for attempt in range(self.config.attempts):
                 obj = None
                 try:
-                    obj = parse_object(self.doctor(STEP, user))
-                    step = parse_action(obj, performed)
+                    obj = parse_object(self.doctor(self.step_prompt, user))
+                    if 'coverage' in self.features:
+                        step, choice = coverage_action(obj, self.facts, blocked)
+                        self.report['coverage_choices'].append(choice)
+                    else:
+                        step = parse_action(obj, blocked)
+                    chosen = obj
                     self.report['action_sequence'].append({'event': 'MODEL_SELECTED', 'action': step[0],
                         'intent': step[2] if step[0] == 'SAY' else None, 'content_chars': len(step[1]),
                         'doctor_http_attempt': self.report['doctor_http_attempts']})
@@ -287,6 +371,18 @@ class Run:
                 if self.report['termination_reason'] is None:
                     self.stop('LOCAL_ACTION_FORMAT_RETRIES_EXHAUSTED', 'EXECUTION_ERROR')
                 break
+            if 'workflow' in self.features:
+                updated = plan_text(chosen.get('plan_update'))
+                if updated is not None:
+                    self.clinical_plan = updated
+                if (not self.plan_attempted and (self.report['actions_succeeded'] > 0 or step[0] == 'DONE')
+                        and chosen.get('urgent') is not True):
+                    step = self.auxiliary('PLAN', factual_user, step, blocked, remaining)
+                if (step[0] == 'DONE' and self.plan_attempted and not self.refresh_attempted
+                        and len(self.facts) > self.plan_fact_count and chosen.get('urgent') is not True):
+                    step = self.auxiliary('REFRESH', factual_user, step, blocked, remaining)
+            if step[0] == 'DONE' and 'audit' in self.features and not self.audit_attempted:
+                step = self.auxiliary('AUDIT', factual_user, step, blocked, remaining)
             if step[0] == 'DONE':
                 self.stop('DOCTOR_DONE', 'DOCTOR_DECISION')
                 break
@@ -320,6 +416,9 @@ class Run:
                 if exc.code in CLOSED:
                     raise
                 if exc.code in TURN_REJECTIONS:
+                    if action == 'EXAM' and self.features:
+                        self.failed_exams.add((action, content))
+                        self.last_exam_failure = {'content': content, 'reason': safe_error(exc.code)}
                     remaining -= 1
                     rejected += 1
                     continue
