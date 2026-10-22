@@ -15,6 +15,8 @@ from nova_retrieval import BM25Index
 from .context import fact, observation_text, query_from_facts, reference_packet, visible_facts
 from .record import render_record, fallback_record
 from .prompts import STEP, RECORD
+from .experiment_config import STRATEGY
+from .closed_loop import GoalExecutor, GOALS, step_prompt, call_settings
 from .budget import Budget
 from .diagnostics import parse_object, parse_action, rejection_event
 from .action_repair import repair_request
@@ -33,7 +35,7 @@ def safe_error(code):
 
 @dataclass(frozen=True)
 class Config:
-    max_turns: int = 30
+    max_turns: int = 40 if STRATEGY == 'H7' else 30
     max_doctor_requests: int = 80
     max_input_budget: int = 500000
     max_output_budget: int = 100000
@@ -59,6 +61,7 @@ class State:
     index: BM25Index
     config: Config = field(default_factory=Config)
     report: dict = field(default_factory=dict)
+    strategy: str = STRATEGY
 
 
 def prepare():
@@ -85,6 +88,10 @@ class Run:
     def __init__(self, client, state, session):
         self.client, self.state, self.config, self.session = client, state, state.config, session
         self.facts, self.explanations = [], []
+        self.step_prompt = step_prompt(STEP, state.strategy)
+        self.executor = GoalExecutor() if state.strategy == 'H7' else None
+        self.goal_plan_attempted = False
+        self.failed_actions = set()
         self.reference_cache = None  # Last query only; session memory, never disk.
         self.report = {'model': MODEL, 'doctor_http_attempts': 0, 'doctor_unique_requests': 0, 'doctor_successes': 0,
             'input_budget_reserved': 0, 'output_budget_reserved': 0, 'reported_prompt_tokens': 0, 'reported_completion_tokens': 0,
@@ -93,6 +100,8 @@ class Run:
             'reference_packets': [], 'query_selection': [], 'action_counts': {}, 'model_retries': 0, 'action_retries': 0,
             'submitted': False, 'degraded': False, 'diagnosis_accuracy_evaluated': False, 'clinical_record_quality_evaluated': False}
         state.report = self.report
+        self.report.update(strategy=state.strategy, goal_plan_events=[], done_decisions=[],
+                           closed_loop=self.executor.audit() if self.executor else None)
         self.budget = Budget(self.config.max_input_budget, self.config.max_output_budget, self.config.max_doctor_requests)
         self.report.update(rejection_events=[], action_sequence=[], final_http_attempts=0,
             termination_reason=None, termination_kind=None, record_outcome=None,
@@ -127,10 +136,16 @@ class Run:
     def stop(self, reason, kind):
         self.report.update(termination_reason=reason, termination_kind=kind)
 
-    def doctor(self, system, user, final=False):
+    def doctor(self, system, user, final=False, purpose='ACTION'):
+        if purpose not in ('ACTION', 'GOALS') or (final and purpose != 'ACTION'):
+            raise ValueError('INVALID_DOCTOR_PURPOSE')
         cfg, report = self.config, self.report
+        auxiliary = purpose != 'ACTION'
         messages = messages_for(system, user)
         limit = 4096 if final else 2048
+        effort = 'medium'
+        if auxiliary:
+            limit, effort = call_settings(self.state.strategy, purpose, self.left() - cfg.time_margin)
         # UTF-8 bytes + structural allowance conservatively bound byte-BPE tokens.
         charge = input_charge(system, user)
         if charge > 100000:
@@ -146,8 +161,10 @@ class Run:
         elif self.record_envelope is None:
             self.record_envelope = RecordEnvelope(user, record_attempts)
         request_id = str(uuid.uuid4())
-        fingerprint = hashlib.sha256(json.dumps([messages, limit, MODEL, 'medium'], ensure_ascii=False).encode()).hexdigest()
-        for attempt in range(cfg.attempts):
+        fingerprint = hashlib.sha256(json.dumps([messages, limit, MODEL, effort], ensure_ascii=False).encode()).hexdigest()
+        for attempt in range(1 if auxiliary else cfg.attempts):
+            if self.state.strategy == 'H7' and not final and self.left() <= cfg.time_margin + 240:
+                raise NovaError('LOCAL_DEADLINE')
             if self.left() <= 10:
                 raise NovaError('LOCAL_DEADLINE')
             if final and report['final_http_attempts'] >= record_attempts:
@@ -161,7 +178,7 @@ class Run:
                     'remaining_retry_input_headroom': headroom[0], 'context_and_suffix_validated': True})
             try:
                 self.budget.reserve(request_id, charge, limit, fingerprint, headroom=headroom,
-                    phase='RECORD' if final else 'ACTION')
+                    phase='RECORD' if final else purpose)
             finally:
                 self.sync_budget()
             report['final_http_attempts'] += int(final)
@@ -170,8 +187,10 @@ class Run:
             # Avoid starting a 240-second request near the session deadline.
             if hasattr(self.client, 'timeout'):
                 self.client.timeout = max(1, min(240, self.left() - 5))
+                if auxiliary:
+                    self.client.timeout = max(1, min(180 if effort == 'high' else 120, self.left() - cfg.time_margin))
             try:
-                response = self.client.chat(messages, max_tokens=limit, reasoning_effort='medium', model=MODEL, request_id=request_id)
+                response = self.client.chat(messages, max_tokens=limit, reasoning_effort=effort, model=MODEL, request_id=request_id)
                 report['doctor_successes'] += 1
                 self.budget.settle(request_id, response.get('usage') if isinstance(response, dict) else None)
                 self.sync_budget()
@@ -180,7 +199,7 @@ class Run:
                 if not isinstance(exc, NovaError):
                     exc = NovaError('API_UNAVAILABLE')
                 self.error(exc.code)
-                if exc.code not in TRANSIENT or attempt + 1 == cfg.attempts:
+                if auxiliary or exc.code not in TRANSIENT or attempt + 1 == cfg.attempts:
                     raise exc from None
                 report['model_retries'] += 1
                 if exc.code in REGENERATE:
@@ -195,6 +214,8 @@ class Run:
         request_id = str(uuid.uuid4())
         method = {'SAY': self.client.say, 'EXAM': self.client.exam, 'DIAGNOSE': self.client.diagnose}[action]
         for attempt in range(self.config.attempts):
+            if self.state.strategy == 'H7' and action != 'DIAGNOSE' and self.left() <= self.config.time_margin + 240:
+                raise NovaError('LOCAL_DEADLINE')
             if self.left() <= 2:
                 raise NovaError('LOCAL_DEADLINE')
             self.report['action_attempts'] += 1
@@ -244,6 +265,51 @@ class Run:
         self.report['max_prompt_chars'] = max(self.report['max_prompt_chars'], len(user))
         return user, current
 
+    def action_context(self, factual_user):
+        if not self.executor or not self.executor.goals:
+            return factual_user
+        value = json.loads(factual_user)
+        value['closed_loop_not_patient_facts'] = self.executor.context()
+        return json.dumps(value, ensure_ascii=False)
+
+    def make_goals(self, factual_user, blocked, remaining):
+        self.goal_plan_attempted = True
+        event = {'status': 'SKIPPED', 'http_attempts': 0}
+        self.report['goal_plan_events'].append(event)
+        if remaining < 1 or self.left() <= self.config.time_margin + 240:
+            event['reason'] = 'TIME_OR_TURN_HEADROOM'
+            return []
+        before = self.report['doctor_http_attempts']
+        try:
+            obj = parse_object(self.doctor(GOALS, factual_user, purpose='GOALS'))
+            visible = json.loads(factual_user)['current_patient_observations']
+            ready = self.executor.load(obj, visible, blocked)
+            event.update(status='GOALS_AVAILABLE', accepted_goals=len(self.executor.goals))
+            return ready
+        except (ValueError, NovaError) as exc:
+            if isinstance(exc, NovaError) and exc.code in CLOSED:
+                raise
+            event.update(status='BASELINE_FALLBACK', reason=safe_error(exc.code) if isinstance(exc, NovaError) else 'INVALID_GOALS')
+            return []
+        finally:
+            event['http_attempts'] = self.report['doctor_http_attempts'] - before
+            self.report['closed_loop'] = self.executor.audit()
+
+    def supplement_room(self, factual_user, remaining):
+        if remaining <= 0 or self.left() <= self.config.time_margin + 240:
+            return False
+        # Read-only admission check: no phantom model requests or ledger resets.
+        # Future response size is unknown; the normal envelope is rebuilt from
+        # the actual response before the next ACTION/RECORD call.
+        envelope = RecordEnvelope(self.record_user, min(self.config.attempts, self.config.max_doctor_requests))
+        head = envelope.headroom()
+        charge = input_charge(self.step_prompt, self.action_context(factual_user))
+        totals = self.budget.summary()
+        return (max(envelope.charges) <= 100000 and charge <= 100000
+                and totals['committed_input'] + charge + head[0] <= self.config.max_input_budget
+                and totals['committed_output'] + 2048 + head[1] <= self.config.max_output_budget
+                and totals['http_attempts'] + 1 + head[2] <= self.config.max_doctor_requests)
+
     def execute(self):
         session = self.session
         initial = session['initial']
@@ -251,18 +317,25 @@ class Run:
         remaining = min(self.config.max_turns, max(0, int(session['turns_remaining'])))
         performed, rejected = set(), 0
         for _ in range(self.config.max_turns):
+            if self.executor and self.left() <= self.config.time_margin + 240:
+                self.stop('TIME_MARGIN', 'EXPECTED_LIMIT')
+                break
             if remaining <= 0 or self.left() <= self.config.time_margin or rejected >= 3:
                 self.stop('TURN_LIMIT' if remaining <= 0 else 'TIME_MARGIN' if self.left() <= self.config.time_margin
                     else 'SERVER_REJECTION_LIMIT', 'EXPECTED_LIMIT' if rejected < 3 else 'EXECUTION_ERROR')
                 break
-            user, _ = self.context(remaining)
+            factual_user, _ = self.context(remaining)
+            user = self.action_context(factual_user)
             base_user = user
+            blocked = performed | self.failed_actions if self.executor else performed
+            chosen = {}
             step = None
             for attempt in range(self.config.attempts):
                 obj = None
                 try:
-                    obj = parse_object(self.doctor(STEP, user))
-                    step = parse_action(obj, performed)
+                    obj = parse_object(self.doctor(self.step_prompt, user))
+                    step = parse_action(obj, blocked)
+                    chosen = obj
                     self.report['action_sequence'].append({'event': 'MODEL_SELECTED', 'action': step[0],
                         'intent': step[2] if step[0] == 'SAY' else None, 'content_chars': len(step[1]),
                         'doctor_http_attempt': self.report['doctor_http_attempts']})
@@ -287,8 +360,27 @@ class Run:
                 if self.report['termination_reason'] is None:
                     self.stop('LOCAL_ACTION_FORMAT_RETRIES_EXHAUSTED', 'EXECUTION_ERROR')
                 break
+            if self.executor:
+                ready, review_status = [], 'URGENT_BYPASS'
+                if chosen.get('urgent') is not True:
+                    visible = json.loads(factual_user)['current_patient_observations']
+                    ready, review_status = self.executor.review(chosen, visible, blocked)
+                    if not self.goal_plan_attempted and self.report['actions_succeeded'] > 0:
+                        ready = self.make_goals(factual_user, blocked, remaining)
+                        review_status = 'FRESH_INITIAL_PLAN'
+                if step[0] == 'DONE':
+                    room = self.supplement_room(factual_user, remaining)
+                    replacement = self.executor.choose(ready, blocked) if room and chosen.get('urgent') is not True else None
+                    self.report['done_decisions'].append({'review': review_status, 'resource_room': room,
+                        'deferred': replacement is not None, 'supplements': self.executor.supplements})
+                    if replacement is not None:
+                        step = replacement
+                self.report['closed_loop'] = self.executor.audit()
             if step[0] == 'DONE':
                 self.stop('DOCTOR_DONE', 'DOCTOR_DECISION')
+                break
+            if self.executor and self.left() <= self.config.time_margin + 240:
+                self.stop('TIME_MARGIN', 'EXPECTED_LIMIT')
                 break
             action, content, intent = step
             try:
@@ -313,10 +405,17 @@ class Run:
                 observation['consult_action_number'] = len(performed)
                 observation['intent'] = intent if action == 'SAY' else 'EXAM'
                 self.facts.append(observation)
+                if self.executor:
+                    self.executor.record(step, observation_id=observation['id'])
+                    self.report['closed_loop'] = self.executor.audit()
                 rejected = 0
             except NovaError as exc:
                 self.error(exc.code)
                 self.report['action_sequence'].append({'event': 'ACTION_FAILED', 'action': action, 'reason': safe_error(exc.code)})
+                if self.executor:
+                    self.failed_actions.add((action, content))
+                    self.executor.record(step, failure=safe_error(exc.code))
+                    self.report['closed_loop'] = self.executor.audit()
                 if exc.code in CLOSED:
                     raise
                 if exc.code in TURN_REJECTIONS:

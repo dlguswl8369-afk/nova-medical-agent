@@ -1,0 +1,321 @@
+{
+  "baseline_commit": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+  "harness_commit": "93abcdcdef146a0ade5a55c0ae5b4b70a7a0bb2c",
+  "branch": "codex/nova-h7-closed-loop-executor",
+  "candidate": {
+    "candidate": "H7_closed_loop_executor",
+    "strategy": "H7",
+    "baseline_commit": "81714d340207a8e5ca9886dd2129cbd6b9cc61f2",
+    "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_h7_closed_loop_20261022\\deliverables-final\\nova_doctor_bm25_candidate_H7_closed_loop_executor_20261022.zip",
+    "bytes": 44994662,
+    "sha256": "f52afc5be90c7a5b8b2ac2f2d02ff52f0f5b2846348bab0be917c861f7951a6e",
+    "below_45mb_target": true,
+    "changed_app_files": [
+      "app/nova_agent/closed_loop.py",
+      "app/nova_agent/experiment_config.py",
+      "app/nova_agent/loop.py"
+    ],
+    "max_auxiliary_http_calls": 1,
+    "clinical_quality": "NOT_EVALUATED",
+    "entrypoint_counterfactual": {
+      "enabled": {
+        "status": "PASS",
+        "primary_doctor_choices": [
+          "ASK",
+          "DONE",
+          "DONE",
+          "DONE",
+          "DONE"
+        ],
+        "config": {
+          "max_turns": 40,
+          "max_doctor_requests": 80,
+          "max_input_budget": 500000,
+          "max_output_budget": 100000,
+          "reference_chars": 12000,
+          "fact_chars": 22000,
+          "time_margin": 300,
+          "attempts": 3,
+          "retry_delay": 1.0
+        },
+        "http_calls_mock": 7,
+        "phases": {
+          "ACTION": 5,
+          "GOALS": 1,
+          "RECORD": 1
+        },
+        "successful_actions": {
+          "SAY": 3,
+          "EXAM": 1
+        },
+        "closed_loop": {
+          "supplements": 3,
+          "events": [
+            {
+              "event": "DONE_DEFERRED",
+              "goal_id": "G1",
+              "version": 1,
+              "supplement": 1
+            },
+            {
+              "event": "SDK_SUCCEEDED",
+              "goal_id": "G1",
+              "version": 1,
+              "observation_id": "F3",
+              "status": "SDK_SUCCEEDED"
+            },
+            {
+              "event": "DONE_DEFERRED",
+              "goal_id": "G2",
+              "version": 1,
+              "supplement": 2
+            },
+            {
+              "event": "SDK_SUCCEEDED",
+              "goal_id": "G2",
+              "version": 1,
+              "observation_id": "F4",
+              "status": "SDK_SUCCEEDED"
+            },
+            {
+              "event": "DONE_DEFERRED",
+              "goal_id": "G3",
+              "version": 1,
+              "supplement": 3
+            },
+            {
+              "event": "SDK_SUCCEEDED",
+              "goal_id": "G3",
+              "version": 1,
+              "observation_id": "F5",
+              "status": "SDK_SUCCEEDED"
+            }
+          ],
+          "goals": [
+            {
+              "id": "G1",
+              "kind": "ASK",
+              "version": 1,
+              "execution": "performed",
+              "receipts": [
+                {
+                  "version": 1,
+                  "observation_id": "F3",
+                  "status": "SDK_SUCCEEDED"
+                }
+              ],
+              "clinical_sufficiency": "REVIEW"
+            },
+            {
+              "id": "G2",
+              "kind": "EXAM",
+              "version": 1,
+              "execution": "performed",
+              "receipts": [
+                {
+                  "version": 1,
+                  "observation_id": "F4",
+                  "status": "SDK_SUCCEEDED"
+                }
+              ],
+              "clinical_sufficiency": "REVIEW"
+            },
+            {
+              "id": "G3",
+              "kind": "EXPLAIN",
+              "version": 1,
+              "execution": "performed",
+              "receipts": [
+                {
+                  "version": 1,
+                  "observation_id": "F5",
+                  "status": "SDK_SUCCEEDED"
+                }
+              ],
+              "clinical_sufficiency": "REVIEW"
+            }
+          ]
+        },
+        "done_decisions": [
+          {
+            "review": "FRESH_INITIAL_PLAN",
+            "resource_room": true,
+            "deferred": true,
+            "supplements": 1
+          },
+          {
+            "review": "CURRENT_REVIEW",
+            "resource_room": true,
+            "deferred": true,
+            "supplements": 2
+          },
+          {
+            "review": "CURRENT_REVIEW",
+            "resource_room": true,
+            "deferred": true,
+            "supplements": 3
+          },
+          {
+            "review": "CURRENT_REVIEW",
+            "resource_room": true,
+            "deferred": false,
+            "supplements": 3
+          }
+        ],
+        "acknowledged_explanations": 1,
+        "input_bytes": [
+          20329,
+          19745,
+          17188,
+          21097,
+          23558,
+          23938,
+          21097
+        ],
+        "output_caps": [
+          2048,
+          2048,
+          4096,
+          2048,
+          2048,
+          2048,
+          4096
+        ],
+        "clinical_quality": "NOT_EVALUATED"
+      },
+      "disabled_control": {
+        "status": "PASS",
+        "primary_doctor_choices": [
+          "ASK",
+          "DONE"
+        ],
+        "config": {
+          "max_turns": 40,
+          "max_doctor_requests": 80,
+          "max_input_budget": 500000,
+          "max_output_budget": 100000,
+          "reference_chars": 12000,
+          "fact_chars": 22000,
+          "time_margin": 300,
+          "attempts": 3,
+          "retry_delay": 1.0
+        },
+        "http_calls_mock": 4,
+        "phases": {
+          "ACTION": 2,
+          "GOALS": 1,
+          "RECORD": 1
+        },
+        "successful_actions": {
+          "SAY": 1
+        },
+        "closed_loop": {
+          "supplements": 0,
+          "events": [],
+          "goals": [
+            {
+              "id": "G1",
+              "kind": "ASK",
+              "version": 1,
+              "execution": "pending",
+              "receipts": [],
+              "clinical_sufficiency": "REVIEW"
+            },
+            {
+              "id": "G2",
+              "kind": "EXAM",
+              "version": 1,
+              "execution": "pending",
+              "receipts": [],
+              "clinical_sufficiency": "REVIEW"
+            },
+            {
+              "id": "G3",
+              "kind": "EXPLAIN",
+              "version": 1,
+              "execution": "pending",
+              "receipts": [],
+              "clinical_sufficiency": "REVIEW"
+            }
+          ]
+        },
+        "done_decisions": [
+          {
+            "review": "FRESH_INITIAL_PLAN",
+            "resource_room": true,
+            "deferred": false,
+            "supplements": 0
+          }
+        ],
+        "acknowledged_explanations": 0,
+        "input_bytes": [
+          20329,
+          19745,
+          17188,
+          18214
+        ],
+        "output_caps": [
+          2048,
+          2048,
+          4096,
+          4096
+        ],
+        "clinical_quality": "NOT_EVALUATED"
+      }
+    }
+  },
+  "automatic_contracts": "PASS",
+  "clinical_quality": "NOT_EVALUATED",
+  "clinical_appropriateness": "REVIEW",
+  "tests": {
+    "distinct_tests": 82,
+    "status": "PASS",
+    "counts": {
+      "action_observation_delivery": 30,
+      "final_record_budget": 14,
+      "accounting": 4,
+      "repair": 2,
+      "evaluator_separation": 5,
+      "h7": 27
+    },
+    "scope": "55 unchanged-baseline regressions once; all 27 affected H7/policy checks rerun after retry-time gates. All passed. No clinical quality evaluation.",
+    "history": [
+      {
+        "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_h7_closed_loop_20261022\\checks\\validation.json",
+        "sha256": "11edad10cfee0b84201a7b9fe937d594762211f8eccbe30d176f1a4adefc5114"
+      },
+      {
+        "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_h7_closed_loop_20261022\\checks-targeted\\validation.json",
+        "sha256": "154a944376c47c694ce3e035d191385707d92227a2f3a1b0cf4e9c435d3c94cb"
+      },
+      {
+        "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_h7_closed_loop_20261022\\checks-final\\validation.json",
+        "sha256": "ad745a1fb85729c327f620549ea6e59a5c783fb00415a7955174fdd4a84c5f7d"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_h7_closed_loop_20261022\\validation-final.json",
+      "sha256": "eb431cc3719cf8220ea3b39f1a7f39f36941b44199ad76a7397e0c1767cf223d"
+    },
+    {
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_h7_closed_loop_20261022\\deliverables-final\\manifest.json",
+      "sha256": "3c3bc92ee45b24cddfbdaf45dba56bd99afa8b3478c2b4ba3d20fb5e98669b88"
+    },
+    {
+      "path": "C:\\Users\\hjlee\\OneDrive\\문서\\ChatGPT\\의료 ai agent\\nova_h7_closed_loop_20261022\\deliverables-final\\H7\\smoke.json",
+      "sha256": "7556223c9dfbb0f7a082abe08ffd2dabb11d1122c36e81314aecf709aee177a3"
+    }
+  ],
+  "preserved_worktrees": {
+    "nova-medical-agent": "3b348d1d86621c880c2aca6fb1d9d3f89a3adb07",
+    "nova-medical-agent-batch": "50409240107b152705e3e278df8466a3e360ea28",
+    "nova-medical-agent-high-intensity": "91b48ddd621972b71fedbb433dccb2b169bb1d3c",
+    "nova-medical-agent-adaptive-coverage": "838d1721a76d2d0d6863a97edc468d2d025ac348",
+    "nova-medical-agent-harness": "93abcdcdef146a0ade5a55c0ae5b4b70a7a0bb2c"
+  },
+  "real_model_api_calls": 0,
+  "new_clinical_sessions": 0,
+  "website_evaluations": 0
+}
